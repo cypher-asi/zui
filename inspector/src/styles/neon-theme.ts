@@ -3,14 +3,14 @@ import { PrismTheme } from 'prism-react-renderer';
 // Classy futuristic syntax highlighting theme
 export const neonTheme: PrismTheme = {
   plain: {
-    color: '#c7d5e0',
-    backgroundColor: '#1a1f2e',
+    color: '#e6e8eb',
+    backgroundColor: '#09090b',
   },
   styles: [
     {
       types: ['comment', 'prolog', 'doctype', 'cdata'],
       style: {
-        color: '#6b7c93',
+        color: '#7a8ba3',
         fontStyle: 'italic',
       },
     },
@@ -23,67 +23,67 @@ export const neonTheme: PrismTheme = {
     {
       types: ['string', 'attr-value'],
       style: {
-        color: '#7dd3c0',
+        color: '#01f4cb',
       },
     },
     {
       types: ['punctuation', 'operator'],
       style: {
-        color: '#89a4d6',
+        color: '#9db4e6',
       },
     },
     {
       types: ['entity', 'url', 'symbol', 'number', 'boolean', 'constant', 'regex', 'inserted'],
       style: {
-        color: '#f2b482',
+        color: '#ffb86c',
       },
     },
     {
       types: ['atrule', 'keyword', 'attr-name', 'selector'],
       style: {
-        color: '#bb9af7',
+        color: '#cb01f4',
       },
     },
     {
       types: ['function', 'deleted', 'tag'],
       style: {
-        color: '#82aaff',
+        color: '#01a4f4',
       },
     },
     {
       types: ['function-variable'],
       style: {
-        color: '#82aaff',
+        color: '#01a4f4',
       },
     },
     {
       types: ['variable'],
       style: {
-        color: '#c8a1e0',
+        color: '#d8b1f0',
       },
     },
     {
       types: ['property'],
       style: {
-        color: '#a8c5e6',
+        color: '#b8d5f6',
       },
     },
     {
       types: ['class-name'],
       style: {
-        color: '#f7ce76',
+        color: '#ffd866',
       },
     },
     {
       types: ['parameter'],
       style: {
-        color: '#e8b882',
+        color: '#f8c892',
       },
     },
     {
       types: ['char'],
       style: {
-        color: '#7dd3c0',
+        color: '#01f4cb',
       },
     },
   ],

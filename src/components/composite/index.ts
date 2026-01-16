@@ -4,6 +4,9 @@
 export { Card } from './Card';
 export type { CardProps } from './Card';
 
+export { CodeBlock } from './CodeBlock';
+export type { CodeBlockProps, CodeBlockLanguage } from './CodeBlock';
+
 export { CollapsibleGroup } from './CollapsibleGroup';
 export type { CollapsibleGroupProps } from './CollapsibleGroup';
 

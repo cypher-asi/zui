@@ -1,12 +1,12 @@
 // Source: zui/src/components/atomic/Select/Select.tsx
-import { Select } from '@machina/zui/components/atomic/Select/Select';
+import { Select, Heading } from '@machina/zui';
 import styles from './Example.module.css';
 
 export function selectExample() {
   return (
     <div className={styles.exampleGrid}>
       <div className={styles.exampleItem}>
-        <h3 className={styles.exampleTitle}>Default Select</h3>
+        <Heading level={3} className={styles.exampleTitle}>Default Select</Heading>
         <Select>
           <option value="">Select an option...</option>
           <option value="1">Option 1</option>
@@ -16,7 +16,7 @@ export function selectExample() {
       </div>
 
       <div className={styles.exampleItem}>
-        <h3 className={styles.exampleTitle}>Small Select</h3>
+        <Heading level={3} className={styles.exampleTitle}>Small Select</Heading>
         <Select size="sm">
           <option value="">Small select...</option>
           <option value="a">Option A</option>

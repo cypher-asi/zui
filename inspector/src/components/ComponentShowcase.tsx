@@ -1,3 +1,4 @@
+import { Heading, Text, Code, Container } from '@machina/zui';
 import { ComponentInfo } from '../data/components';
 import { CodeBlock } from './CodeBlock';
 import * as Examples from './examples';
@@ -9,44 +10,55 @@ interface ComponentShowcaseProps {
 
 export function ComponentShowcase({ component }: ComponentShowcaseProps) {
   // Get the example component dynamically
-  const ExampleComponent = (Examples as any)[`${component.id.replace(/-/g, '')}Example`];
+  const baseKey = component.id.replace(/-/g, '');
+  const ExampleComponent = (Examples as any)[`${baseKey}Example`];
+  
+  // Look for additional example variants (e.g., navitemWithoutIconExample, navitemStatesExample)
+  // Must match exact baseKey followed by uppercase letter to avoid "code" matching "codeblock"
+  const additionalExamples: Array<{ key: string; component: any }> = [];
+  const exactBaseKeyPattern = new RegExp(`^${baseKey}[A-Z].*Example$`);
+  Object.keys(Examples).forEach((key) => {
+    if (key !== `${baseKey}Example` && exactBaseKeyPattern.test(key)) {
+      additionalExamples.push({
+        key,
+        component: (Examples as any)[key],
+      });
+    }
+  });
 
   return (
     <div className={styles.showcase}>
       <header className={styles.header}>
-        <h1 className={styles.title}>{component.name}</h1>
-        <p className={styles.category}>{component.category}</p>
+        <Heading level={1} className={styles.title}>{component.name}</Heading>
+        <Text variant="secondary" size="sm" className={styles.category}>{component.category}</Text>
       </header>
 
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>Description</h2>
-        <p className={styles.description}>{component.description}</p>
+        <Heading level={2} className={styles.sectionTitle}>Description</Heading>
+        <Text variant="secondary" size="lg" className={styles.description}>{component.description}</Text>
       </section>
 
-      {ExampleComponent && (
+      {(ExampleComponent || additionalExamples.length > 0) && (
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Examples</h2>
+          <Heading level={2} className={styles.sectionTitle}>Examples</Heading>
           <div className={styles.exampleContainer}>
-            <ExampleComponent />
+            {ExampleComponent && <ExampleComponent />}
+            {additionalExamples.map(({ key, component: AdditionalExample }) => (
+              <AdditionalExample key={key} />
+            ))}
           </div>
         </section>
       )}
 
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>Source Code</h2>
-        <p className={styles.codeNote}>
+        <Heading level={2} className={styles.sectionTitle}>Source Code</Heading>
+        <Text variant="secondary" className={styles.codeNote}>
           Below is a reference implementation. View the full source in the{' '}
-          <code style={{ 
-            background: 'var(--bg-tertiary)', 
-            padding: '0.125rem 0.375rem',
-            borderRadius: '3px',
-            fontSize: '0.875em'
-          }}>
-            zui/src/components
-          </code>{' '}
-          directory.
-        </p>
-        <CodeBlock componentId={component.id} />
+          <Code>zui/src/components</Code> directory.
+        </Text>
+        <Container fullBleed>
+          <CodeBlock componentId={component.id} />
+        </Container>
       </section>
     </div>
   );

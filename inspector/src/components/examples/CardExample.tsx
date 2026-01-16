@@ -1,50 +1,34 @@
 // Source: zui/src/components/composite/Card/Card.tsx
-import { Card } from '@machina/zui/components/composite/Card/Card';
+import { Card, Heading, Text, Badge } from '@machina/zui';
 import styles from './Example.module.css';
 
 export function cardExample() {
   return (
     <div className={styles.exampleGrid}>
       <div className={styles.exampleItem}>
-        <h3 className={styles.exampleTitle}>Basic Card</h3>
+        <Heading level={3} className={styles.exampleTitle}>Basic Card</Heading>
         <Card>
-          <h3 style={{ marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
+          <Heading level={3} style={{ marginBottom: '0.5rem' }}>
             Card Title
-          </h3>
-          <p style={{ color: 'var(--text-secondary)' }}>
+          </Heading>
+          <Text variant="secondary">
             This is a card component with some content inside.
-          </p>
+          </Text>
         </Card>
       </div>
 
       <div className={styles.exampleItem}>
-        <h3 className={styles.exampleTitle}>Card with Multiple Elements</h3>
+        <Heading level={3} className={styles.exampleTitle}>Card with Multiple Elements</Heading>
         <Card>
-          <h3 style={{ marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
+          <Heading level={3} style={{ marginBottom: '0.5rem' }}>
             Complex Card
-          </h3>
-          <p style={{ marginBottom: '1rem', color: 'var(--text-secondary)' }}>
+          </Heading>
+          <Text variant="secondary" style={{ marginBottom: '1rem' }}>
             Cards can contain any content you need.
-          </p>
+          </Text>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
-            <span style={{ 
-              padding: '0.25rem 0.5rem', 
-              background: 'var(--bg-secondary)', 
-              borderRadius: '4px',
-              fontSize: '0.875rem',
-              color: 'var(--text-secondary)'
-            }}>
-              Tag 1
-            </span>
-            <span style={{ 
-              padding: '0.25rem 0.5rem', 
-              background: 'var(--bg-secondary)', 
-              borderRadius: '4px',
-              fontSize: '0.875rem',
-              color: 'var(--text-secondary)'
-            }}>
-              Tag 2
-            </span>
+            <Badge variant="default">Tag 1</Badge>
+            <Badge variant="default">Tag 2</Badge>
           </div>
         </Card>
       </div>

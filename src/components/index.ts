@@ -8,6 +8,12 @@ export type { ButtonProps, ButtonVariant, ButtonSize } from './atomic/Button';
 export { Input } from './atomic/Input';
 export type { InputProps, InputSize } from './atomic/Input';
 
+export { NavItem } from './atomic/NavItem';
+export type { NavItemProps } from './atomic/NavItem';
+
+export { NavList } from './atomic/NavList';
+export type { NavListProps } from './atomic/NavList';
+
 export { Textarea } from './atomic/Textarea';
 export type { TextareaProps, TextareaSize } from './atomic/Textarea';
 
@@ -25,6 +31,21 @@ export type { BadgeProps, BadgeVariant } from './atomic/Badge';
 
 export { Spinner } from './atomic/Spinner';
 export type { SpinnerProps } from './atomic/Spinner';
+
+export { Avatar } from './atomic/Avatar';
+export type { AvatarProps, AvatarSize } from './atomic/Avatar';
+
+export { Text } from './atomic/Text';
+export type { TextProps, TextVariant, TextSize, TextWeight } from './atomic/Text';
+
+export { Heading } from './atomic/Heading';
+export type { HeadingProps, HeadingLevel, HeadingVariant } from './atomic/Heading';
+
+export { Code } from './atomic/Code';
+export type { CodeProps, CodeVariant } from './atomic/Code';
+
+export { Container } from './atomic/Container';
+export type { ContainerProps } from './atomic/Container';
 
 // ============================================================================
 // Composite Components - Complex components composed of atomic components
@@ -83,3 +104,6 @@ export type { Toast, ToastsProps } from './composite/Toasts';
 
 export { Drawer } from './composite/Drawer';
 export type { DrawerProps, DrawerSide } from './composite/Drawer';
+
+export { CodeBlock } from './composite/CodeBlock';
+export type { CodeBlockProps, CodeBlockLanguage } from './composite/CodeBlock';

@@ -1,0 +1,108 @@
+import { CodeBlock } from '@machina/zui';
+import styles from './Example.module.css';
+
+export function codeblockExample() {
+  const tsxCode = `import { useState } from 'react';
+import { Button } from '@machina/zui';
+
+export function App() {
+  const [count, setCount] = useState(0);
+  
+  return (
+    <div>
+      <h1>Counter: {count}</h1>
+      <Button onClick={() => setCount(count + 1)}>
+        Increment
+      </Button>
+    </div>
+  );
+}`;
+
+  const tsCode = `interface User {
+  id: number;
+  name: string;
+  email: string;
+  isActive: boolean;
+}
+
+const user: User = {
+  id: 1,
+  name: 'John Doe',
+  email: 'john@example.com',
+  isActive: true
+};
+
+function greetUser(user: User): string {
+  return \`Hello, \${user.name}!\`;
+}`;
+
+  const jsonCode = `{
+  "name": "@machina/zui",
+  "version": "0.1.0",
+  "dependencies": {
+    "react": "^18.2.0",
+    "typescript": "^5.3.3",
+    "prism-react-renderer": "^2.3.1"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build"
+  }
+}`;
+
+  const cssCode = `.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  background: var(--color-elevated);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.container:hover {
+  background: var(--color-surface);
+  border-color: var(--color-accent);
+}`;
+
+  const bashCode = `# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Run tests
+npm test`;
+
+  return (
+    <div className={styles.exampleGroup}>
+      <div className={styles.section}>
+        <h3 className={styles.sectionTitle}>TSX/React Component</h3>
+        <CodeBlock language="tsx" code={tsxCode} showLineNumbers />
+      </div>
+
+      <div className={styles.section}>
+        <h3 className={styles.sectionTitle}>TypeScript with Line Numbers</h3>
+        <CodeBlock language="typescript" code={tsCode} showLineNumbers />
+      </div>
+
+      <div className={styles.section}>
+        <h3 className={styles.sectionTitle}>JSON Configuration</h3>
+        <CodeBlock language="json" code={jsonCode} />
+      </div>
+
+      <div className={styles.section}>
+        <h3 className={styles.sectionTitle}>CSS Styling</h3>
+        <CodeBlock language="css" code={cssCode} />
+      </div>
+
+      <div className={styles.section}>
+        <h3 className={styles.sectionTitle}>Bash Commands</h3>
+        <CodeBlock language="bash" code={bashCode} showLanguageLabel={false} />
+      </div>
+    </div>
+  );
+}

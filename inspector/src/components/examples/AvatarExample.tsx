@@ -1,10 +1,8 @@
 import { Avatar } from '@machina/zui';
 import styles from './Example.module.css';
 
-export const avatarExample = {
-  title: 'Avatar',
-  description: 'Display user or organization images with automatic fallback to initials',
-  component: (
+export function avatarExample() {
+  return (
     <div className={styles.exampleGroup}>
       <div className={styles.section}>
         <h3 className={styles.sectionTitle}>With Images</h3>
@@ -57,5 +55,5 @@ export const avatarExample = {
         </div>
       </div>
     </div>
-  ),
-};
+  );
+}

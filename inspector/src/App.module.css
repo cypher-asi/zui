@@ -9,23 +9,16 @@
 }
 
 .title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--text-primary);
   margin-bottom: 0.25rem;
 }
 
 .subtitle {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-}
-
-.nav {
-  padding: 0.5rem 0;
+  margin: 0;
 }
 
 .main {
   flex: 1;
   overflow-y: auto;
+  scrollbar-gutter: stable;
   background: var(--bg-secondary);
 }

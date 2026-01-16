@@ -1,12 +1,12 @@
 // Source: zui/src/components/atomic/Textarea/Textarea.tsx
-import { Textarea } from '@machina/zui/components/atomic/Textarea/Textarea';
+import { Textarea, Heading } from '@machina/zui';
 import styles from './Example.module.css';
 
 export function textareaExample() {
   return (
     <div className={styles.exampleGrid}>
       <div className={styles.exampleItem}>
-        <h3 className={styles.exampleTitle}>Default Textarea</h3>
+        <Heading level={3} className={styles.exampleTitle}>Default Textarea</Heading>
         <Textarea
           placeholder="Enter description..."
           rows={4}
@@ -14,7 +14,7 @@ export function textareaExample() {
       </div>
 
       <div className={styles.exampleItem}>
-        <h3 className={styles.exampleTitle}>Small Textarea</h3>
+        <Heading level={3} className={styles.exampleTitle}>Small Textarea</Heading>
         <Textarea
           size="sm"
           placeholder="Small textarea..."

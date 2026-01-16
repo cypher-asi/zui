@@ -1,5 +1,5 @@
 {
-  "name": "@cypher-agi/zui-inspector",
+  "name": "@machina/zui-inspector",
   "version": "0.1.0",
   "private": true,
   "type": "module",

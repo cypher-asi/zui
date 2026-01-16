@@ -7,19 +7,14 @@
 .header {
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 
 .category {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -29,28 +24,23 @@
 }
 
 .sectionTitle {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--text-primary);
   margin-bottom: 1rem;
 }
 
 .description {
-  font-size: 1.125rem;
   line-height: 1.6;
-  color: var(--text-secondary);
 }
 
 .exampleContainer {
-  background: var(--bg-primary);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
   padding: 2rem;
-  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .codeNote {
-  font-size: 0.9375rem;
-  color: var(--text-secondary);
   margin-bottom: 1rem;
 }

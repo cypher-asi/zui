@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Sidebar } from '@machina/zui';
+import { Sidebar, NavList, Heading, Text } from '@machina/zui';
 import { components, componentsByCategory } from './data/components';
 import { ComponentShowcase } from './components/ComponentShowcase';
 import { NavSection } from './components/NavSection';
@@ -16,12 +16,12 @@ function App() {
         defaultWidth={260}
         header={
           <div className={styles.sidebarHeader}>
-            <h1 className={styles.title}>ZUI Inspector</h1>
-            <p className={styles.subtitle}>Component Library</p>
+            <Heading level={3} className={styles.title}>ZUI Inspector</Heading>
+            <Text variant="secondary" size="sm" className={styles.subtitle}>Component Library</Text>
           </div>
         }
       >
-        <div className={styles.nav}>
+        <NavList>
           <NavSection
             title="Atomic Components"
             items={componentsByCategory.Atomic}
@@ -34,7 +34,7 @@ function App() {
             activeId={selectedComponentId}
             onItemClick={setSelectedComponentId}
           />
-        </div>
+        </NavList>
       </Sidebar>
       <main className={styles.main}>
         {selectedComponent && (

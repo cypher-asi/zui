@@ -12,6 +12,9 @@ export function CodeBlock({ componentId }: CodeBlockProps) {
 
   return (
     <div className={styles.codeBlock}>
+      <div className={styles.header}>
+        <span className={styles.languageLabel}>tsx</span>
+      </div>
       <Highlight
         theme={neonTheme}
         code={code}

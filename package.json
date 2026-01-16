@@ -1,7 +1,7 @@
 {
-  "name": "@cypher-agi/zui",
+  "name": "@machina/zui",
   "version": "0.1.0",
-  "description": "Cypher AGI UI Component Library",
+  "description": "Machina UI Component Library",
   "type": "module",
   "main": "./src/index.ts",
   "exports": {
@@ -38,5 +38,8 @@
   "peerDependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
+  },
+  "dependencies": {
+    "prism-react-renderer": "^2.3.1"
   }
 }

@@ -1,19 +1,38 @@
 .codeBlock {
-  background: #1a1f2e;
-  border: 1px solid #2a3245;
+  background: var(--color-bg);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.languageLabel {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #8b95b0;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 
 .codeBlock pre {
-  margin: 0;
-  padding: 1.5rem;
+  margin: 0 !important;
+  padding: 1.5rem !important;
   overflow-x: auto;
   font-size: 0.875rem;
   line-height: 1.5;
-  background: #1a1f2e !important;
-  font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  font-family: var(--font-mono);
+  min-height: 100%;
+  background: transparent !important;
 }
 
 .lineNumber {

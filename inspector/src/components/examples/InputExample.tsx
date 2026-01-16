@@ -1,6 +1,6 @@
 // Source: zui/src/components/atomic/Input/Input.tsx
 import { useState } from 'react';
-import { Input } from '@machina/zui/components/atomic/Input/Input';
+import { Input, Heading } from '@machina/zui';
 import styles from './Example.module.css';
 
 export function inputExample() {
@@ -9,7 +9,7 @@ export function inputExample() {
   return (
     <div className={styles.exampleGrid}>
       <div className={styles.exampleItem}>
-        <h3 className={styles.exampleTitle}>Default Input</h3>
+        <Heading level={3} className={styles.exampleTitle}>Default Input</Heading>
         <Input
           placeholder="Enter text..."
           value={value}
@@ -18,7 +18,7 @@ export function inputExample() {
       </div>
 
       <div className={styles.exampleItem}>
-        <h3 className={styles.exampleTitle}>Small Input</h3>
+        <Heading level={3} className={styles.exampleTitle}>Small Input</Heading>
         <Input
           size="sm"
           placeholder="Small input..."
@@ -26,7 +26,7 @@ export function inputExample() {
       </div>
 
       <div className={styles.exampleItem}>
-        <h3 className={styles.exampleTitle}>Monospace Input</h3>
+        <Heading level={3} className={styles.exampleTitle}>Monospace Input</Heading>
         <Input
           mono
           placeholder="api-key-12345..."
@@ -34,7 +34,7 @@ export function inputExample() {
       </div>
 
       <div className={styles.exampleItem}>
-        <h3 className={styles.exampleTitle}>Disabled Input</h3>
+        <Heading level={3} className={styles.exampleTitle}>Disabled Input</Heading>
         <Input
           disabled
           placeholder="Disabled..."

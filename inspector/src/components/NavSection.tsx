@@ -1,6 +1,5 @@
-import { CollapsibleGroup } from '@machina/zui';
+﻿import { CollapsibleGroup, NavItem } from '@machina/zui';
 import { ComponentInfo } from '../data/components';
-import styles from './NavSection.module.css';
 
 interface NavSectionProps {
   title: string;
@@ -11,21 +10,15 @@ interface NavSectionProps {
 
 export function NavSection({ title, items, activeId, onItemClick }: NavSectionProps) {
   return (
-    <div className={styles.section}>
-      <CollapsibleGroup title={title} defaultOpen>
-        <ul className={styles.list}>
-          {items.map((item) => (
-            <li key={item.id}>
-              <button
-                className={`${styles.item} ${activeId === item.id ? styles.active : ''}`}
-                onClick={() => onItemClick(item.id)}
-              >
-                {item.name}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </CollapsibleGroup>
-    </div>
+    <CollapsibleGroup title={title} defaultOpen>
+      {items.map((item) => (
+        <NavItem
+          key={item.id}
+          label={item.name}
+          active={activeId === item.id}
+          onClick={() => onItemClick(item.id)}
+        />
+      ))}
+    </CollapsibleGroup>
   );
 }

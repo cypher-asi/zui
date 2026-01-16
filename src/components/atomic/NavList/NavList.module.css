@@ -1,0 +1,7 @@
+﻿/* NavList - Container for navigation items */
+.navList {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-2, 8px);
+  gap: 0;
+}

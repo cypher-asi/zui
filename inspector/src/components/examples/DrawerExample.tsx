@@ -1,9 +1,10 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { Drawer, Button } from '@machina/zui';
 import styles from './Example.module.css';
 
 export function drawerExample() {
   const [activeDrawer, setActiveDrawer] = useState<string | null>(null);
+
 
   const closeDrawer = () => setActiveDrawer(null);
 
@@ -20,6 +21,7 @@ export function drawerExample() {
               size="sm" 
               variant={activeDrawer === 'left' ? 'primary' : 'secondary'}
               onClick={() => setActiveDrawer(activeDrawer === 'left' ? null : 'left')}
+              contentStates={['Left Drawer', 'Close Drawer']}
             >
               {activeDrawer === 'left' ? 'Close' : 'Left'} Drawer
             </Button>
@@ -27,6 +29,7 @@ export function drawerExample() {
               size="sm" 
               variant={activeDrawer === 'right' ? 'primary' : 'secondary'}
               onClick={() => setActiveDrawer(activeDrawer === 'right' ? null : 'right')}
+              contentStates={['Right Drawer', 'Close Drawer']}
             >
               {activeDrawer === 'right' ? 'Close' : 'Right'} Drawer
             </Button>
@@ -34,6 +37,7 @@ export function drawerExample() {
               size="sm" 
               variant={activeDrawer === 'top' ? 'primary' : 'secondary'}
               onClick={() => setActiveDrawer(activeDrawer === 'top' ? null : 'top')}
+              contentStates={['Top Drawer', 'Close Drawer']}
             >
               {activeDrawer === 'top' ? 'Close' : 'Top'} Drawer
             </Button>
@@ -41,6 +45,7 @@ export function drawerExample() {
               size="sm" 
               variant={activeDrawer === 'bottom' ? 'primary' : 'secondary'}
               onClick={() => setActiveDrawer(activeDrawer === 'bottom' ? null : 'bottom')}
+              contentStates={['Bottom Drawer', 'Close Drawer']}
             >
               {activeDrawer === 'bottom' ? 'Close' : 'Bottom'} Drawer
             </Button>
@@ -160,10 +165,16 @@ export function drawerExample() {
                 justifyContent: 'center',
                 fontSize: '2rem',
               }}>
-                ðŸ“¦
+                📦
               </div>
               <h3 style={{ margin: '0 0 0.5rem 0', color: 'var(--color-text-primary)' }}>
-                {activeDrawer ? ${activeDrawer.charAt(0).toUpperCase() + activeDrawer.slice(1)} Drawer Active : 'Main Content Area'}
+                {activeDrawer ? (
+                  <>
+                    {activeDrawer.charAt(0).toUpperCase() + activeDrawer.slice(1)} Drawer Active
+                  </>
+                ) : (
+                  'Main Content Area'
+                )}
               </h3>
               <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem', margin: 0 }}>
                 {activeDrawer 

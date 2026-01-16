@@ -1,12 +1,12 @@
 // Source: zui/src/components/atomic/Badge/Badge.tsx
-import { Badge } from '@machina/zui/components/atomic/Badge/Badge';
+import { Badge, Heading, Text } from '@machina/zui';
 import styles from './Example.module.css';
 
 export function badgeExample() {
   return (
     <div className={styles.exampleGrid}>
       <div className={styles.exampleItem}>
-        <h3 className={styles.exampleTitle}>Badge Variants</h3>
+        <Heading level={3} className={styles.exampleTitle}>Badge Variants</Heading>
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
           <Badge variant="default">Default</Badge>
           <Badge variant="success">Success</Badge>
@@ -17,9 +17,9 @@ export function badgeExample() {
       </div>
 
       <div className={styles.exampleItem}>
-        <h3 className={styles.exampleTitle}>In Context</h3>
+        <Heading level={3} className={styles.exampleTitle}>In Context</Heading>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <span style={{ color: 'var(--text-primary)' }}>Status:</span>
+          <Text as="span">Status:</Text>
           <Badge variant="success">Active</Badge>
         </div>
       </div>

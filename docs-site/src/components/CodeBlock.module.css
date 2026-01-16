@@ -1,16 +1,17 @@
 .codeBlock {
-  background: var(--bg-primary);
-  border: 1px solid var(--border);
+  background: var(--color-bg);
   border-radius: 8px;
   overflow: hidden;
 }
 
 .codeBlock pre {
-  margin: 0;
-  padding: 1.5rem;
+  margin: 0 !important;
+  padding: 1.5rem !important;
   overflow-x: auto;
   font-size: 0.875rem;
   line-height: 1.5;
+  font-family: var(--font-mono);
+  background: transparent !important;
 }
 
 .lineNumber {
