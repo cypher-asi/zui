@@ -12,7 +12,7 @@ A flexible container component that provides consistent styling for grouped cont
 ## Usage
 
 ```tsx
-import { Container } from '@machina/zui';
+import { Container } from '@cypher-asi/zui';
 
 function MyComponent() {
   return (

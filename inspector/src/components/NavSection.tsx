@@ -1,5 +1,6 @@
-﻿import { CollapsibleGroup, NavItem } from '@machina/zui';
+import { CollapsibleGroup, NavItem } from '@cypher-asi/zui';
 import { ComponentInfo } from '../data/components';
+import styles from './NavSection.module.css';
 
 interface NavSectionProps {
   title: string;

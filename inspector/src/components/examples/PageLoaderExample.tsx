@@ -1,5 +1,5 @@
 // Source: zui/src/components/composite/PageLoader/PageLoader.tsx
-import { PageLoader } from '@machina/zui/components/composite/PageLoader/PageLoader';
+import { PageLoader } from '@cypher-asi/zui/components/composite/PageLoader/PageLoader';
 import styles from './Example.module.css';
 
 export function pageloaderExample() {

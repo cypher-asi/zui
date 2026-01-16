@@ -1,4 +1,4 @@
-import { Code } from '@machina/zui';
+import { Code } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function codeExample() {
@@ -17,7 +17,7 @@ export function codeExample() {
             Set the environment variable <Code>NODE_ENV=production</Code> before deploying.
           </p>
           <p>
-            Import components with <Code>import {'{ Button }'} from '@machina/zui'</Code> syntax.
+            Import components with <Code>import {'{ Button }'} from '@cypher-asi/zui'</Code> syntax.
           </p>
           <p>
             Files like <Code>package.json</Code>, <Code>tsconfig.json</Code>, and <Code>.env</Code> are configuration files.

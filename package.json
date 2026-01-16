@@ -1,7 +1,7 @@
 {
-  "name": "@machina/zui",
-  "version": "0.1.0",
-  "description": "Machina UI Component Library",
+  "name": "@cypher-asi/zui",
+  "version": "0.1.1",
+  "description": "ZUI - A modern UI kit made for machines. Official design system for the Cypher ecosystem.",
   "type": "module",
   "main": "./src/index.ts",
   "exports": {
@@ -33,7 +33,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:cypher-agi/zui.git"
+    "url": "git@github.com:cypher-asi/zui.git"
   },
   "peerDependencies": {
     "react": "^18.0.0",

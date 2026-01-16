@@ -13,7 +13,7 @@ A versatile avatar component that displays user or organization images with auto
 ## Usage
 
 ```tsx
-import { Avatar } from '@machina/zui';
+import { Avatar } from '@cypher-asi/zui';
 
 // With image
 <Avatar name="John Doe" src="/path/to/image.jpg" />

@@ -1,9 +1,9 @@
-import { CodeBlock } from '@machina/zui';
+import { CodeBlock } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function codeblockExample() {
   const tsxCode = `import { useState } from 'react';
-import { Button } from '@machina/zui';
+import { Button } from '@cypher-asi/zui';
 
 export function App() {
   const [count, setCount] = useState(0);
@@ -37,7 +37,7 @@ function greetUser(user: User): string {
 }`;
 
   const jsonCode = `{
-  "name": "@machina/zui",
+  "name": "@cypher-asi/zui",
   "version": "0.1.0",
   "dependencies": {
     "react": "^18.2.0",

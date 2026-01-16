@@ -1,4 +1,4 @@
-import { RadioButton } from '@machina/zui';
+import { RadioButton } from '@cypher-asi/zui';
 import { useState } from 'react';
 import styles from './Example.module.css';
 

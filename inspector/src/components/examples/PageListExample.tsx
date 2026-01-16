@@ -1,7 +1,7 @@
 // Source: zui/src/components/composite/PageList/PageList.tsx
 import { useState } from 'react';
-import { PageList } from '@machina/zui/components/composite/PageList/PageList';
-import { ItemCard } from '@machina/zui/components/composite/ItemCard/ItemCard';
+import { PageList } from '@cypher-asi/zui/components/composite/PageList/PageList';
+import { ItemCard } from '@cypher-asi/zui/components/composite/ItemCard/ItemCard';
 import styles from './Example.module.css';
 
 export function pagelistExample() {

@@ -1,7 +1,7 @@
 // Source: zui/src/components/composite/Toasts/Toasts.tsx
 import { useState } from 'react';
-import { Toasts } from '@machina/zui/components/composite/Toasts/Toasts';
-import { Button } from '@machina/zui/components/atomic/Button/Button';
+import { Toasts } from '@cypher-asi/zui/components/composite/Toasts/Toasts';
+import { Button } from '@cypher-asi/zui/components/atomic/Button/Button';
 import styles from './Example.module.css';
 
 export function toastsExample() {

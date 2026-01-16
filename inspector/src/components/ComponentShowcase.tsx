@@ -1,4 +1,4 @@
-import { Heading, Text, Code, Container } from '@machina/zui';
+import { Heading, Text, Code, Container } from '@cypher-asi/zui';
 import { ComponentInfo } from '../data/components';
 import { CodeBlock } from './CodeBlock';
 import * as Examples from './examples';

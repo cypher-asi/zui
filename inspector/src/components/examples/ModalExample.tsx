@@ -1,7 +1,7 @@
 // Source: zui/src/components/composite/Modal/Modal.tsx
 import { useState } from 'react';
-import { Modal } from '@machina/zui/components/composite/Modal/Modal';
-import { Button } from '@machina/zui/components/atomic/Button/Button';
+import { Modal } from '@cypher-asi/zui/components/composite/Modal/Modal';
+import { Button } from '@cypher-asi/zui/components/atomic/Button/Button';
 import styles from './Example.module.css';
 
 export function modalExample() {

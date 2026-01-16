@@ -1,6 +1,6 @@
 // Source: zui/src/components/composite/Tabs/Tabs.tsx
 import { useState } from 'react';
-import { Tabs } from '@machina/zui/components/composite/Tabs/Tabs';
+import { Tabs } from '@cypher-asi/zui/components/composite/Tabs/Tabs';
 import styles from './Example.module.css';
 
 export function tabsExample() {

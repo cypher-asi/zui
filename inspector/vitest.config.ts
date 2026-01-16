@@ -33,7 +33,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@machina/zui': path.resolve(__dirname, '../../zui/src'),
+      '@cypher-asi/zui': path.resolve(__dirname, '../../zui/src'),
       '@': path.resolve(__dirname, './src'),
     },
   },

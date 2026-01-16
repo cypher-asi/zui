@@ -12,7 +12,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@machina/zui': path.resolve(__dirname, '../src'),
+      '@cypher-asi/zui': path.resolve(__dirname, '../src'),
     },
   },
 });

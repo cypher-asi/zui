@@ -1,4 +1,4 @@
-import { Avatar } from '@machina/zui';
+import { Avatar } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function avatarExample() {

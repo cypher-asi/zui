@@ -1,6 +1,6 @@
 // Source: zui/src/components/composite/PageEmptyState/PageEmptyState.tsx
-import { PageEmptyState } from '@machina/zui/components/composite/PageEmptyState/PageEmptyState';
-import { Button } from '@machina/zui/components/atomic/Button/Button';
+import { PageEmptyState } from '@cypher-asi/zui/components/composite/PageEmptyState/PageEmptyState';
+import { Button } from '@cypher-asi/zui/components/atomic/Button/Button';
 import { Plus } from 'lucide-react';
 import styles from './Example.module.css';
 

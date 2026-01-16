@@ -13,7 +13,7 @@ An atomic navigation item component with optional icon support.
 ## Usage
 
 ```tsx
-import { NavItem } from '@machina/zui';
+import { NavItem } from '@cypher-asi/zui';
 import { Server } from 'lucide-react';
 
 // With icon

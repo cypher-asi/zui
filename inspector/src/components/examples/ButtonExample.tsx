@@ -1,6 +1,6 @@
 // Source: zui/src/components/atomic/Button/Button.tsx
 import { useState } from 'react';
-import { Button, Heading } from '@machina/zui';
+import { Button, Heading } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function buttonExample() {

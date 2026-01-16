@@ -1,4 +1,4 @@
-import { Heading } from '@machina/zui';
+import { Heading } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function headingExample() {

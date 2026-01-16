@@ -1,6 +1,6 @@
 // Source: zui/src/components/atomic/NavItem/NavItem.tsx
 import { useState } from 'react';
-import { NavItem } from '@machina/zui';
+import { NavItem } from '@cypher-asi/zui';
 import { Home, Settings, Users, FileText, Database } from 'lucide-react';
 import styles from './Example.module.css';
 

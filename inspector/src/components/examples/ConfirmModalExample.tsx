@@ -1,7 +1,7 @@
 // Source: zui/src/components/composite/ConfirmModal/ConfirmModal.tsx
 import { useState } from 'react';
-import { ConfirmModal } from '@machina/zui/components/composite/ConfirmModal/ConfirmModal';
-import { Button } from '@machina/zui/components/atomic/Button/Button';
+import { ConfirmModal } from '@cypher-asi/zui/components/composite/ConfirmModal/ConfirmModal';
+import { Button } from '@cypher-asi/zui/components/atomic/Button/Button';
 import styles from './Example.module.css';
 
 export function confirmmodalExample() {

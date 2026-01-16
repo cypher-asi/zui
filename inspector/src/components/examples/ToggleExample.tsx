@@ -1,6 +1,6 @@
 // Source: zui/src/components/atomic/Toggle/Toggle.tsx
 import { useState } from 'react';
-import { Toggle, Heading, Text } from '@machina/zui';
+import { Toggle, Heading, Text } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function toggleExample() {

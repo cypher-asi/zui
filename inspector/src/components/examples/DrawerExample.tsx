@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Drawer, Button } from '@machina/zui';
+import { Drawer, Button } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function drawerExample() {

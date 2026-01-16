@@ -1,4 +1,4 @@
-import { NavList, NavItem } from '@machina/zui';
+import { NavList, NavItem } from '@cypher-asi/zui';
 import { useState } from 'react';
 import styles from './Example.module.css';
 

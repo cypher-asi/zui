@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Sidebar, NavList, Heading, Text } from '@machina/zui';
+import { Sidebar, NavList, Heading, Text } from '@cypher-asi/zui';
 import { components, componentsByCategory } from './data/components';
 import { ComponentShowcase } from './components/ComponentShowcase';
 import { NavSection } from './components/NavSection';

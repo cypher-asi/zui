@@ -14,7 +14,7 @@ A flexible, resizable sidebar container with optional header and footer sections
 ## Basic Usage
 
 ```tsx
-import { Sidebar } from '@machina/zui';
+import { Sidebar } from '@cypher-asi/zui';
 
 function App() {
   return (

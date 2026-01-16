@@ -1,5 +1,5 @@
 // Source: zui/src/components/composite/CollapsibleGroup/CollapsibleGroup.tsx
-import { CollapsibleGroup } from '@machina/zui/components/composite/CollapsibleGroup/CollapsibleGroup';
+import { CollapsibleGroup } from '@cypher-asi/zui/components/composite/CollapsibleGroup/CollapsibleGroup';
 import styles from './Example.module.css';
 
 export function collapsiblegroupExample() {

@@ -1,6 +1,6 @@
 // Source: zui/src/components/composite/PageHeader/PageHeader.tsx
-import { PageHeader } from '@machina/zui/components/composite/PageHeader/PageHeader';
-import { Button } from '@machina/zui/components/atomic/Button/Button';
+import { PageHeader } from '@cypher-asi/zui/components/composite/PageHeader/PageHeader';
+import { Button } from '@cypher-asi/zui/components/atomic/Button/Button';
 import { Plus } from 'lucide-react';
 import styles from './Example.module.css';
 

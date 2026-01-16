@@ -1,5 +1,5 @@
 // Source: zui/src/components/atomic/Badge/Badge.tsx
-import { Badge, Heading, Text } from '@machina/zui';
+import { Badge, Heading, Text } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function badgeExample() {

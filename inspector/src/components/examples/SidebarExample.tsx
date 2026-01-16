@@ -1,6 +1,6 @@
 // Source: zui/src/components/composite/Sidebar/Sidebar.tsx
 import { useState } from 'react';
-import { Sidebar, SidebarSection } from '@machina/zui/components/composite/Sidebar/Sidebar';
+import { Sidebar, SidebarSection } from '@cypher-asi/zui/components/composite/Sidebar/Sidebar';
 import { Home, Settings, Users } from 'lucide-react';
 import styles from './Example.module.css';
 

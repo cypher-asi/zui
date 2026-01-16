@@ -1,6 +1,6 @@
 // Source: zui/src/components/composite/Page/Page.tsx
-import { Page } from '@machina/zui/components/composite/Page/Page';
-import { Button } from '@machina/zui/components/atomic/Button/Button';
+import { Page } from '@cypher-asi/zui/components/composite/Page/Page';
+import { Button } from '@cypher-asi/zui/components/atomic/Button/Button';
 import { Plus } from 'lucide-react';
 import styles from './Example.module.css';
 

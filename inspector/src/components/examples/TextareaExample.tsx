@@ -1,5 +1,5 @@
 // Source: zui/src/components/atomic/Textarea/Textarea.tsx
-import { Textarea, Heading } from '@machina/zui';
+import { Textarea, Heading } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function textareaExample() {

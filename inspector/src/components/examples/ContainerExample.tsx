@@ -1,4 +1,4 @@
-import { Container } from '@machina/zui';
+import { Container } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function containerExample() {

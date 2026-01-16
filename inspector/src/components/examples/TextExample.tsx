@@ -1,4 +1,4 @@
-import { Text } from '@machina/zui';
+import { Text } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function textExample() {

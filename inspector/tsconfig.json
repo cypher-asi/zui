@@ -22,8 +22,8 @@
 
     /* Path Mappings */
     "paths": {
-      "@machina/zui": ["../src/index.ts"],
-      "@machina/zui/*": ["../src/*"]
+      "@cypher-asi/zui": ["../src/index.ts"],
+      "@cypher-asi/zui/*": ["../src/*"]
     }
   },
   "include": ["src"],

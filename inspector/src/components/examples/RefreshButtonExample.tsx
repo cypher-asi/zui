@@ -1,6 +1,6 @@
 // Source: zui/src/components/composite/RefreshButton/RefreshButton.tsx
 import { useState } from 'react';
-import { RefreshButton } from '@machina/zui/components/composite/RefreshButton/RefreshButton';
+import { RefreshButton } from '@cypher-asi/zui/components/composite/RefreshButton/RefreshButton';
 import styles from './Example.module.css';
 
 export function refreshbuttonExample() {

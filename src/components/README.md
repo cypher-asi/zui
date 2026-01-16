@@ -63,11 +63,11 @@ Import components from the main index:
 
 ```typescript
 // Import from main package
-import { Button, Badge, Modal, PageHeader } from '@machina/zui';
+import { Button, Badge, Modal, PageHeader } from '@cypher-asi/zui';
 
 // Or import from specific category
-import { Button, Badge } from '@machina/zui/components/atomic';
-import { Modal, PageHeader } from '@machina/zui/components/composite';
+import { Button, Badge } from '@cypher-asi/zui/components/atomic';
+import { Modal, PageHeader } from '@cypher-asi/zui/components/composite';
 ```
 
 ## Guidelines

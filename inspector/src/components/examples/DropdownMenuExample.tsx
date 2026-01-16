@@ -1,6 +1,6 @@
 // Source: zui/src/components/composite/DropdownMenu/DropdownMenu.tsx
-import { DropdownMenu } from '@machina/zui/components/composite/DropdownMenu/DropdownMenu';
-import { Button } from '@machina/zui/components/atomic/Button/Button';
+import { DropdownMenu } from '@cypher-asi/zui/components/composite/DropdownMenu/DropdownMenu';
+import { Button } from '@cypher-asi/zui/components/atomic/Button/Button';
 import { MoreVertical, Edit, Trash2, Copy } from 'lucide-react';
 import styles from './Example.module.css';
 

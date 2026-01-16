@@ -1,5 +1,5 @@
 // Source: zui/src/components/composite/Card/Card.tsx
-import { Card, Heading, Text, Badge } from '@machina/zui';
+import { Card, Heading, Text, Badge } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function cardExample() {

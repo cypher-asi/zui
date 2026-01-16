@@ -1,7 +1,7 @@
 // Source: zui/src/components/composite/ItemCard/ItemCard.tsx
-import { ItemCard, ItemCardMeta } from '@machina/zui/components/composite/ItemCard/ItemCard';
-import { Button } from '@machina/zui/components/atomic/Button/Button';
-import { Badge } from '@machina/zui/components/atomic/Badge/Badge';
+import { ItemCard, ItemCardMeta } from '@cypher-asi/zui/components/composite/ItemCard/ItemCard';
+import { Button } from '@cypher-asi/zui/components/atomic/Button/Button';
+import { Badge } from '@cypher-asi/zui/components/atomic/Badge/Badge';
 import { MoreVertical } from 'lucide-react';
 import styles from './Example.module.css';
 
