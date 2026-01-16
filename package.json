@@ -40,6 +40,8 @@
     "react-dom": "^18.0.0"
   },
   "dependencies": {
+    "@machina/shared": "file:../shared",
+    "lucide-react": "^0.312.0",
     "prism-react-renderer": "^2.3.1"
   }
 }

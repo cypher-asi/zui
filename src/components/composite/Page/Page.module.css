@@ -8,39 +8,6 @@
   min-width: 0; /* Prevent content from forcing parent to grow during sidekick animation */
 }
 
-.header {
-  flex-shrink: 0;
-  height: 48px;
-  padding: 0 var(--space-4);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.headerLeft {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.title {
-  font-size: var(--text-sm);
-  font-weight: var(--font-medium);
-  color: var(--color-text-primary);
-}
-
-.count {
-  font-size: var(--text-xs);
-  color: var(--color-text-secondary);
-  font-family: var(--font-mono);
-}
-
-.headerRight {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-
 .content {
   flex: 1;
   overflow: auto;
