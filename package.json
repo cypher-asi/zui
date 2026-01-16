@@ -1,6 +1,6 @@
 {
   "name": "@cypher-asi/zui",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "ZUI - A modern UI kit made for machines. Official design system for the Cypher ecosystem.",
   "type": "module",
   "main": "./src/index.ts",
