@@ -4,12 +4,12 @@ A modern React component library with a focus on clean design and developer expe
 
 ## Features
 
-- 🎨 Modern, consistent design system
-- ⚛️ Built with React and TypeScript
-- 🎯 Tree-shakeable exports
-- 📱 Responsive components
-- 🎭 CSS Modules for styling
-- 🔧 Easy to customize
+- Modern, consistent design system
+- Built with React and TypeScript
+- Tree-shakeable exports
+- Responsive components
+- CSS Modules for styling
+- Easy to customize
 
 ## Installation
 

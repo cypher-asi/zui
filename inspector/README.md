@@ -4,12 +4,12 @@ Interactive component inspector and showcase for the ZUI (Zenith UI) component l
 
 ## Features
 
-- 📚 Complete component library documentation
-- 🎨 Live interactive examples for each component
-- 💻 Source code display with syntax highlighting
-- 🎯 Organized by component categories (Atomic & Composite)
-- 🔍 Easy navigation with sidebar
-- 🌙 Dark theme UI
+- Complete component library documentation
+- Live interactive examples for each component
+- Source code display with syntax highlighting
+- Organized by component categories (Atomic & Composite)
+- Easy navigation with sidebar
+- Dark theme UI
 
 ## Getting Started
 
