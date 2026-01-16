@@ -1,0 +1,42 @@
+{
+  "name": "@cypher-agi/zui",
+  "version": "0.1.0",
+  "description": "Cypher AGI UI Component Library",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles": "./src/styles/index.css"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "dev:inspector": "npm run dev --workspace=inspector",
+    "dev:docs": "npm run dev --workspace=docs-site",
+    "build:inspector": "npm run build --workspace=inspector",
+    "build:docs": "npm run build --workspace=docs-site",
+    "test": "npm run test --workspace=inspector"
+  },
+  "workspaces": [
+    "inspector",
+    "docs-site"
+  ],
+  "keywords": [
+    "react",
+    "ui",
+    "components",
+    "design-system"
+  ],
+  "author": "Cypher AGI",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:cypher-agi/zui.git"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  }
+}

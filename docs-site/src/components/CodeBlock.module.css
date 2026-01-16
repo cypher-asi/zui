@@ -1,0 +1,33 @@
+.codeBlock {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.codeBlock pre {
+  margin: 0;
+  padding: 1.5rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.lineNumber {
+  display: inline-block;
+  width: 3em;
+  text-align: right;
+  margin-right: 1.5rem;
+  color: var(--text-tertiary);
+  user-select: none;
+}
+
+.lineContent {
+  display: inline-block;
+}
+
+.loading {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-secondary);
+}

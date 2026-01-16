@@ -1,0 +1,45 @@
+.section {
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary);
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  border-left: 2px solid transparent;
+}
+
+.item:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.item.active {
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border-left-color: var(--primary);
+  font-weight: 500;
+}

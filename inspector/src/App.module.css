@@ -1,0 +1,31 @@
+.app {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebarHeader {
+  padding: 1.5rem 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.nav {
+  padding: 0.5rem 0;
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--bg-secondary);
+}
