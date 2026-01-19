@@ -1,0 +1,62 @@
+/* WindowButton styles */
+.windowButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  color: #666;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.windowButton:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-border-light);
+}
+
+.windowButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Size variants */
+.xs {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+}
+
+.sm {
+  width: 22px;
+  height: 22px;
+}
+
+/* Action variants - hover state */
+.minimize:hover:not(:disabled),
+.maximize:hover:not(:disabled),
+.close:hover:not(:disabled) {
+  background-color: var(--color-elevated);
+  color: #fff;
+}
+
+/* Active states */
+.minimize:active:not(:disabled),
+.maximize:active:not(:disabled),
+.close:active:not(:disabled) {
+  background-color: var(--color-border);
+}
+
+/* Rounded variants */
+.roundedNone {
+  border-radius: 0;
+}
+
+.roundedMd {
+  border-radius: var(--radius-md);
+}

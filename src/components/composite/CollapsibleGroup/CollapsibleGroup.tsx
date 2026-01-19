@@ -47,8 +47,10 @@ export function CollapsibleGroup({
         title={isCollapsed ? 'Expand' : 'Collapse'}
         type="button"
       >
-        <span className={styles.label}>{displayLabel}</span>
-        {count !== undefined && <span className={styles.count}>{count}</span>}
+        <span className={styles.labelContainer}>
+          <span className={styles.label}>{displayLabel}</span>
+          {count !== undefined && <span className={styles.count}>{count}</span>}
+        </span>
         {stats && <div className={styles.stats}>{stats}</div>}
         <span className={clsx(styles.toggle, isCollapsed && styles.toggleCollapsed)}>
           <ChevronDown size={16} />

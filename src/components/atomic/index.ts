@@ -28,6 +28,9 @@ export type { NavItemProps } from './NavItem';
 export { NavList } from './NavList';
 export type { NavListProps } from './NavList';
 
+export { Panel } from './Panel';
+export type { PanelProps } from './Panel';
+
 export { RadioButton } from './RadioButton';
 export type { RadioButtonProps, RadioButtonSize, RadioButtonVariant } from './RadioButton';
 
@@ -45,3 +48,6 @@ export type { TextareaProps, TextareaSize } from './Textarea';
 
 export { Toggle } from './Toggle';
 export type { ToggleProps, ToggleSize, ToggleVariant } from './Toggle';
+
+export { WindowButton } from './WindowButton';
+export type { WindowButtonProps, WindowButtonAction } from './WindowButton';

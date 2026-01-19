@@ -105,6 +105,37 @@
   background-color: rgba(244, 1, 42, 0.1);
 }
 
+.filled {
+  background-color: var(--color-accent, #01f4cb);
+  color: var(--color-bg, #0a0a0a);
+  border-color: transparent;
+}
+
+.filled:hover:not(:disabled) {
+  background-color: var(--color-accent-hover, #00d4ad);
+}
+
+.glass {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--color-text-primary);
+  border-color: transparent;
+}
+
+.glass:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-primary);
+}
+
+.transparent {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  border-color: transparent;
+}
+
+.transparent:hover:not(:disabled) {
+  color: var(--color-text-primary);
+}
+
 .sm {
   padding: var(--space-1) var(--space-2);
   font-size: var(--text-xs);
@@ -114,4 +145,41 @@
 .iconOnly {
   padding: var(--space-2);
   min-height: auto;
+}
+
+/* Rounded variants */
+.roundedNone {
+  border-radius: 0;
+}
+
+.roundedSm {
+  border-radius: var(--radius-sm);
+}
+
+.roundedLg {
+  border-radius: var(--radius-lg);
+}
+
+.roundedFull {
+  border-radius: var(--radius-full);
+}
+
+/* Text case variants */
+.capitalize {
+  text-transform: capitalize;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+/* Selected state - accent highlight for active/toggled buttons */
+.selected {
+  background-color: rgba(1, 244, 203, 0.15);
+  color: var(--color-text-primary);
+  border-color: var(--color-accent, #01f4cb);
+}
+
+.selected:hover:not(:disabled) {
+  background-color: rgba(1, 244, 203, 0.2);
 }

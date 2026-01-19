@@ -47,11 +47,20 @@ export type { CodeProps, CodeVariant } from './atomic/Code';
 export { Container } from './atomic/Container';
 export type { ContainerProps } from './atomic/Container';
 
+export { WindowButton } from './atomic/WindowButton';
+export type { WindowButtonProps, WindowButtonAction } from './atomic/WindowButton';
+
+export { Panel } from './atomic/Panel';
+export type { PanelProps } from './atomic/Panel';
+
 // ============================================================================
 // Composite Components - Complex components composed of atomic components
 // ============================================================================
 export { Card } from './composite/Card';
 export type { CardProps } from './composite/Card';
+
+export { Menu } from './composite/Menu';
+export type { MenuProps, MenuItemProps, MenuVariant, MenuRounded } from './composite/Menu';
 
 export { Modal } from './composite/Modal';
 export type { ModalProps, ModalSize } from './composite/Modal';

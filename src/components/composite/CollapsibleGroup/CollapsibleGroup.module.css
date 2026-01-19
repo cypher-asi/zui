@@ -31,11 +31,17 @@
   outline-offset: -2px;
 }
 
+.labelContainer {
+  flex: 1; /* Allow label container to take available space and push toggle to the right */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .label {
   font-size: 13px;
   font-weight: 600;
   color: #8b8b8d;
-  flex: 1; /* Allow label to take available space and push toggle to the right */
   line-height: 1.2; /* Ensure consistent line height for vertical centering */
   display: flex;
   align-items: center;
@@ -101,4 +107,5 @@
 
 .contentInner {
   overflow: hidden;
+  padding: 0 12px;
 }

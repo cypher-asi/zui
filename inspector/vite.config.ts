@@ -12,6 +12,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      '@cypher-asi/zui/styles': path.resolve(__dirname, '../src/styles'),
       '@cypher-asi/zui': path.resolve(__dirname, '../src'),
     },
   },

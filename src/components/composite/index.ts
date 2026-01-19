@@ -29,6 +29,9 @@ export {
 } from './ItemCard';
 export type { ItemCardProps } from './ItemCard';
 
+export { Menu } from './Menu';
+export type { MenuProps, MenuItemProps, MenuVariant, MenuRounded } from './Menu';
+
 export { Modal } from './Modal';
 export type { ModalProps, ModalSize } from './Modal';
 

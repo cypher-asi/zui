@@ -13,7 +13,11 @@ function App() {
   return (
     <div className={styles.app}>
       <Sidebar
+        resizable
+        minWidth={200}
+        maxWidth={400}
         defaultWidth={260}
+        storageKey="zui-inspector-main-sidebar-width"
         header={
           <div className={styles.sidebarHeader}>
             <Heading level={3} className={styles.title}>ZUI Inspector</Heading>

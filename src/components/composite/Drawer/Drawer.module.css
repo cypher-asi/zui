@@ -52,6 +52,7 @@
   background: none;
   border: none;
   cursor: pointer;
+  user-select: none;
 }
 
 .minimizedButton:hover {
@@ -106,6 +107,33 @@
   background-color: var(--color-text-primary);
 }
 
+/* Minimize button in resize handle */
+.minimizeButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: var(--space-1);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--transition-fast), color var(--transition-fast);
+  z-index: 11;
+  user-select: none;
+}
+
+.resizeHandle:hover .minimizeButton {
+  opacity: 1;
+}
+
+.minimizeButton:hover {
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-secondary);
+}
+
 /* Handle line styles */
 .resizeHandleLine {
   background-color: var(--color-text-secondary);
@@ -141,4 +169,199 @@
 
 .drawerInnerHidden {
   opacity: 0;
+}
+
+/* Always-visible toggle button */
+.toggle {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: #6b6b6d;
+  background-color: var(--color-bg);
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+  z-index: 11;
+}
+
+.toggle:hover {
+  background: var(--surface-3, rgba(255, 255, 255, 0.1));
+  color: var(--color-text-primary, #fff);
+}
+
+/* Toggle positioning for left drawer - top left */
+.toggleLeft {
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Toggle positioning for right drawer - top right */
+.toggleRight {
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Toggle positioning for top drawer - left side */
+.toggleTop {
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Toggle positioning for bottom drawer - left side */
+.toggleBottom {
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Toggle container when drawer is closed */
+.toggleContainer {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  background-color: var(--color-bg);
+}
+
+.toggleContainerLeft {
+  width: 32px;
+  height: 100%;
+  border-right: 1px solid var(--color-border);
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.toggleContainerRight {
+  width: 32px;
+  height: 100%;
+  border-left: 1px solid var(--color-border);
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.toggleContainerTop {
+  height: 32px;
+  width: 100%;
+  border-bottom: 1px solid var(--color-border);
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 8px;
+}
+
+.toggleContainerBottom {
+  height: 32px;
+  width: 100%;
+  border-top: 1px solid var(--color-border);
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 8px;
+}
+
+/* Toggle in container (when drawer is closed) - no absolute positioning needed */
+.toggleContainer .toggle {
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: none;
+}
+
+/* Drawer header with title and toggle */
+.drawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.drawerTitle {
+  font-size: var(--text-sm, 13px);
+  font-weight: var(--font-medium, 500);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.headerToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  color: var(--color-text-secondary, #6b6b6d);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.headerToggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-primary, #fff);
+}
+
+/* Transparent background variant */
+.drawerTransparent {
+  background-color: transparent;
+}
+
+.drawerTransparent.drawerLeft {
+  border-right: none;
+}
+
+.drawerTransparent.drawerRight {
+  border-left: none;
+}
+
+.drawerTransparent.drawerTop {
+  border-bottom: none;
+}
+
+.drawerTransparent.drawerBottom {
+  border-top: none;
+}
+
+.drawerTransparent .drawerHeader {
+  background-color: transparent;
+}
+
+.toggleContainerTransparent {
+  background-color: transparent;
+}
+
+.toggleContainerTransparent.toggleContainerLeft {
+  border-right: none;
+}
+
+.toggleContainerTransparent.toggleContainerRight {
+  border-left: none;
+}
+
+.toggleContainerTransparent.toggleContainerTop {
+  border-bottom: none;
+}
+
+.toggleContainerTransparent.toggleContainerBottom {
+  border-top: none;
+}
+
+.toggleContainerTransparent .toggle {
+  background-color: transparent;
+}
+
+.toggleContainerTransparent .toggle:hover {
+  background-color: transparent;
 }

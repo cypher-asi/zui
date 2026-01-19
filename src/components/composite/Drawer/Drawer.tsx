@@ -15,8 +15,14 @@ export interface DrawerProps {
   /** Callback when the drawer should close */
   onClose: () => void;
   
+  /** Callback when the drawer should open (required if showToggle is true) */
+  onOpen?: () => void;
+  
   /** The content to render inside the drawer */
   children: ReactNode;
+  
+  /** Optional title displayed in a header bar */
+  title?: string;
   
   /** Minimum size (width for left/right, height for top/bottom) in pixels */
   minSize?: number;
@@ -44,6 +50,12 @@ export interface DrawerProps {
   
   /** Custom content for minimized bar (overrides default buttons) */
   minimizedBarContent?: ReactNode;
+  
+  /** Whether to show the always-visible toggle button */
+  showToggle?: boolean;
+  
+  /** Whether to use transparent background */
+  transparent?: boolean;
 }
 
 function getSavedSize(storageKey: string | undefined, defaultSize: number): number {
@@ -77,7 +89,9 @@ export function Drawer({
   side,
   isOpen,
   onClose,
+  onOpen,
   children,
+  title,
   minSize = side === 'left' || side === 'right' ? 320 : 200,
   maxSize = side === 'left' || side === 'right' ? 600 : 800,
   defaultSize = side === 'left' || side === 'right' ? 384 : 300,
@@ -87,6 +101,8 @@ export function Drawer({
   className,
   showMinimizedBar = true,
   minimizedBarContent,
+  showToggle = false,
+  transparent = false,
 }: DrawerProps) {
   const [currentSize, setCurrentSize] = useState(0); // Always start at 0 for animation
   const [isResizing, setIsResizing] = useState(false);
@@ -175,8 +191,57 @@ export function Drawer({
     };
   }, [isResizing, currentSize, side, minSize, maxSize, storageKey, isHorizontal]);
   
-  // Don't render anything if we're closed and have no content to show
+  // Get the toggle chevron icon based on side and open state
+  const getToggleIcon = () => {
+    if (isOpen) {
+      // When open, point in the direction the drawer will close to
+      switch (side) {
+        case 'left': return ChevronLeft;
+        case 'right': return ChevronRight;
+        case 'top': return ChevronUp;
+        case 'bottom': return ChevronDown;
+      }
+    } else {
+      // When closed, point in the direction the drawer will open from
+      switch (side) {
+        case 'left': return ChevronRight;
+        case 'right': return ChevronLeft;
+        case 'top': return ChevronDown;
+        case 'bottom': return ChevronUp;
+      }
+    }
+  };
+  
+  const ToggleIcon = getToggleIcon();
+  
+  const handleToggle = () => {
+    if (isOpen) {
+      onClose();
+    } else if (onOpen) {
+      onOpen();
+    }
+  };
+  
+  // If we're closed and have no content, only render the toggle button if enabled
   if (currentSize === 0 && !hasContent) {
+    if (showToggle && onOpen) {
+      return (
+        <div className={clsx(
+          styles.toggleContainer,
+          styles[`toggleContainer${side.charAt(0).toUpperCase() + side.slice(1)}`],
+          transparent && styles.toggleContainerTransparent
+        )}>
+          <button
+            className={styles.toggle}
+            onClick={handleToggle}
+            title="Open"
+            type="button"
+          >
+            <ToggleIcon size={16} />
+          </button>
+        </div>
+      );
+    }
     return null;
   }
   
@@ -215,6 +280,7 @@ export function Drawer({
     styles[`drawer${side.charAt(0).toUpperCase() + side.slice(1)}`],
     isResizing && styles.drawerResizing,
     isMinimized && styles.drawerMinimized,
+    transparent && styles.drawerTransparent,
     className
   );
   
@@ -255,6 +321,21 @@ export function Drawer({
                   resizeHandleProps.horizontal ? styles.resizeHandleLineHorizontal : styles.resizeHandleLineVertical
                 )}
               />
+              {/* Minimize button (only for horizontal drawers with minimizedBar enabled, when showToggle is false) */}
+              {!showToggle && isHorizontal && showMinimizedBar && (
+                <button
+                  className={styles.minimizeButton}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleMinimize();
+                  }}
+                  onMouseDown={(e) => e.stopPropagation()}
+                  title="Minimize"
+                  type="button"
+                >
+                  <MinimizeIcon size={14} />
+                </button>
+              )}
             </div>
           )}
           
@@ -263,6 +344,26 @@ export function Drawer({
             className={clsx(styles.drawerInner, currentSize === 0 && styles.drawerInnerHidden)}
             style={isHorizontal ? { width: currentSize } : { height: currentSize }}
           >
+            {/* Header with title and toggle */}
+            {(title || showToggle) && currentSize > 0 && (
+              <div className={styles.drawerHeader}>
+                {title && <span className={styles.drawerTitle}>{title}</span>}
+                {showToggle && (
+                  <button
+                    className={styles.headerToggle}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleToggle();
+                    }}
+                    onMouseDown={(e) => e.stopPropagation()}
+                    title={isOpen ? 'Close' : 'Open'}
+                    type="button"
+                  >
+                    <ToggleIcon size={16} />
+                  </button>
+                )}
+              </div>
+            )}
             {children}
           </div>
         </>

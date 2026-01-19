@@ -113,6 +113,13 @@ export const components: ComponentInfo[] = [
     description: 'Boolean switch/toggle control with success variant for enabled states.',
     path: '../../zui/src/components/atomic/Toggle/Toggle.tsx',
   },
+  {
+    id: 'window-button',
+    name: 'WindowButton',
+    category: 'Atomic',
+    description: 'Icon buttons for window controls: minimize, maximize, and close.',
+    path: '../../zui/src/components/atomic/WindowButton/WindowButton.tsx',
+  },
   
   // Composite Components
   {
@@ -163,6 +170,13 @@ export const components: ComponentInfo[] = [
     category: 'Composite',
     description: 'Card for displaying list items with metadata, badges, and action buttons.',
     path: '../../zui/src/components/composite/ItemCard/ItemCard.tsx',
+  },
+  {
+    id: 'menu',
+    name: 'Menu',
+    category: 'Composite',
+    description: 'Navigation menu with selectable items, supporting solid, glass, and transparent backgrounds.',
+    path: '../../zui/src/components/composite/Menu/Menu.tsx',
   },
   {
     id: 'modal',
@@ -233,6 +247,15 @@ export const components: ComponentInfo[] = [
     category: 'Composite',
     description: 'Toast notification system with success, error, and info variants.',
     path: '../../zui/src/components/composite/Toasts/Toasts.tsx',
+  },
+  
+  // Orbital-OS Components
+  {
+    id: 'panel',
+    name: 'Panel',
+    category: 'Composite',
+    description: 'Glass-morphism styled container with configurable borders for windows, dialogs, and floating UI.',
+    path: 'orbital-os/apps/orbital-web/www/components/Panel/Panel.tsx',
   },
 ];
 
