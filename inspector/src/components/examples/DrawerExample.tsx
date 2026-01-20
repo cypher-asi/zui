@@ -3,222 +3,133 @@ import { Drawer } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function drawerExample() {
-  const [leftToggleOpen, setLeftToggleOpen] = useState(false);
-  const [rightToggleOpen, setRightToggleOpen] = useState(false);
-  const [topToggleOpen, setTopToggleOpen] = useState(false);
-  const [bottomToggleOpen, setBottomToggleOpen] = useState(false);
+  const [leftOpen, setLeftOpen] = useState(false);
+  const [rightOpen, setRightOpen] = useState(false);
+  const [leftNoBorderOpen, setLeftNoBorderOpen] = useState(false);
+  const [rightNoBorderOpen, setRightNoBorderOpen] = useState(false);
 
   return (
     <>
+      {/* Features */}
       <div className={styles.exampleGrid}>
         <div className={styles.exampleItem}>
           <h3 className={styles.exampleTitle}>Features</h3>
-          <ul style={{ 
-            color: 'var(--color-text-secondary)', 
-            fontSize: '0.875rem',
-            paddingLeft: '1.25rem',
-            margin: 0,
-          }}>
-            <li style={{ marginBottom: '0.5rem' }}>
+          <ul className={styles.featureList}>
+            <li className={styles.featureItem}>
               <strong>Resizable:</strong> Drag the resize handle to adjust size
             </li>
-            <li style={{ marginBottom: '0.5rem' }}>
-              <strong>Minimizable:</strong> Click chevron in resize handle (left/right only)
-            </li>
-            <li style={{ marginBottom: '0.5rem' }}>
+            <li className={styles.featureItem}>
               <strong>Toggle Mode:</strong> Use showToggle for always-visible open/close chevron
             </li>
-            <li style={{ marginBottom: '0.5rem' }}>
-              <strong>Persistent:</strong> Size is saved to localStorage
+            <li className={styles.featureItem}>
+              <strong>No Border:</strong> Use noBorder prop to remove border
             </li>
-            <li>
-              <strong>Animated:</strong> Smooth open/close transitions
+            <li className={styles.featureItem}>
+              <strong>Transparent:</strong> Use transparent prop for transparent bg and no border
             </li>
           </ul>
         </div>
       </div>
 
-      {/* Toggle Mode Demo */}
-      <div style={{ marginTop: '2rem' }}>
-        <h3 className={styles.exampleTitle}>Toggle Mode (showToggle)</h3>
-        <p style={{ color: 'var(--color-text-secondary)', marginBottom: '1rem', fontSize: '0.875rem' }}>
-          With <code style={{ background: 'var(--color-bg-tertiary)', padding: '2px 6px', borderRadius: '4px' }}>showToggle=true</code>, 
-          the drawer shows an always-visible chevron button at a consistent position. The chevron stays in the same location whether open or closed.
+      {/* Left Side with Title */}
+      <div className={styles.sectionMarginTop}>
+        <h3 className={styles.exampleTitle}>Left Side (side="left")</h3>
+        <p className={styles.descriptionText}>
+          Default background with <code className={styles.codeInline}>noBorder</code> and <code className={styles.codeInline}>showToggle</code>.
         </p>
       </div>
-      
-      {/* Left and Right Toggle Drawers */}
-      <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-        <div style={{
-          position: 'relative',
-          flex: 1,
-          height: '250px',
-          border: '1px solid var(--color-border)',
-          borderRadius: 'var(--radius-lg)',
-          backgroundColor: 'var(--color-bg-secondary)',
-          overflow: 'hidden',
-          display: 'flex',
-        }}>
+
+      <div className={styles.drawerExampleRow}>
+        <div className={`${styles.drawerDemoContainer} ${styles.drawerExampleFlex}`}>
           <Drawer
             side="left"
-            isOpen={leftToggleOpen}
-            onClose={() => setLeftToggleOpen(false)}
-            onOpen={() => setLeftToggleOpen(true)}
+            isOpen={leftOpen}
+            onClose={() => setLeftOpen(false)}
+            onOpen={() => setLeftOpen(true)}
             title="Explorer"
-            defaultSize={200}
-            minSize={150}
-            maxSize={300}
-            storageKey="inspector-drawer-toggle-left"
-            showToggle={true}
+            defaultSize={180}
+            minSize={120}
+            maxSize={250}
+            showToggle
+            noBorder
           >
-            <div style={{ padding: '1rem' }}>
-              <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem', margin: 0 }}>
-                Title on left, chevron on right.
-              </p>
-            </div>
+            <div style={{ padding: '8px 12px' }}>Content here</div>
           </Drawer>
-          <div style={{ 
-            flex: 1, 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center',
-            padding: '1rem',
-          }}>
-            <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem', margin: 0, textAlign: 'center' }}>
-              Left drawer toggle
-            </p>
+          <div className={styles.drawerDemoContent}>
+            <p className={styles.drawerDemoText}>Main content area</p>
           </div>
         </div>
-        
-        <div style={{
-          position: 'relative',
-          flex: 1,
-          height: '250px',
-          border: '1px solid var(--color-border)',
-          borderRadius: 'var(--radius-lg)',
-          backgroundColor: 'var(--color-bg-secondary)',
-          overflow: 'hidden',
-          display: 'flex',
-        }}>
-          <div style={{ 
-            flex: 1, 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center',
-            padding: '1rem',
-          }}>
-            <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem', margin: 0, textAlign: 'center' }}>
-              Right drawer toggle
-            </p>
+
+        <div className={`${styles.drawerDemoContainer} ${styles.drawerExampleFlex}`}>
+          <Drawer
+            side="left"
+            isOpen={leftNoBorderOpen}
+            onClose={() => setLeftNoBorderOpen(false)}
+            onOpen={() => setLeftNoBorderOpen(true)}
+            title="Files"
+            defaultSize={180}
+            minSize={120}
+            maxSize={250}
+            showToggle
+            noBorder
+          >
+            <div style={{ padding: '8px 12px' }}>Content here</div>
+          </Drawer>
+          <div className={styles.drawerDemoContent}>
+            <p className={styles.drawerDemoText}>Main content area</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Right Side with Title */}
+      <div className={styles.sectionMarginTop}>
+        <h3 className={styles.exampleTitle}>Right Side (side="right")</h3>
+        <p className={styles.descriptionText}>
+          Same configuration on the right side.
+        </p>
+      </div>
+
+      <div className={styles.drawerExampleRow}>
+        <div className={`${styles.drawerDemoContainer} ${styles.drawerExampleFlex}`}>
+          <div className={styles.drawerDemoContent}>
+            <p className={styles.drawerDemoText}>Main content area</p>
           </div>
           <Drawer
             side="right"
-            isOpen={rightToggleOpen}
-            onClose={() => setRightToggleOpen(false)}
-            onOpen={() => setRightToggleOpen(true)}
+            isOpen={rightOpen}
+            onClose={() => setRightOpen(false)}
+            onOpen={() => setRightOpen(true)}
             title="Properties"
-            defaultSize={200}
-            minSize={150}
-            maxSize={300}
-            storageKey="inspector-drawer-toggle-right"
-            showToggle={true}
+            defaultSize={180}
+            minSize={120}
+            maxSize={250}
+            showToggle
+            noBorder
           >
-            <div style={{ padding: '1rem' }}>
-              <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem', margin: 0 }}>
-                Title on left, chevron on right.
-              </p>
-            </div>
+            <div style={{ padding: '8px 12px' }}>Content here</div>
+          </Drawer>
+        </div>
+
+        <div className={`${styles.drawerDemoContainer} ${styles.drawerExampleFlex}`}>
+          <div className={styles.drawerDemoContent}>
+            <p className={styles.drawerDemoText}>Main content area</p>
+          </div>
+          <Drawer
+            side="right"
+            isOpen={rightNoBorderOpen}
+            onClose={() => setRightNoBorderOpen(false)}
+            onOpen={() => setRightNoBorderOpen(true)}
+            title="Inspector"
+            defaultSize={180}
+            minSize={120}
+            maxSize={250}
+            showToggle
+            noBorder
+          >
+            <div style={{ padding: '8px 12px' }}>Content here</div>
           </Drawer>
         </div>
       </div>
-
-      {/* Top and Bottom Toggle Drawers */}
-      <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-        <div style={{
-          position: 'relative',
-          flex: 1,
-          height: '250px',
-          border: '1px solid var(--color-border)',
-          borderRadius: 'var(--radius-lg)',
-          backgroundColor: 'var(--color-bg-secondary)',
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column',
-        }}>
-          <Drawer
-            side="top"
-            isOpen={topToggleOpen}
-            onClose={() => setTopToggleOpen(false)}
-            onOpen={() => setTopToggleOpen(true)}
-            title="Search"
-            defaultSize={100}
-            minSize={80}
-            maxSize={180}
-            storageKey="inspector-drawer-toggle-top"
-            showToggle={true}
-          >
-            <div style={{ padding: '1rem' }}>
-              <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem', margin: 0 }}>
-                Top drawer with toggle.
-              </p>
-            </div>
-          </Drawer>
-          <div style={{ 
-            flex: 1, 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center',
-            padding: '1rem',
-          }}>
-            <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem', margin: 0, textAlign: 'center' }}>
-              Top drawer toggle
-            </p>
-          </div>
-        </div>
-        
-        <div style={{
-          position: 'relative',
-          flex: 1,
-          height: '250px',
-          border: '1px solid var(--color-border)',
-          borderRadius: 'var(--radius-lg)',
-          backgroundColor: 'var(--color-bg-secondary)',
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column',
-        }}>
-          <div style={{ 
-            flex: 1, 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center',
-            padding: '1rem',
-          }}>
-            <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem', margin: 0, textAlign: 'center' }}>
-              Bottom drawer toggle
-            </p>
-          </div>
-          <Drawer
-            side="bottom"
-            isOpen={bottomToggleOpen}
-            onClose={() => setBottomToggleOpen(false)}
-            onOpen={() => setBottomToggleOpen(true)}
-            title="Terminal"
-            defaultSize={100}
-            minSize={80}
-            maxSize={180}
-            storageKey="inspector-drawer-toggle-bottom"
-            showToggle={true}
-          >
-            <div style={{ padding: '1rem' }}>
-              <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem', margin: 0 }}>
-                Bottom drawer with toggle.
-              </p>
-            </div>
-          </Drawer>
-        </div>
-      </div>
-
     </>
   );
 }

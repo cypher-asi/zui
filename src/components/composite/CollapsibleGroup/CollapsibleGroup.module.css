@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px;
+  padding: 0 0 0 12px;
   border-bottom: 1px solid var(--border-subtle);
   margin-bottom: 4px;
   width: 100%;
@@ -23,7 +23,12 @@
 }
 
 .header:hover {
-  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
+}
+
+.header:hover .label,
+.header:hover .count {
+  color: #fff;
 }
 
 .header:focus-visible {
@@ -72,17 +77,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 40px;
   color: #6b6b6d;
-  border-radius: 6px;
-  transition: all 0.15s ease;
+  transition: color 0.15s ease;
   flex-shrink: 0;
   margin-left: auto; /* Push toggle to far right */
 }
 
 .header:hover .toggle {
-  background: var(--surface-3);
   color: #fff;
 }
 

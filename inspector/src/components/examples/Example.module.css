@@ -44,3 +44,90 @@
   gap: 1rem;
   flex-wrap: wrap;
 }
+
+/* Drawer example styles */
+.drawerDemoContainer {
+  position: relative;
+  height: 250px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg-secondary);
+  overflow: hidden;
+  display: flex;
+}
+
+.drawerDemoContainerVertical {
+  flex-direction: column;
+}
+
+.drawerDemoContent {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.drawerDemoText {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+  text-align: center;
+}
+
+.drawerContent {
+  display: block;
+  padding: 8px 12px;
+  overflow: hidden;
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm, 13px);
+}
+
+.drawerContentText {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.drawerExampleRow {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.drawerExampleFlex {
+  flex: 1;
+}
+
+.featureList {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  padding-left: 1.25rem;
+  margin: 0;
+}
+
+.featureItem {
+  margin-bottom: 0.5rem;
+}
+
+.featureItem:last-child {
+  margin-bottom: 0;
+}
+
+.codeInline {
+  background: var(--color-bg-tertiary);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.descriptionText {
+  color: var(--color-text-secondary);
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.sectionMarginTop {
+  margin-top: 2rem;
+}

@@ -40,6 +40,12 @@ export type ButtonProps = (ButtonAsButton | ButtonAsSpan) & {
    */
   selected?: boolean;
   /**
+   * Custom background color for the selected state.
+   * Accepts any valid CSS color value.
+   * @default 'rgba(1, 244, 203, 0.15)'
+   */
+  selectedBgColor?: string;
+  /**
    * All possible content states the button might display.
    * When provided, the button will size itself to fit the largest state,
    * preventing layout shifts when content changes.
@@ -49,7 +55,7 @@ export type ButtonProps = (ButtonAsButton | ButtonAsSpan) & {
 
 export const Button = React.forwardRef<HTMLButtonElement | HTMLSpanElement, ButtonProps>(
   (
-    { variant = 'primary', size = 'md', rounded = 'md', textCase = 'none', iconOnly = false, icon, selected = false, className, as = 'button', contentStates, children, ...props },
+    { variant = 'primary', size = 'md', rounded = 'md', textCase = 'none', iconOnly = false, icon, selected = false, selectedBgColor, className, as = 'button', contentStates, children, ...props },
     ref
   ) => {
     const classNames = clsx(
@@ -63,6 +69,10 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLSpanElement, Butt
       contentStates && styles.stableSize,
       className
     );
+
+    const buttonStyle = selectedBgColor && selected
+      ? { '--button-selected-bg': selectedBgColor } as React.CSSProperties
+      : undefined;
 
     // Render content with measurement states if provided
     const content = contentStates ? (
@@ -94,6 +104,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLSpanElement, Butt
         <span
           ref={ref as React.Ref<HTMLSpanElement>}
           className={classNames}
+          style={buttonStyle}
           {...(props as React.HTMLAttributes<HTMLSpanElement>)}
         >
           {content}
@@ -105,6 +116,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLSpanElement, Butt
       <button
         ref={ref as React.Ref<HTMLButtonElement>}
         className={classNames}
+        style={buttonStyle}
         {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
       >
         {content}

@@ -175,11 +175,11 @@
 
 /* Selected state - accent highlight for active/toggled buttons */
 .selected {
-  background-color: rgba(1, 244, 203, 0.15);
+  background-color: var(--button-selected-bg, rgba(1, 244, 203, 0.15));
   color: var(--color-text-primary);
   border-color: var(--color-accent, #01f4cb);
 }
 
 .selected:hover:not(:disabled) {
-  background-color: rgba(1, 244, 203, 0.2);
+  background-color: var(--button-selected-bg-hover, rgba(1, 244, 203, 0.2));
 }

@@ -54,6 +54,7 @@
   color: var(--color-text-primary, #e6e8eb);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  border-bottom: none;
 }
 
 /* Menu Item */
@@ -81,12 +82,12 @@
 }
 
 .menuItem.selected {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.3);
   color: var(--color-accent, #01f4cb);
 }
 
 .menuItem.selected:hover:not(:disabled) {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.4);
   color: var(--color-accent, #01f4cb);
 }
 

@@ -161,7 +161,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  flex-shrink: 0;
+  min-width: 0;
   overflow: hidden;
   opacity: 1;
   transition: opacity 150ms ease-out;
@@ -173,79 +173,183 @@
 
 /* Always-visible toggle button */
 .toggle {
-  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 24px;
   height: 24px;
-  color: #6b6b6d;
-  background-color: var(--color-bg);
+  color: var(--color-text-secondary, #6b6b6d);
+  background-color: transparent;
   border: none;
   border-radius: 0;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease;
   user-select: none;
-  z-index: 11;
+  flex-shrink: 0;
 }
 
 .toggle:hover {
-  background: var(--surface-3, rgba(255, 255, 255, 0.1));
   color: var(--color-text-primary, #fff);
 }
 
-/* Toggle positioning for left drawer - top left */
-.toggleLeft {
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
+/* Toggle icon with rotation animation */
+.toggleIcon {
+  transition: transform 200ms ease-out;
 }
 
-/* Toggle positioning for right drawer - top right */
-.toggleRight {
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
+.toggleIconRotated {
+  transform: rotate(180deg);
 }
 
-/* Toggle positioning for top drawer - left side */
-.toggleTop {
-  left: 8px;
-  top: 50%;
-  transform: translateY(-50%);
+/* Single toggle panel - one element that expands/collapses */
+.togglePanel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  height: 100%;
+  background-color: var(--color-bg);
+  transition: width 200ms ease-out;
+  overflow: hidden;
 }
 
-/* Toggle positioning for bottom drawer - left side */
-.toggleBottom {
-  left: 8px;
-  top: 50%;
-  transform: translateY(-50%);
+.togglePanelResizing {
+  transition: none;
 }
 
-/* Toggle container when drawer is closed */
+.togglePanelLeft {
+  border-right: 1px solid var(--color-border);
+}
+
+.togglePanelRight {
+  border-left: 1px solid var(--color-border);
+}
+
+.togglePanelTransparent {
+  background-color: transparent;
+}
+
+.togglePanelTransparent.togglePanelLeft {
+  border-right: none;
+}
+
+.togglePanelTransparent.togglePanelRight {
+  border-left: none;
+}
+
+.togglePanelNoBorder.togglePanelLeft {
+  border-right: none;
+}
+
+.togglePanelNoBorder.togglePanelRight {
+  border-left: none;
+}
+
+/* Panel header - full width, contains chevron and title */
+.panelHeader {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-height: 40px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.panelHeaderRight {
+  flex-direction: row-reverse;
+}
+
+.panelHeaderNoBorder {
+  border-bottom: none;
+}
+
+/* Chevron button inside header */
+.panelToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 40px;
+  flex-shrink: 0;
+  color: var(--color-text-secondary, #6b6b6d);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s ease;
+  user-select: none;
+}
+
+.panelToggle:hover {
+  color: var(--color-text-primary, #fff);
+}
+
+/* Title in panel header */
+.panelTitle {
+  flex: 1;
+  padding-right: var(--space-3);
+  font-size: var(--text-sm, 13px);
+  font-weight: var(--font-medium, 500);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.panelHeaderRight .panelTitle {
+  padding-right: 0;
+  padding-left: var(--space-3);
+}
+
+.panelTitleHidden {
+  opacity: 0;
+}
+
+/* Content area within toggle panel - fills remaining space */
+.panelContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  opacity: 1;
+  transition: opacity 150ms ease-out;
+}
+
+.panelContentHidden {
+  opacity: 0;
+}
+
+/* Toggle strip - positioned at edge */
+.toggleStrip {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: var(--color-bg);
+  padding-top: 8px;
+  z-index: 1;
+}
+
+.toggleStripLeft {
+  width: 32px;
+  height: 100%;
+  border-right: 1px solid var(--color-border);
+}
+
+.toggleStripRight {
+  width: 32px;
+  height: 100%;
+  border-left: 1px solid var(--color-border);
+}
+
+/* Toggle container when drawer is closed (for top/bottom) */
 .toggleContainer {
   position: relative;
   display: flex;
   flex-shrink: 0;
   background-color: var(--color-bg);
-}
-
-.toggleContainerLeft {
-  width: 32px;
-  height: 100%;
-  border-right: 1px solid var(--color-border);
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 8px;
-}
-
-.toggleContainerRight {
-  width: 32px;
-  height: 100%;
-  border-left: 1px solid var(--color-border);
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 8px;
 }
 
 .toggleContainerTop {
@@ -266,30 +370,30 @@
   padding-left: 8px;
 }
 
-/* Toggle in container (when drawer is closed) - no absolute positioning needed */
-.toggleContainer .toggle {
-  position: relative;
-  top: auto;
-  left: auto;
-  transform: none;
-}
-
 /* Drawer header with title and toggle */
 .drawerHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: var(--space-2);
   padding: var(--space-2) var(--space-3);
   border-bottom: 1px solid var(--color-border);
   flex-shrink: 0;
+  min-height: 40px;
 }
 
 .drawerTitle {
+  flex: 1;
   font-size: var(--text-sm, 13px);
   font-weight: var(--font-medium, 500);
   color: var(--color-text-primary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+/* Drawer content section below header */
+.drawerContent {
+  flex: 1;
+  overflow: auto;
 }
 
 .headerToggle {
@@ -309,7 +413,6 @@
 }
 
 .headerToggle:hover {
-  background: rgba(255, 255, 255, 0.1);
   color: var(--color-text-primary, #fff);
 }
 
@@ -336,17 +439,19 @@
 
 .drawerTransparent .drawerHeader {
   background-color: transparent;
+  border-bottom: none;
 }
 
-.toggleContainerTransparent {
+.toggleContainerTransparent,
+.toggleStripTransparent {
   background-color: transparent;
 }
 
-.toggleContainerTransparent.toggleContainerLeft {
+.toggleStripTransparent.toggleStripLeft {
   border-right: none;
 }
 
-.toggleContainerTransparent.toggleContainerRight {
+.toggleStripTransparent.toggleStripRight {
   border-left: none;
 }
 
@@ -358,10 +463,39 @@
   border-top: none;
 }
 
-.toggleContainerTransparent .toggle {
-  background-color: transparent;
+/* No border variant */
+.drawerNoBorder.drawerLeft {
+  border-right: none;
 }
 
-.toggleContainerTransparent .toggle:hover {
-  background-color: transparent;
+.drawerNoBorder.drawerRight {
+  border-left: none;
+}
+
+.drawerNoBorder.drawerTop {
+  border-bottom: none;
+}
+
+.drawerNoBorder.drawerBottom {
+  border-top: none;
+}
+
+.toggleStripNoBorder.toggleStripLeft {
+  border-right: none;
+}
+
+.toggleStripNoBorder.toggleStripRight {
+  border-left: none;
+}
+
+.toggleContainerNoBorder.toggleContainerTop {
+  border-bottom: none;
+}
+
+.toggleContainerNoBorder.toggleContainerBottom {
+  border-top: none;
+}
+
+.drawerNoBorder .drawerHeader {
+  border-bottom: none;
 }
