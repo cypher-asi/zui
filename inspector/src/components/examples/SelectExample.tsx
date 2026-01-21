@@ -1,4 +1,3 @@
-// Source: zui/src/components/atomic/Select/Select.tsx
 import { Select, Heading } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 

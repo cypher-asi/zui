@@ -1,31 +1,6 @@
-/* Design Tokens - CSS Custom Properties */
+/* Design Tokens - Theme-Agnostic CSS Custom Properties */
+/* Color tokens are defined in themes.css */
 :root {
-  /* Colors - ultra dark theme */
-  --color-bg: #09090b;
-  --color-surface: #0e0e10;
-  --color-elevated: #131316;
-  --color-border: #17171a;
-  --color-border-light: #1f1f23;
-
-  --color-text-primary: #e6e8eb;
-  --color-text-secondary: #8b8b8d;
-  --color-text-muted: #6b7280;
-
-  --color-accent: #01f4cb;
-  --color-success: #01f4cb;
-  --color-warning: #01a4f4;
-  --color-error: #f4012a;
-  --color-danger: #f4012a;
-  --color-danger-bg: rgba(244, 1, 42, 0.1);
-  --color-danger-hover: #d9012a;
-  --color-pending: #cb01f4;
-  --color-provisioning: #01a4f4;
-
-  /* Neon accent colors */
-  --color-neon-cyan: #01f4cb;
-  --color-neon-green: #01f4cb;
-  --color-neon-purple: #cb01f4;
-
   /* Spacing scale */
   --space-1: 4px;
   --space-1-5: 6px;
@@ -37,16 +12,11 @@
   --space-8: 32px;
 
   /* Border radius */
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
-  --radius-full: 9999px;
-
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.4);
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-full: 0;
 
   /* Typography */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;

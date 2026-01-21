@@ -1,11 +1,11 @@
-import { Heading } from '@cypher-asi/zui';
+import { Heading, Text } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function headingExample() {
   return (
     <div className={styles.exampleGroup}>
       <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>Heading Levels</h3>
+        <Heading level={3} className={styles.exampleTitle}>Heading Levels</Heading>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <Heading level={1}>Heading Level 1</Heading>
           <Heading level={2}>Heading Level 2</Heading>
@@ -17,25 +17,25 @@ export function headingExample() {
       </div>
 
       <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>Usage Examples</h3>
+        <Heading level={3} className={styles.exampleTitle}>Usage Examples</Heading>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div>
             <Heading level={1}>Page Title</Heading>
-            <p style={{ color: 'var(--color-text-secondary)', marginTop: '0.5rem' }}>
+            <Text size="sm" variant="secondary" style={{ marginTop: '0.5rem', display: 'block' }}>
               Main page heading - use sparingly, typically once per page
-            </p>
+            </Text>
           </div>
           <div>
             <Heading level={2}>Section Heading</Heading>
-            <p style={{ color: 'var(--color-text-secondary)', marginTop: '0.5rem' }}>
+            <Text size="sm" variant="secondary" style={{ marginTop: '0.5rem', display: 'block' }}>
               For major sections within a page
-            </p>
+            </Text>
           </div>
           <div>
             <Heading level={3}>Subsection Heading</Heading>
-            <p style={{ color: 'var(--color-text-secondary)', marginTop: '0.5rem' }}>
+            <Text size="sm" variant="secondary" style={{ marginTop: '0.5rem', display: 'block' }}>
               For subsections and content groups
-            </p>
+            </Text>
           </div>
         </div>
       </div>

@@ -1,6 +1,5 @@
-// Source: zui/src/components/composite/Tabs/Tabs.tsx
 import { useState } from 'react';
-import { Tabs } from '@cypher-asi/zui/components/composite/Tabs/Tabs';
+import { Heading, Tabs } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function tabsExample() {
@@ -15,7 +14,7 @@ export function tabsExample() {
   return (
     <div className={styles.exampleGrid}>
       <div className={styles.exampleItem}>
-        <h3 className={styles.exampleTitle}>Tab Navigation</h3>
+        <Heading level={3} className={styles.exampleTitle}>Tab Navigation</Heading>
         <Tabs
           tabs={tabs}
           activeTab={activeTab}
@@ -23,11 +22,11 @@ export function tabsExample() {
         />
         <div style={{ 
           padding: '1.5rem', 
-          background: 'var(--bg-secondary)', 
+          background: 'var(--color-bg-secondary)', 
           borderRadius: '8px',
           marginTop: '1rem'
         }}>
-          <p style={{ color: 'var(--text-primary)' }}>
+          <p style={{ color: 'var(--color-text-primary)' }}>
             Content for <strong>{tabs.find(t => t.id === activeTab)?.label}</strong> tab
           </p>
         </div>

@@ -1,11 +1,11 @@
-import { Code } from '@cypher-asi/zui';
+import { Code, Heading } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function codeExample() {
   return (
     <div className={styles.exampleGroup}>
       <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>Default Variant</h3>
+        <Heading level={3} className={styles.exampleTitle}>Default Variant</Heading>
         <div className={styles.row} style={{ flexDirection: 'column', gap: '1rem', alignItems: 'flex-start' }}>
           <p>
             Use the <Code>npm install</Code> command to install dependencies for your project.
@@ -26,7 +26,7 @@ export function codeExample() {
       </div>
 
       <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>Accent Variant</h3>
+        <Heading level={3} className={styles.exampleTitle}>Accent Variant</Heading>
         <div className={styles.row} style={{ flexDirection: 'column', gap: '1rem', alignItems: 'flex-start' }}>
           <p>
             To start the development server, run <Code variant="accent">npm run dev</Code> in your terminal.
@@ -44,7 +44,7 @@ export function codeExample() {
       </div>
 
       <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>Common Use Cases</h3>
+        <Heading level={3} className={styles.exampleTitle}>Common Use Cases</Heading>
         <div className={styles.row} style={{ flexDirection: 'column', gap: '1rem', alignItems: 'flex-start' }}>
           <p>
             Commands and CLI instructions: <Code>npm install</Code>, <Code>git push</Code>

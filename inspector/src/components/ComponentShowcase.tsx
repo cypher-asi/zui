@@ -1,5 +1,5 @@
 import { Heading, Text, Code, Container } from '@cypher-asi/zui';
-import { ComponentInfo } from '../data/components';
+import { ComponentInfo } from '../data/componentRegistry';
 import { CodeBlock } from './CodeBlock';
 import * as Examples from './examples';
 import styles from './ComponentShowcase.module.css';
@@ -30,7 +30,6 @@ export function ComponentShowcase({ component }: ComponentShowcaseProps) {
     <div className={styles.showcase}>
       <header className={styles.header}>
         <Heading level={1} className={styles.title}>{component.name}</Heading>
-        <Text variant="secondary" size="sm" className={styles.category}>{component.category}</Text>
       </header>
 
       <section className={styles.section}>

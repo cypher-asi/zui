@@ -1,118 +1,154 @@
 // UI Components
 // ============================================================================
-// Atomic Components - Basic building blocks
+// Button Components
 // ============================================================================
-export { Button } from './atomic/Button';
-export type { ButtonProps, ButtonVariant, ButtonSize } from './atomic/Button';
-
-export { Input } from './atomic/Input';
-export type { InputProps, InputSize } from './atomic/Input';
-
-export { NavItem } from './atomic/NavItem';
-export type { NavItemProps } from './atomic/NavItem';
-
-export { NavList } from './atomic/NavList';
-export type { NavListProps } from './atomic/NavList';
-
-export { Textarea } from './atomic/Textarea';
-export type { TextareaProps, TextareaSize } from './atomic/Textarea';
-
-export { Select } from './atomic/Select';
-export type { SelectProps, SelectSize } from './atomic/Select';
-
-export { Toggle } from './atomic/Toggle';
-export type { ToggleProps, ToggleSize, ToggleVariant } from './atomic/Toggle';
-
-export { RadioButton } from './atomic/RadioButton';
-export type { RadioButtonProps, RadioButtonSize, RadioButtonVariant } from './atomic/RadioButton';
-
-export { Badge } from './atomic/Badge';
-export type { BadgeProps, BadgeVariant } from './atomic/Badge';
-
-export { Spinner } from './atomic/Spinner';
-export type { SpinnerProps } from './atomic/Spinner';
-
-export { Avatar } from './atomic/Avatar';
-export type { AvatarProps, AvatarSize } from './atomic/Avatar';
-
-export { Text } from './atomic/Text';
-export type { TextProps, TextVariant, TextSize, TextWeight } from './atomic/Text';
-
-export { Heading } from './atomic/Heading';
-export type { HeadingProps, HeadingLevel, HeadingVariant } from './atomic/Heading';
-
-export { Code } from './atomic/Code';
-export type { CodeProps, CodeVariant } from './atomic/Code';
-
-export { Container } from './atomic/Container';
-export type { ContainerProps } from './atomic/Container';
-
-export { WindowButton } from './atomic/WindowButton';
-export type { WindowButtonProps, WindowButtonAction } from './atomic/WindowButton';
-
-export { Panel } from './atomic/Panel';
-export type { PanelProps } from './atomic/Panel';
+export { Button, ButtonCollapsible, ButtonRadio, ButtonWindow, ButtonRefresh } from './Button';
+export type {
+  ButtonProps,
+  ButtonVariant,
+  ButtonSize,
+  ButtonRounded,
+  ButtonTextCase,
+  ButtonCollapsibleProps,
+  ButtonCollapsibleDirection,
+  ButtonRadioProps,
+  ButtonRadioSize,
+  ButtonRadioVariant,
+  ButtonWindowProps,
+  ButtonWindowAction,
+  ButtonWindowRounded,
+  ButtonRefreshProps,
+} from './Button';
 
 // ============================================================================
-// Composite Components - Complex components composed of atomic components
+// Form Components
 // ============================================================================
-export { Card } from './composite/Card';
-export type { CardProps } from './composite/Card';
+export { Input } from './Input';
+export type { InputProps, InputSize } from './Input';
 
-export { Menu } from './composite/Menu';
-export type { MenuProps, MenuItemProps, MenuVariant, MenuRounded } from './composite/Menu';
+export { Search } from './Search';
+export type { SearchProps, SearchSize } from './Search';
 
-export { Modal } from './composite/Modal';
-export type { ModalProps, ModalSize } from './composite/Modal';
+export { Textarea } from './Text';
+export type { TextareaProps, TextareaSize } from './Text';
 
-export { ConfirmModal } from './composite/ConfirmModal';
-export type { ConfirmModalProps } from './composite/ConfirmModal';
+export { Select } from './Select';
+export type { SelectProps, SelectSize } from './Select';
 
-export { PageLoader } from './composite/PageLoader';
-export type { PageLoaderProps } from './composite/PageLoader';
+export { Toggle } from './Toggle';
+export type { ToggleProps, ToggleSize, ToggleVariant } from './Toggle';
 
-export { Tabs } from './composite/Tabs';
-export type { TabsProps, Tab } from './composite/Tabs';
+// ============================================================================
+// Typography & Display Components
+// ============================================================================
+export { Text } from './Text';
+export type { TextProps, TextVariant, TextSize, TextWeight } from './Text';
 
-export { DropdownMenu } from './composite/DropdownMenu';
-export type { DropdownMenuProps, DropdownMenuItem } from './composite/DropdownMenu';
+export { Heading } from './Heading';
+export type { HeadingProps, HeadingLevel, HeadingVariant } from './Heading';
 
-export { RefreshButton } from './composite/RefreshButton';
-export type { RefreshButtonProps } from './composite/RefreshButton';
+export { Code, CodeBlock } from './Code';
+export type { CodeProps, CodeVariant, CodeBlockProps, CodeBlockLanguage } from './Code';
 
-export { Sidebar } from './composite/Sidebar';
-export type { SidebarProps } from './composite/Sidebar';
+export { Badge } from './Badge';
+export type { BadgeProps, BadgeVariant } from './Badge';
 
-export { PageHeader } from './composite/PageHeader';
-export type { PageHeaderProps } from './composite/PageHeader';
+export { Label } from './Label';
+export type { LabelProps, LabelVariant, LabelSize } from './Label';
 
-export { Page } from './composite/Page';
-export type { PageProps } from './composite/Page';
+export { Spinner } from './Spinner';
+export type { SpinnerProps } from './Spinner';
 
-export { PageList } from './composite/PageList';
-export type { PageListProps } from './composite/PageList';
+export { Avatar } from './Avatar';
+export type { AvatarProps, AvatarSize } from './Avatar';
 
-export { PageEmptyState } from './composite/PageEmptyState';
-export type { PageEmptyStateProps } from './composite/PageEmptyState';
+// ============================================================================
+// Layout Components
+// ============================================================================
+export { Container } from './Container';
+export type { ContainerProps } from './Container';
 
-export {
-  ItemCard,
-  ItemCardMeta,
-  ItemCardCode,
-  ItemCardBadge,
-  ItemCardTypeBadge,
-  ItemCardStatus,
-} from './composite/ItemCard';
-export type { ItemCardProps } from './composite/ItemCard';
+export { Panel } from './Panel';
+export type { PanelProps } from './Panel';
 
-export { CollapsibleGroup } from './composite/CollapsibleGroup';
-export type { CollapsibleGroupProps } from './composite/CollapsibleGroup';
+export { Card, CardItem, CardItemMeta, CardItemCode, CardItemBadge, CardItemTypeBadge, CardItemStatus } from './Card';
+export type { CardProps, CardItemProps } from './Card';
 
-export { Toasts } from './composite/Toasts';
-export type { Toast, ToastsProps } from './composite/Toasts';
+export { Group, GroupCollapsible } from './Group';
+export type { GroupProps, GroupCollapsibleProps } from './Group';
 
-export { Drawer } from './composite/Drawer';
-export type { DrawerProps, DrawerSide } from './composite/Drawer';
+export { Drawer } from './Drawer';
+export type { DrawerProps, DrawerSide } from './Drawer';
 
-export { CodeBlock } from './composite/CodeBlock';
-export type { CodeBlockProps, CodeBlockLanguage } from './composite/CodeBlock';
+export { Sidebar } from './Sidebar';
+export type { SidebarProps } from './Sidebar';
+
+export { Tabs } from './Tabs';
+export type { TabsProps, Tab } from './Tabs';
+
+// ============================================================================
+// Item Components (Unified composable item primitives)
+// ============================================================================
+export { Item, ItemListProvider, useItemListContext, useItemListContextOptional } from './Item';
+export { useItemDnd } from './Item';
+export { useItemKeyboard } from './Item';
+export { useItemSelection, getItemRange } from './Item';
+export type {
+  ItemProps,
+  ItemIconProps,
+  ItemLabelProps,
+  ItemChevronProps,
+  ItemActionProps,
+  ItemSpacerProps,
+  DropPosition,
+  DragStartHandler,
+  DropHandler,
+  ItemListContextValue,
+  ItemListProviderProps,
+  UseItemDndOptions,
+  UseItemDndReturn,
+  UseItemKeyboardOptions,
+  UseItemSelectionOptions,
+} from './Item';
+
+// ============================================================================
+// Navigation Components
+// ============================================================================
+export { Navigator } from './Navigator';
+export type { NavigatorProps, NavigatorItemProps } from './Navigator';
+
+export { Menu, MenuDropdown } from './Menu';
+export type { MenuProps, MenuItemProps, MenuVariant, MenuRounded, MenuBorder, MenuDropdownProps, MenuDropdownItem } from './Menu';
+
+export { Explorer } from './Explorer';
+export type { ExplorerProps, ExplorerNode } from './Explorer';
+
+// ============================================================================
+// Modal & Dialog Components
+// ============================================================================
+export { Modal, ModalConfirm } from './Modal';
+export type { ModalProps, ModalSize, ModalConfirmProps } from './Modal';
+
+// ============================================================================
+// Page Components
+// ============================================================================
+export { Page, PageEmptyState, PageHeader, PageList, PageLoader } from './Page';
+export type { PageProps, PageEmptyStateProps, PageHeaderProps, PageListProps, PageLoaderProps } from './Page';
+
+// ============================================================================
+// Feedback Components
+// ============================================================================
+export { Toasts } from './Toasts';
+export type { Toast, ToastsProps } from './Toasts';
+
+// ============================================================================
+// Theme Components
+// ============================================================================
+export { ThemeProvider, ThemeContext, ACCENT_COLORS, THEMES, useTheme, useSystemTheme } from './Theme';
+export type {
+  ThemeProviderProps,
+  Theme,
+  ResolvedTheme,
+  AccentColor,
+  ThemeContextValue,
+} from './Theme';

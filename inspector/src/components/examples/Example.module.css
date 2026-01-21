@@ -131,3 +131,55 @@
 .sectionMarginTop {
   margin-top: 2rem;
 }
+
+/* Card example styles */
+.cardTitle {
+  margin-bottom: 0.5rem;
+}
+
+.cardDescription {
+  margin-bottom: 1rem;
+}
+
+/* Container example styles */
+.containerDemo {
+  background: var(--color-bg-secondary);
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.containerDemoInner {
+  background: var(--color-bg-tertiary);
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+/* Explorer and general example description */
+.exampleDescription {
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* Section header text */
+.sectionHeaderText {
+  margin-left: 4px;
+}
+
+/* Small badge for CardItem example */
+.smallBadge {
+  display: inline-block;
+  padding: 2px 6px;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+/* Variant label for Panel example */
+.variantLabel {
+  font-size: 0.875rem;
+  color: white;
+}

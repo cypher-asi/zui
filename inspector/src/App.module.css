@@ -16,6 +16,14 @@
   margin: 0;
 }
 
+.sidebarContent {
+  padding: 0;
+}
+
+.explorer {
+  margin-top: 0.25rem;
+}
+
 .main {
   flex: 1;
   overflow-y: auto;

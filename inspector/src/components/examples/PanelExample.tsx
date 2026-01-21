@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { useState } from 'react';
 import { Heading, Panel, Text } from '@cypher-asi/zui';
 import styles from './Example.module.css';
@@ -17,7 +18,7 @@ export function panelExample() {
     <div className={styles.exampleGroup}>
       <div className={styles.section}>
         <Heading level={3} className={styles.sectionTitle}>Default: Glass + Future Border</Heading>
-        <Text variant="secondary" size="sm" style={{ marginBottom: '1rem' }}>
+        <Text variant="secondary" size="sm" className={styles.exampleDescription}>
           Matches the Menu component's glass variant with future border style
         </Text>
         <div style={{ 
@@ -36,7 +37,7 @@ export function panelExample() {
 
       <div className={styles.section}>
         <Heading level={3} className={styles.sectionTitle}>Background Variants</Heading>
-        <Text variant="secondary" size="sm" style={{ marginBottom: '1rem' }}>
+        <Text variant="secondary" size="sm" className={styles.exampleDescription}>
           Same variants as Menu: solid, transparent, and glass
         </Text>
         <div style={{ 
@@ -47,7 +48,7 @@ export function panelExample() {
         }}>
           <div className={styles.exampleGrid}>
             <div className={styles.exampleItem}>
-              <Text style={{ color: 'white' }} size="sm">variant="solid"</Text>
+              <span className={styles.variantLabel}>variant="solid"</span>
               <Panel variant="solid" border="solid">
                 <div style={demoContentStyle}>
                   <Text>Solid background</Text>
@@ -56,7 +57,7 @@ export function panelExample() {
             </div>
 
             <div className={styles.exampleItem}>
-              <Text style={{ color: 'white' }} size="sm">variant="glass"</Text>
+              <span className={styles.variantLabel}>variant="glass"</span>
               <Panel variant="glass" border="solid">
                 <div style={demoContentStyle}>
                   <Text>Glass background</Text>
@@ -65,7 +66,7 @@ export function panelExample() {
             </div>
 
             <div className={styles.exampleItem}>
-              <Text style={{ color: 'white' }} size="sm">variant="transparent"</Text>
+              <span className={styles.variantLabel}>variant="transparent"</span>
               <Panel variant="transparent" border="solid">
                 <div style={demoContentStyle}>
                   <Text>Transparent background</Text>
@@ -110,7 +111,7 @@ export function panelExample() {
 
       <div className={styles.section}>
         <Heading level={3} className={styles.sectionTitle}>Hover States (Open / Closed)</Heading>
-        <Text variant="secondary" size="sm" style={{ marginBottom: '1rem' }}>
+        <Text variant="secondary" size="sm" className={styles.exampleDescription}>
           Hover over panels to see different hover backgrounds. Click to toggle open/closed state.
           Matches Menu component hover behavior.
         </Text>
@@ -156,7 +157,7 @@ export function panelExample() {
 
       <div className={styles.section}>
         <Heading level={3} className={styles.sectionTitle}>Focused State</Heading>
-        <Text variant="secondary" size="sm" style={{ marginBottom: '0.5rem' }}>
+        <Text variant="secondary" size="sm" className={styles.exampleDescription}>
           Focus ring uses accent color glow
         </Text>
         <div style={{ maxWidth: '400px' }}>

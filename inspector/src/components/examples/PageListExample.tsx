@@ -1,7 +1,5 @@
-// Source: zui/src/components/composite/PageList/PageList.tsx
 import { useState } from 'react';
-import { PageList } from '@cypher-asi/zui/components/composite/PageList/PageList';
-import { ItemCard } from '@cypher-asi/zui/components/composite/ItemCard/ItemCard';
+import { CardItem, Heading, Input, PageList } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function pagelistExample() {
@@ -19,31 +17,36 @@ export function pagelistExample() {
 
   return (
     <div className={styles.exampleItem}>
-      <h3 className={styles.exampleTitle}>Page List with Search</h3>
+      <Heading level={3} className={styles.exampleTitle}>Page List</Heading>
       <div style={{ 
-        border: '1px solid var(--border)', 
+        border: '1px solid var(--color-border)', 
         borderRadius: '8px',
         overflow: 'hidden',
         maxHeight: '500px'
       }}>
-        <PageList
-          items={filteredItems}
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-          searchPlaceholder="Search items..."
-          emptyMessage="No items found"
-          renderItem={(item) => (
-            <ItemCard
-              key={item.id}
-              title={item.name}
-              onClick={() => alert(`Clicked ${item.name}`)}
-            >
-              <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
-                {item.description}
-              </p>
-            </ItemCard>
+        <div style={{ padding: '1rem', borderBottom: '1px solid var(--color-border)' }}>
+          <Input
+            placeholder="Search items..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+        <PageList>
+          {filteredItems.length > 0 ? (
+            filteredItems.map((item) => (
+              <CardItem
+                key={item.id}
+                title={item.name}
+                onClick={() => alert(`Clicked ${item.name}`)}
+                meta={<span style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)' }}>{item.description}</span>}
+              />
+            ))
+          ) : (
+            <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-text-secondary)' }}>
+              No items found
+            </div>
           )}
-        />
+        </PageList>
       </div>
     </div>
   );

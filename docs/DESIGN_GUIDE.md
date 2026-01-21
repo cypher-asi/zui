@@ -1,8 +1,8 @@
-# Machina Design Guide
+# ZUI Design Guide
 
 ## Philosophy
 
-Machina follows a **Cursor-inspired dark theme** with a monochromatic black and white aesthetic. The UI should feel professional, minimal, and technical—like a high-end developer tool.
+ZUI follows a **monochromatic dark theme** with a professional, minimal, and technical aesthetic. The UI should feel like a high-end developer tool—clean, focused, and distraction-free.
 
 ## Color Palette
 
@@ -25,19 +25,11 @@ Machina follows a **Cursor-inspired dark theme** with a monochromatic black and 
 ### Functional Colors (Use Sparingly)
 | Token | Value | Usage |
 |-------|-------|-------|
-| `--color-accent` | `#5e9eff` | Primary actions, links, focus states |
-| `--color-success` | `#4ade80` | Success states, online indicators |
-| `--color-warning` | `#facc15` | Warning states, caution indicators |
-| `--color-error` | `#f87171` | Error states, destructive actions |
-| `--color-pending` | `#a78bfa` | Pending/loading states |
-| `--color-provisioning` | `#5e9eff` | Provisioning states |
-
-### Accent Colors (Very Selective Use)
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--color-neon-cyan` | `#22d3ee` | Special highlights only |
-| `--color-neon-green` | `#4ade80` | Status indicators |
-| `--color-neon-purple` | `#a78bfa` | Dev/debug features only |
+| `--color-accent` | `#01a4f4` | Primary actions, links, focus states |
+| `--color-success` | `#01f4cb` | Success states, online indicators |
+| `--color-warning` | `#01a4f4` | Warning states, caution indicators |
+| `--color-error` | `#f4012a` | Error states, destructive actions |
+| `--color-pending` | `#cb01f4` | Pending/loading states |
 
 ## Color Usage Rules
 
@@ -108,6 +100,16 @@ box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
 | `--text-lg` | 16px | Section headers |
 | `--text-xl` | 18px | Page titles |
 
+## Spacing
+
+Use the spacing scale consistently:
+- `--space-1` (4px) - Tight spacing
+- `--space-2` (8px) - Small gaps
+- `--space-3` (12px) - Default gaps
+- `--space-4` (16px) - Medium spacing
+- `--space-6` (24px) - Large spacing
+- `--space-8` (32px) - Extra large spacing
+
 ## Animations
 
 Keep animations subtle and fast:
@@ -116,10 +118,18 @@ Keep animations subtle and fast:
 - `--transition-slow`: 300ms (modal/panel transitions)
 
 Avoid:
-- Rotating elements
+- Rotating elements (except spinners)
 - Pulsing glows
 - Complex multi-step animations
 - Colored animation effects
+
+## Accessibility
+
+- Maintain WCAG 2.1 AA contrast ratios
+- Use `:focus-visible` for keyboard navigation
+- Include ARIA labels for interactive elements
+- Support reduced motion preferences
+- Ensure touch targets are at least 44x44px
 
 ## Examples
 
@@ -140,5 +150,3 @@ Avoid:
   box-shadow: 0 0 30px rgba(251, 113, 133, 0.4);
 }
 ```
-
-

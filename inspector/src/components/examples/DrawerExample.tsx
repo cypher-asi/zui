@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Drawer } from '@cypher-asi/zui';
+import { Drawer, Heading, Text } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function drawerExample() {
@@ -13,7 +13,7 @@ export function drawerExample() {
       {/* Features */}
       <div className={styles.exampleGrid}>
         <div className={styles.exampleItem}>
-          <h3 className={styles.exampleTitle}>Features</h3>
+          <Heading level={3} className={styles.exampleTitle}>Features</Heading>
           <ul className={styles.featureList}>
             <li className={styles.featureItem}>
               <strong>Resizable:</strong> Drag the resize handle to adjust size
@@ -33,10 +33,10 @@ export function drawerExample() {
 
       {/* Left Side with Title */}
       <div className={styles.sectionMarginTop}>
-        <h3 className={styles.exampleTitle}>Left Side (side="left")</h3>
-        <p className={styles.descriptionText}>
-          Default background with <code className={styles.codeInline}>noBorder</code> and <code className={styles.codeInline}>showToggle</code>.
-        </p>
+        <Heading level={3} className={styles.exampleTitle}>Left Side (side="left")</Heading>
+        <Text size="sm" variant="secondary" className={styles.exampleDescription}>
+          Default background with border and <code className={styles.codeInline}>showToggle</code>.
+        </Text>
       </div>
 
       <div className={styles.drawerExampleRow}>
@@ -51,7 +51,6 @@ export function drawerExample() {
             minSize={120}
             maxSize={250}
             showToggle
-            noBorder
           >
             <div style={{ padding: '8px 12px' }}>Content here</div>
           </Drawer>
@@ -71,7 +70,6 @@ export function drawerExample() {
             minSize={120}
             maxSize={250}
             showToggle
-            noBorder
           >
             <div style={{ padding: '8px 12px' }}>Content here</div>
           </Drawer>
@@ -83,10 +81,10 @@ export function drawerExample() {
 
       {/* Right Side with Title */}
       <div className={styles.sectionMarginTop}>
-        <h3 className={styles.exampleTitle}>Right Side (side="right")</h3>
-        <p className={styles.descriptionText}>
+        <Heading level={3} className={styles.exampleTitle}>Right Side (side="right")</Heading>
+        <Text size="sm" variant="secondary" className={styles.exampleDescription}>
           Same configuration on the right side.
-        </p>
+        </Text>
       </div>
 
       <div className={styles.drawerExampleRow}>
@@ -104,7 +102,6 @@ export function drawerExample() {
             minSize={120}
             maxSize={250}
             showToggle
-            noBorder
           >
             <div style={{ padding: '8px 12px' }}>Content here</div>
           </Drawer>
@@ -124,7 +121,6 @@ export function drawerExample() {
             minSize={120}
             maxSize={250}
             showToggle
-            noBorder
           >
             <div style={{ padding: '8px 12px' }}>Content here</div>
           </Drawer>

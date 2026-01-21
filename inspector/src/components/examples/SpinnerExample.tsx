@@ -1,4 +1,3 @@
-// Source: zui/src/components/atomic/Spinner/Spinner.tsx
 import { Spinner, Heading, Text } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 

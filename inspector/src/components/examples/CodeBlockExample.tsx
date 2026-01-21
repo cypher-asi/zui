@@ -1,4 +1,4 @@
-import { CodeBlock } from '@cypher-asi/zui';
+import { CodeBlock, Heading } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function codeblockExample() {
@@ -80,27 +80,27 @@ npm test`;
   return (
     <div className={styles.exampleGroup}>
       <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>TSX/React Component</h3>
+        <Heading level={3} className={styles.exampleTitle}>TSX/React Component</Heading>
         <CodeBlock language="tsx" code={tsxCode} showLineNumbers />
       </div>
 
       <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>TypeScript with Line Numbers</h3>
+        <Heading level={3} className={styles.exampleTitle}>TypeScript with Line Numbers</Heading>
         <CodeBlock language="typescript" code={tsCode} showLineNumbers />
       </div>
 
       <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>JSON Configuration</h3>
+        <Heading level={3} className={styles.exampleTitle}>JSON Configuration</Heading>
         <CodeBlock language="json" code={jsonCode} />
       </div>
 
       <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>CSS Styling</h3>
+        <Heading level={3} className={styles.exampleTitle}>CSS Styling</Heading>
         <CodeBlock language="css" code={cssCode} />
       </div>
 
       <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>Bash Commands</h3>
+        <Heading level={3} className={styles.exampleTitle}>Bash Commands</Heading>
         <CodeBlock language="bash" code={bashCode} showLanguageLabel={false} />
       </div>
     </div>

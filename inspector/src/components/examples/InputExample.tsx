@@ -1,4 +1,3 @@
-// Source: zui/src/components/atomic/Input/Input.tsx
 import { useState } from 'react';
 import { Input, Heading } from '@cypher-asi/zui';
 import styles from './Example.module.css';

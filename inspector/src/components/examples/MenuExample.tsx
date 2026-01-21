@@ -1,4 +1,3 @@
-// Source: zui/src/components/composite/Menu/Menu.tsx
 import { useState } from 'react';
 import { Menu, Heading } from '@cypher-asi/zui';
 import { Home, Settings, User, LogOut, FileText, Folder } from 'lucide-react';

@@ -1,6 +1,5 @@
-// Source: zui/src/components/composite/Sidebar/Sidebar.tsx
 import { useState } from 'react';
-import { Sidebar, NavList, NavItem, Toggle, Button } from '@cypher-asi/zui';
+import { Button, Heading, Navigator, Sidebar, Text, Toggle } from '@cypher-asi/zui';
 import { Home, Settings, Users, FileText, Database } from 'lucide-react';
 import styles from './Example.module.css';
 
@@ -8,9 +7,19 @@ export function sidebarExample() {
   const [activeItem, setActiveItem] = useState('home');
   const [isResizable, setIsResizable] = useState(true);
 
+  const mainNavItems = [
+    { id: 'home', label: 'Home', icon: <Home size={16} /> },
+    { id: 'users', label: 'Users', icon: <Users size={16} /> },
+    { id: 'documents', label: 'Documents', icon: <FileText size={16} /> },
+  ];
+
+  const dataNavItems = [
+    { id: 'database', label: 'Database', icon: <Database size={16} /> },
+  ];
+
   return (
     <div className={styles.exampleItem}>
-      <h3 className={styles.exampleTitle}>Sidebar - Resizable Navigation</h3>
+      <Heading level={3} className={styles.exampleTitle}>Sidebar - Resizable Navigation</Heading>
       
       <div style={{ marginBottom: '1rem', padding: '0.75rem', background: 'var(--color-bg-secondary)', borderRadius: '8px' }}>
         <Toggle
@@ -18,11 +27,11 @@ export function sidebarExample() {
           onChange={(e) => setIsResizable(e.target.checked)}
           label="Enable Resizable"
         />
-        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem', marginTop: '0.5rem' }}>
+        <Text size="sm" variant="secondary" style={{ marginTop: '0.5rem', display: 'block' }}>
           {isResizable 
             ? 'Hover over the right edge of the sidebar and drag to resize. Width is persisted to localStorage.'
             : 'Sidebar has a fixed width when resizable is disabled.'}
-        </p>
+        </Text>
       </div>
 
       <div style={{ 
@@ -47,7 +56,7 @@ export function sidebarExample() {
           }
           footer={
             <div style={{ padding: '1rem', borderTop: '1px solid var(--color-border)' }}>
-              <Button variant="ghost" size="small" style={{ width: '100%' }}>
+              <Button variant="ghost" size="sm" style={{ width: '100%' }}>
                 <Settings size={16} style={{ marginRight: '0.5rem' }} />
                 Settings
               </Button>
@@ -65,26 +74,11 @@ export function sidebarExample() {
             }}>
               Main
             </div>
-            <NavList>
-              <NavItem
-                icon={<Home size={16} />}
-                label="Home"
-                active={activeItem === 'home'}
-                onClick={() => setActiveItem('home')}
-              />
-              <NavItem
-                icon={<Users size={16} />}
-                label="Users"
-                active={activeItem === 'users'}
-                onClick={() => setActiveItem('users')}
-              />
-              <NavItem
-                icon={<FileText size={16} />}
-                label="Documents"
-                active={activeItem === 'documents'}
-                onClick={() => setActiveItem('documents')}
-              />
-            </NavList>
+            <Navigator
+              items={mainNavItems}
+              value={activeItem}
+              onChange={setActiveItem}
+            />
 
             <div style={{ 
               padding: '0.5rem 0.75rem',
@@ -97,14 +91,11 @@ export function sidebarExample() {
             }}>
               Data
             </div>
-            <NavList>
-              <NavItem
-                icon={<Database size={16} />}
-                label="Database"
-                active={activeItem === 'database'}
-                onClick={() => setActiveItem('database')}
-              />
-            </NavList>
+            <Navigator
+              items={dataNavItems}
+              value={activeItem}
+              onChange={setActiveItem}
+            />
           </div>
         </Sidebar>
 

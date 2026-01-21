@@ -1,0 +1,39 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  flex-shrink: 0;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-overlay-focus);
+  outline-offset: -2px;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sm {
+  width: 28px;
+  height: 28px;
+}
+
+.md {
+  width: 36px;
+  height: 40px;
+}
+
+.icon {
+  transition: transform 0.2s ease;
+}
+
+.collapsed .icon {
+  transform: rotate(-90deg);
+}

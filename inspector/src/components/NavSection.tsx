@@ -1,6 +1,5 @@
-import { CollapsibleGroup, NavItem } from '@cypher-asi/zui';
-import { ComponentInfo } from '../data/components';
-import styles from './NavSection.module.css';
+import { GroupCollapsible, Item } from '@cypher-asi/zui';
+import { ComponentInfo } from '../data/componentRegistry';
 
 interface NavSectionProps {
   title: string;
@@ -11,15 +10,16 @@ interface NavSectionProps {
 
 export function NavSection({ title, items, activeId, onItemClick }: NavSectionProps) {
   return (
-    <CollapsibleGroup title={title} defaultOpen>
+    <GroupCollapsible title={title} defaultOpen>
       {items.map((item) => (
-        <NavItem
+        <Item
           key={item.id}
-          label={item.name}
           active={activeId === item.id}
           onClick={() => onItemClick(item.id)}
-        />
+        >
+          <Item.Label>{item.name}</Item.Label>
+        </Item>
       ))}
-    </CollapsibleGroup>
+    </GroupCollapsible>
   );
 }

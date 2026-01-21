@@ -1,6 +1,7 @@
 import { Highlight } from 'prism-react-renderer';
+import { useTheme } from '@cypher-asi/zui';
 import { getComponentSource } from '../data/componentSources';
-import { neonTheme } from '../styles/neon-theme';
+import { neonThemeDark, neonThemeLight } from '../styles/neon-theme';
 import styles from './CodeBlock.module.css';
 
 interface CodeBlockProps {
@@ -9,6 +10,10 @@ interface CodeBlockProps {
 
 export function CodeBlock({ componentId }: CodeBlockProps) {
   const code = getComponentSource(componentId);
+  const { resolvedTheme } = useTheme();
+  
+  // Select the appropriate syntax highlighting theme
+  const syntaxTheme = resolvedTheme === 'light' ? neonThemeLight : neonThemeDark;
 
   return (
     <div className={styles.codeBlock}>
@@ -16,7 +21,7 @@ export function CodeBlock({ componentId }: CodeBlockProps) {
         <span className={styles.languageLabel}>tsx</span>
       </div>
       <Highlight
-        theme={neonTheme}
+        theme={syntaxTheme}
         code={code}
         language="tsx"
       >

@@ -1,6 +1,5 @@
-// Source: zui/src/components/atomic/Button/Button.tsx
 import { useState } from 'react';
-import { Button, Heading } from '@cypher-asi/zui';
+import { Button, Heading, Text } from '@cypher-asi/zui';
 import { TerminalSquare, Download, Settings } from 'lucide-react';
 import styles from './Example.module.css';
 
@@ -80,9 +79,9 @@ export function buttonExample() {
 
       <div className={styles.exampleItem}>
         <Heading level={3} className={styles.exampleTitle}>Selected State</Heading>
-        <p style={{ color: 'var(--color-text-secondary)', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
+        <Text size="sm" variant="secondary" className={styles.exampleDescription}>
           Toggle button with selected state for tabs, menus, etc.
-        </p>
+        </Text>
         <Button 
           variant="transparent"
           size="sm"
@@ -95,9 +94,9 @@ export function buttonExample() {
 
       <div className={styles.exampleItem}>
         <Heading level={3} className={styles.exampleTitle}>Stable Size (No Jerk)</Heading>
-        <p style={{ color: 'var(--color-text-secondary)', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
+        <Text size="sm" variant="secondary" className={styles.exampleDescription}>
           Button maintains consistent size across text changes
-        </p>
+        </Text>
         <Button 
           size="sm"
           onClick={() => setIsLoading(!isLoading)}

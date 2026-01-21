@@ -1,6 +1,5 @@
-// Source: zui/src/components/atomic/NavItem/NavItem.tsx
 import { useState } from 'react';
-import { NavItem } from '@cypher-asi/zui';
+import { Heading, Item } from '@cypher-asi/zui';
 import { Home, Settings, Users, FileText, Database } from 'lucide-react';
 import styles from './Example.module.css';
 
@@ -17,22 +16,23 @@ export function navitemExample() {
 
   return (
     <div className={styles.exampleItem}>
-      <h3 className={styles.exampleTitle}>With Icons</h3>
+      <Heading level={3} className={styles.exampleTitle}>With Icons</Heading>
       <div style={{ 
-        border: '1px solid var(--border)', 
+        border: '1px solid var(--color-border)', 
         borderRadius: '8px',
         padding: '0.5rem',
-        background: 'var(--bg-primary)',
+        background: 'var(--color-bg-primary)',
         width: '240px'
       }}>
         {navItems.map((item) => (
-          <NavItem
+          <Item
             key={item.id}
-            icon={item.icon}
-            label={item.label}
             active={activeId === item.id}
             onClick={() => setActiveId(item.id)}
-          />
+          >
+            <Item.Icon>{item.icon}</Item.Icon>
+            <Item.Label>{item.label}</Item.Label>
+          </Item>
         ))}
       </div>
     </div>
@@ -51,21 +51,22 @@ export function navitemWithoutIconExample() {
 
   return (
     <div className={styles.exampleItem}>
-      <h3 className={styles.exampleTitle}>Without Icons</h3>
+      <Heading level={3} className={styles.exampleTitle}>Without Icons</Heading>
       <div style={{ 
-        border: '1px solid var(--border)', 
+        border: '1px solid var(--color-border)', 
         borderRadius: '8px',
         padding: '0.5rem',
-        background: 'var(--bg-primary)',
+        background: 'var(--color-bg-primary)',
         width: '240px'
       }}>
         {items.map((item) => (
-          <NavItem
+          <Item
             key={item.id}
-            label={item.label}
             active={activeId === item.id}
             onClick={() => setActiveId(item.id)}
-          />
+          >
+            <Item.Label>{item.label}</Item.Label>
+          </Item>
         ))}
       </div>
     </div>
@@ -75,30 +76,26 @@ export function navitemWithoutIconExample() {
 export function navitemStatesExample() {
   return (
     <div className={styles.exampleItem}>
-      <h3 className={styles.exampleTitle}>States</h3>
+      <Heading level={3} className={styles.exampleTitle}>States</Heading>
       <div style={{ 
-        border: '1px solid var(--border)', 
+        border: '1px solid var(--color-border)', 
         borderRadius: '8px',
         padding: '0.5rem',
-        background: 'var(--bg-primary)',
+        background: 'var(--color-bg-primary)',
         width: '240px'
       }}>
-        <NavItem
-          icon={<Home size={16} />}
-          label="Default State"
-          onClick={() => {}}
-        />
-        <NavItem
-          icon={<Settings size={16} />}
-          label="Active State"
-          active
-          onClick={() => {}}
-        />
-        <NavItem
-          icon={<Users size={16} />}
-          label="Hover Me"
-          onClick={() => {}}
-        />
+        <Item onClick={() => {}}>
+          <Item.Icon><Home size={16} /></Item.Icon>
+          <Item.Label>Default State</Item.Label>
+        </Item>
+        <Item active onClick={() => {}}>
+          <Item.Icon><Settings size={16} /></Item.Icon>
+          <Item.Label>Active State</Item.Label>
+        </Item>
+        <Item onClick={() => {}}>
+          <Item.Icon><Users size={16} /></Item.Icon>
+          <Item.Label>Hover Me</Item.Label>
+        </Item>
       </div>
     </div>
   );

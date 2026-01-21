@@ -1,11 +1,10 @@
-// Source: zui/src/components/atomic/Toggle/Toggle.tsx
 import { useState } from 'react';
 import { Toggle, Heading, Text } from '@cypher-asi/zui';
 import styles from './Example.module.css';
 
 export function toggleExample() {
   const [enabled, setEnabled] = useState(false);
-  const [successEnabled, setSuccessEnabled] = useState(true);
+  const [accentEnabled, setAccentEnabled] = useState(true);
 
   return (
     <div className={styles.exampleGrid}>
@@ -21,14 +20,14 @@ export function toggleExample() {
       </div>
 
       <div className={styles.exampleItem}>
-        <Heading level={3} className={styles.exampleTitle}>Success Variant</Heading>
+        <Heading level={3} className={styles.exampleTitle}>Accent Variant</Heading>
         <div className={styles.toggleContainer}>
           <Toggle
-            variant="success"
-            checked={successEnabled}
-            onChange={(e) => setSuccessEnabled(e.target.checked)}
+            variant="accent"
+            checked={accentEnabled}
+            onChange={(e) => setAccentEnabled(e.target.checked)}
           />
-          <Text variant="secondary" as="span">Success variant</Text>
+          <Text variant="secondary" as="span">Accent variant</Text>
         </div>
       </div>
 
@@ -37,6 +36,14 @@ export function toggleExample() {
         <div className={styles.toggleContainer}>
           <Toggle size="sm" defaultChecked />
           <Text variant="secondary" as="span">Small size</Text>
+        </div>
+      </div>
+
+      <div className={styles.exampleItem}>
+        <Heading level={3} className={styles.exampleTitle}>With Labels</Heading>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <Toggle label="Label on right" defaultChecked />
+          <Toggle label="Label on left" labelPosition="left" />
         </div>
       </div>
     </div>
