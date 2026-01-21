@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Menu, Heading } from '@cypher-asi/zui';
-import { Home, Settings, User, LogOut, FileText, Folder } from 'lucide-react';
+import type { MenuItem } from '@cypher-asi/zui';
+import { Home, Settings, User, LogOut, FileText, Folder, Grid, List, ArrowUpDown, RefreshCw, Plus, Undo, Eye, Monitor, Palette } from 'lucide-react';
 import styles from './Example.module.css';
 
 const menuItems = [
@@ -12,14 +13,69 @@ const menuItems = [
   { id: 'logout', label: 'Log Out', icon: <LogOut size={14} />, disabled: false },
 ];
 
+// Windows-style context menu with separators and submenus
+const contextMenuItems: MenuItem[] = [
+  { 
+    id: 'view', 
+    label: 'View', 
+    icon: <Eye size={14} />,
+    children: [
+      { id: 'view-large', label: 'Large icons', icon: <Grid size={14} /> },
+      { id: 'view-medium', label: 'Medium icons', icon: <Grid size={14} /> },
+      { id: 'view-small', label: 'Small icons', icon: <Grid size={14} /> },
+      { id: 'view-list', label: 'List', icon: <List size={14} /> },
+    ]
+  },
+  { 
+    id: 'sort', 
+    label: 'Sort by', 
+    icon: <ArrowUpDown size={14} />,
+    children: [
+      { id: 'sort-name', label: 'Name' },
+      { id: 'sort-date', label: 'Date modified' },
+      { id: 'sort-type', label: 'Type' },
+      { id: 'sort-size', label: 'Size' },
+    ]
+  },
+  { id: 'refresh', label: 'Refresh', icon: <RefreshCw size={14} /> },
+  { type: 'separator' },
+  { id: 'undo', label: 'Undo Rename', icon: <Undo size={14} />, disabled: true },
+  { 
+    id: 'new', 
+    label: 'New', 
+    icon: <Plus size={14} />,
+    children: [
+      { id: 'new-folder', label: 'Folder', icon: <Folder size={14} /> },
+      { id: 'new-file', label: 'Text Document', icon: <FileText size={14} /> },
+    ]
+  },
+  { type: 'separator' },
+  { id: 'display', label: 'Display settings', icon: <Monitor size={14} /> },
+  { id: 'personalize', label: 'Personalize', icon: <Palette size={14} /> },
+];
+
 export function menuExample() {
   const [selected1, setSelected1] = useState('home');
   const [selected2, setSelected2] = useState('files');
   const [selected3, setSelected3] = useState('settings');
   const [selected4, setSelected4] = useState('documents');
+  const [contextSelected, setContextSelected] = useState('');
 
   return (
     <div className={styles.exampleGrid}>
+      <div className={styles.exampleItem}>
+        <Heading level={3} className={styles.exampleTitle}>With Separators & Submenus</Heading>
+        <Menu
+          items={contextMenuItems}
+          value={contextSelected}
+          onChange={setContextSelected}
+          variant="solid"
+          border="solid"
+          rounded="md"
+          width={220}
+        />
+      </div>
+
       <div className={styles.exampleItem}>
         <Heading level={3} className={styles.exampleTitle}>Solid (Default)</Heading>
         <Menu

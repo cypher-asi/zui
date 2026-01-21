@@ -36,6 +36,18 @@ export function labelExample() {
       </div>
 
       <div className={styles.exampleItem}>
+        <Heading level={3} className={styles.exampleTitle}>With Border</Heading>
+        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+          <Label border variant="default">Default</Label>
+          <Label border variant="success">Running</Label>
+          <Label border variant="warning">Blocked</Label>
+          <Label border variant="danger">Zombie</Label>
+          <Label border variant="info">Pending</Label>
+          <Label border variant="muted">Draft</Label>
+        </div>
+      </div>
+
+      <div className={styles.exampleItem}>
         <Heading level={3} className={styles.exampleTitle}>Process States</Heading>
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
           <Label variant="success" size="xs">Running</Label>

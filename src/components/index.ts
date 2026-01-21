@@ -118,7 +118,7 @@ export { Navigator } from './Navigator';
 export type { NavigatorProps, NavigatorItemProps } from './Navigator';
 
 export { Menu, MenuDropdown } from './Menu';
-export type { MenuProps, MenuItemProps, MenuVariant, MenuRounded, MenuBorder, MenuDropdownProps, MenuDropdownItem } from './Menu';
+export type { MenuProps, MenuItemProps, MenuItem, MenuSeparator, MenuVariant, MenuRounded, MenuBorder, MenuDropdownProps, MenuDropdownItem } from './Menu';
 
 export { Explorer } from './Explorer';
 export type { ExplorerProps, ExplorerNode } from './Explorer';

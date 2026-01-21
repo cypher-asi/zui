@@ -1,5 +1,6 @@
-import { type ReactNode, useRef, useLayoutEffect, useState } from 'react';
+import { type ReactNode, useRef, useLayoutEffect, useState, useCallback } from 'react';
 import clsx from 'clsx';
+import { ChevronRight } from 'lucide-react';
 import { Item } from '../../Item';
 import styles from './Menu.module.css';
 
@@ -16,13 +17,28 @@ export interface MenuItemProps {
   icon?: ReactNode;
   /** Whether this item is disabled */
   disabled?: boolean;
+  /** Nested submenu items (creates a flyout submenu) */
+  children?: MenuItemProps[];
+}
+
+/** Separator to visually divide groups of menu items */
+export interface MenuSeparator {
+  type: 'separator';
+}
+
+/** Union type for all menu item types */
+export type MenuItem = MenuItemProps | MenuSeparator;
+
+/** Type guard to check if item is a separator */
+function isSeparator(item: MenuItem): item is MenuSeparator {
+  return 'type' in item && item.type === 'separator';
 }
 
 export interface MenuProps {
   /** Optional title displayed at the top of the menu */
   title?: string;
-  /** Array of menu items */
-  items: MenuItemProps[];
+  /** Array of menu items (including separators) */
+  items: MenuItem[];
   /** Currently selected item id */
   value?: string;
   /** Callback when selection changes */
@@ -65,7 +81,161 @@ export interface MenuProps {
    * Used for off-screen detection when menu appears.
    */
   isOpen?: boolean;
+  /**
+   * Internal: depth level for nested submenus
+   * @internal
+   */
+  _depth?: number;
 }
+
+// ============================================================================
+// MenuItem - Internal component for rendering a single menu item with submenu
+// ============================================================================
+
+interface MenuItemComponentProps {
+  item: MenuItemProps;
+  isSelected: boolean;
+  onSelect: ((id: string) => void) | undefined;
+  variant: MenuVariant;
+  rounded: MenuRounded;
+  border: MenuBorder;
+  depth: number;
+  isSubmenuOpen: boolean;
+  onSubmenuOpen: (id: string | null) => void;
+  closeTimeoutRef: React.MutableRefObject<ReturnType<typeof setTimeout> | null>;
+}
+
+function MenuItemComponent({
+  item,
+  isSelected,
+  onSelect,
+  variant,
+  rounded,
+  border,
+  depth,
+  isSubmenuOpen,
+  onSubmenuOpen,
+  closeTimeoutRef,
+}: MenuItemComponentProps) {
+  const [submenuPosition, setSubmenuPosition] = useState<'right' | 'left'>('right');
+  const itemRef = useRef<HTMLDivElement>(null);
+
+  const hasSubmenu = item.children && item.children.length > 0;
+
+  // Calculate submenu position based on available space
+  const updateSubmenuPosition = useCallback(() => {
+    if (itemRef.current && hasSubmenu) {
+      const rect = itemRef.current.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      const submenuWidth = 200; // Estimated submenu width
+      const padding = 8;
+
+      // If not enough space on the right, position on the left
+      if (rect.right + submenuWidth > viewportWidth - padding) {
+        setSubmenuPosition('left');
+      } else {
+        setSubmenuPosition('right');
+      }
+    }
+  }, [hasSubmenu]);
+
+  const handleMouseEnter = useCallback(() => {
+    // Clear any pending close timeout
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    
+    if (hasSubmenu && !item.disabled) {
+      updateSubmenuPosition();
+      onSubmenuOpen(item.id);
+    } else {
+      // Close any open submenu when hovering a non-submenu item
+      onSubmenuOpen(null);
+    }
+  }, [hasSubmenu, item.disabled, item.id, updateSubmenuPosition, onSubmenuOpen, closeTimeoutRef]);
+
+  const handleMouseLeave = useCallback(() => {
+    if (hasSubmenu && isSubmenuOpen) {
+      // Delay closing to allow moving to submenu
+      closeTimeoutRef.current = setTimeout(() => {
+        onSubmenuOpen(null);
+      }, 150);
+    }
+  }, [hasSubmenu, isSubmenuOpen, onSubmenuOpen, closeTimeoutRef]);
+
+  const handleClick = useCallback(() => {
+    if (!item.disabled && !hasSubmenu && onSelect) {
+      onSelect(item.id);
+    }
+  }, [item.disabled, item.id, hasSubmenu, onSelect]);
+
+  return (
+    <div
+      ref={itemRef}
+      className={styles.menuItemWrapper}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <Item
+        id={item.id}
+        className={clsx(
+          styles.menuItem,
+          isSelected && styles.selected,
+          item.disabled && styles.disabled,
+          hasSubmenu && styles.hasSubmenu,
+          isSubmenuOpen && styles.submenuOpen
+        )}
+        selected={isSelected}
+        disabled={item.disabled}
+        onClick={handleClick}
+        role="menuitem"
+        aria-haspopup={hasSubmenu ? 'menu' : undefined}
+        aria-expanded={hasSubmenu ? isSubmenuOpen : undefined}
+      >
+        {item.icon && <Item.Icon className={styles.icon}>{item.icon}</Item.Icon>}
+        <Item.Label className={styles.label}>{item.label}</Item.Label>
+        {hasSubmenu && (
+          <Item.Action className={styles.submenuArrow}>
+            <ChevronRight size={14} />
+          </Item.Action>
+        )}
+      </Item>
+
+      {/* Submenu */}
+      {hasSubmenu && isSubmenuOpen && (
+        <div
+          className={clsx(
+            styles.submenu,
+            submenuPosition === 'left' && styles.submenuLeft
+          )}
+          onMouseEnter={() => {
+            // Cancel close when entering submenu
+            if (closeTimeoutRef.current) {
+              clearTimeout(closeTimeoutRef.current);
+              closeTimeoutRef.current = null;
+            }
+          }}
+          onMouseLeave={handleMouseLeave}
+        >
+          <Menu
+            items={item.children!}
+            onChange={onSelect}
+            variant={variant}
+            rounded={rounded}
+            border={border}
+            _depth={depth + 1}
+            isOpen={isSubmenuOpen}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ============================================================================
+// Menu - Main component
+// ============================================================================
 
 export function Menu({
   title,
@@ -81,10 +251,15 @@ export function Menu({
   className,
   width,
   isOpen,
+  _depth = 0,
 }: MenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
   const [offsetY, setOffsetY] = useState(0);
   const [offsetX, setOffsetX] = useState(0);
+  
+  // Track which submenu is currently open (by item id)
+  const [openSubmenuId, setOpenSubmenuId] = useState<string | null>(null);
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Support both old and new prop names (old names are deprecated)
   const currentValue = value ?? selectedId;
@@ -94,8 +269,9 @@ export function Menu({
   const borderStyle = border ?? (bordered ? 'solid' : 'none');
 
   // Check if menu would go off-screen and adjust position (runs before paint)
+  // Only apply to root menu, submenus handle their own positioning
   useLayoutEffect(() => {
-    if (menuRef.current) {
+    if (_depth === 0 && menuRef.current) {
       const rect = menuRef.current.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       const viewportWidth = window.innerWidth;
@@ -117,13 +293,16 @@ export function Menu({
         setOffsetX(0);
       }
     }
-  }, [isOpen, items]);
-  
-  const handleItemClick = (item: MenuItemProps) => {
-    if (!item.disabled && handleChange) {
-      handleChange(item.id);
-    }
-  };
+  }, [isOpen, items, _depth]);
+
+  // Cleanup timeout on unmount
+  useLayoutEffect(() => {
+    return () => {
+      if (closeTimeoutRef.current) {
+        clearTimeout(closeTimeoutRef.current);
+      }
+    };
+  }, []);
 
   // Build border class - 'future' uses global class, others use CSS module
   const borderClass =
@@ -145,29 +324,30 @@ export function Menu({
       )}
       style={{ 
         width,
-        transform: (offsetX !== 0 || offsetY !== 0) ? `translate(${offsetX}px, ${offsetY}px)` : undefined,
+        transform: (_depth === 0 && (offsetX !== 0 || offsetY !== 0)) ? `translate(${offsetX}px, ${offsetY}px)` : undefined,
       }}
       role="menu"
     >
       {title && <div className={styles.title}>{title}</div>}
-      {items.map((item) => (
-        <Item
-          key={item.id}
-          id={item.id}
-          className={clsx(
-            styles.menuItem,
-            currentValue === item.id && styles.selected,
-            item.disabled && styles.disabled
-          )}
-          selected={currentValue === item.id}
-          disabled={item.disabled}
-          onClick={() => handleItemClick(item)}
-          role="menuitem"
-        >
-          {item.icon && <Item.Icon className={styles.icon}>{item.icon}</Item.Icon>}
-          <Item.Label className={styles.label}>{item.label}</Item.Label>
-        </Item>
-      ))}
+      {items.map((item, index) =>
+        isSeparator(item) ? (
+          <hr key={`separator-${index}`} className={styles.separator} />
+        ) : (
+          <MenuItemComponent
+            key={item.id}
+            item={item}
+            isSelected={currentValue === item.id}
+            onSelect={handleChange}
+            variant={variant}
+            rounded={rounded}
+            border={borderStyle}
+            depth={_depth}
+            isSubmenuOpen={openSubmenuId === item.id}
+            onSubmenuOpen={setOpenSubmenuId}
+            closeTimeoutRef={closeTimeoutRef}
+          />
+        )
+      )}
     </div>
   );
 }

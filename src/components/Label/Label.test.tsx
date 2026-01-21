@@ -94,6 +94,20 @@ describe('Label', () => {
     });
   });
 
+  describe('border', () => {
+    it('should not apply border class by default', () => {
+      render(<Label>No Border</Label>);
+      const label = screen.getByText('No Border');
+      expect(hasModuleClass(label, 'border')).toBe(false);
+    });
+
+    it('should apply border class when true', () => {
+      render(<Label border>With Border</Label>);
+      const label = screen.getByText('With Border');
+      expect(hasModuleClass(label, 'border')).toBe(true);
+    });
+  });
+
   describe('as prop', () => {
     it('should render as span by default', () => {
       render(<Label>Default Element</Label>);

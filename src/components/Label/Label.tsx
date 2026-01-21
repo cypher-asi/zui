@@ -16,6 +16,8 @@ export interface LabelProps extends HTMLAttributes<HTMLElement> {
   uppercase?: boolean;
   /** Use monospace font */
   mono?: boolean;
+  /** Show border */
+  border?: boolean;
   /** Element type to render as */
   as?: ElementType;
 }
@@ -26,6 +28,7 @@ export function Label({
   size = 'sm',
   uppercase = true,
   mono = false,
+  border = false,
   as: Component = 'span',
   className,
   ...props
@@ -38,6 +41,7 @@ export function Label({
         styles[size],
         uppercase && styles.uppercase,
         mono && styles.mono,
+        border && styles.border,
         className
       )}
       {...props}

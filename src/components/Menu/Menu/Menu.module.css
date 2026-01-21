@@ -2,8 +2,13 @@
 .menu {
   display: flex;
   flex-direction: column;
-  padding: var(--space-6, 24px) 0;
+  padding: var(--space-1-5, 6px) 0;
   min-width: 160px;
+}
+
+/* Menu Item Wrapper - for submenu positioning */
+.menuItemWrapper {
+  position: relative;
 }
 
 /* Variant styles */
@@ -103,4 +108,54 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* Separator - full bleed divider */
+.separator {
+  margin: var(--space-1-5, 6px) 0;
+  border: none;
+  border-top: 1px solid var(--color-border, #27272a);
+  width: 100%;
+}
+
+/* Submenu arrow */
+.submenuArrow {
+  margin-left: auto;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+}
+
+.menuItem:hover .submenuArrow {
+  opacity: 1;
+}
+
+/* Submenu item styling */
+.menuItem.hasSubmenu {
+  cursor: default;
+}
+
+.menuItem.submenuOpen {
+  background-color: color-mix(in srgb, var(--color-overlay-light) 50%, transparent);
+}
+
+/* Submenu container */
+.submenu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  z-index: var(--z-dropdown, 50);
+  margin-left: -2px;
+}
+
+.submenu .menu {
+  box-shadow: var(--shadow-lg, 0 10px 15px -3px rgb(0 0 0 / 0.3));
+}
+
+/* Submenu positioned to the left when no space on right */
+.submenuLeft {
+  left: auto;
+  right: 100%;
+  margin-left: 0;
+  margin-right: -2px;
 }
