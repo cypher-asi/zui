@@ -34,14 +34,26 @@ function isSeparator(item: MenuItem): item is MenuSeparator {
   return 'type' in item && item.type === 'separator';
 }
 
+/** Helper to check if an item id is in the selected value(s) */
+function isItemSelected(id: string, value: string | string[] | undefined): boolean {
+  if (!value) return false;
+  if (Array.isArray(value)) {
+    return value.includes(id);
+  }
+  return value === id;
+}
+
 export interface MenuProps {
   /** Optional title displayed at the top of the menu */
   title?: string;
   /** Array of menu items (including separators) */
   items: MenuItem[];
-  /** Currently selected item id */
-  value?: string;
-  /** Callback when selection changes */
+  /** 
+   * Currently selected item id(s). 
+   * Pass a string for single selection, or an array for multiple selections (e.g., one per submenu).
+   */
+  value?: string | string[];
+  /** Callback when selection changes (called with the id of the clicked item) */
   onChange?: (id: string) => void;
   /**
    * @deprecated Use `value` instead
@@ -95,6 +107,7 @@ export interface MenuProps {
 interface MenuItemComponentProps {
   item: MenuItemProps;
   isSelected: boolean;
+  currentValue: string | string[] | undefined;
   onSelect: ((id: string) => void) | undefined;
   variant: MenuVariant;
   rounded: MenuRounded;
@@ -108,6 +121,7 @@ interface MenuItemComponentProps {
 function MenuItemComponent({
   item,
   isSelected,
+  currentValue,
   onSelect,
   variant,
   rounded,
@@ -186,12 +200,12 @@ function MenuItemComponent({
           hasSubmenu && styles.hasSubmenu,
           isSubmenuOpen && styles.submenuOpen
         )}
-        selected={isSelected}
         disabled={item.disabled}
         onClick={handleClick}
         role="menuitem"
         aria-haspopup={hasSubmenu ? 'menu' : undefined}
         aria-expanded={hasSubmenu ? isSubmenuOpen : undefined}
+        aria-selected={isSelected}
       >
         {item.icon && <Item.Icon className={styles.icon}>{item.icon}</Item.Icon>}
         <Item.Label className={styles.label}>{item.label}</Item.Label>
@@ -220,6 +234,7 @@ function MenuItemComponent({
         >
           <Menu
             items={item.children!}
+            value={currentValue}
             onChange={onSelect}
             variant={variant}
             rounded={rounded}
@@ -336,7 +351,8 @@ export function Menu({
           <MenuItemComponent
             key={item.id}
             item={item}
-            isSelected={currentValue === item.id}
+            isSelected={isItemSelected(item.id, currentValue)}
+            currentValue={currentValue}
             onSelect={handleChange}
             variant={variant}
             rounded={rounded}

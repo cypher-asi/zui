@@ -14,12 +14,12 @@
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  color: #6b6b6d;
+  color: var(--color-text-muted);
   transition: color var(--transition-fast);
 }
 
 .wrapper:focus-within .iconWrapper {
-  color: var(--color-text-secondary, #8b8b8d);
+  color: var(--color-text-secondary);
 }
 
 .searchIcon {
@@ -45,7 +45,7 @@
 }
 
 .input::placeholder {
-  color: var(--color-text-muted, #6b6b6d);
+  color: var(--color-text-muted);
 }
 
 .input:hover {
@@ -113,7 +113,7 @@
   border: none;
   border-radius: var(--radius-sm);
   background: transparent;
-  color: var(--color-text-muted, #6b6b6d);
+  color: var(--color-text-muted);
   cursor: pointer;
   transition:
     color var(--transition-fast),

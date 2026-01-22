@@ -63,7 +63,7 @@
 .label {
   font-size: 13px;
   font-weight: 600;
-  color: #8b8b8d;
+  color: var(--color-text-secondary);
   line-height: 1.2; /* Ensure consistent line height for vertical centering */
   display: flex;
   align-items: center;
@@ -71,7 +71,7 @@
 
 .count {
   font-size: 11px;
-  color: #6b6b6d;
+  color: var(--color-text-muted);
   background-color: var(--surface-2);
   padding: 2px 8px;
   border-radius: 0;
@@ -86,12 +86,12 @@
   gap: 8px;
   margin-right: 12px; /* Align with child row stats (account for link icon gap) */
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--text-sm, 13px);
   font-weight: 500;
 }
 
 .toggle {
-  color: #6b6b6d;
+  color: var(--color-text-muted);
   transition: color 0.15s ease;
   margin-left: auto; /* Push toggle to far right */
 }

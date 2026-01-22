@@ -45,7 +45,7 @@
 /* Search highlight */
 .highlight {
   background: transparent;
-  color: var(--color-text-primary, #e6e8eb);
+  color: var(--color-text-primary);
 }
 
 /* Keyboard navigation focused state */
@@ -58,6 +58,6 @@
 .noResults {
   padding: 12px 8px;
   text-align: center;
-  color: var(--color-text-muted, #6b7280);
-  font-size: 12px;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm, 13px);
 }

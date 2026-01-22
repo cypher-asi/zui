@@ -19,7 +19,7 @@ ZUI follows a **monochromatic dark theme** with a professional, minimal, and tec
 | Token | Value | Usage |
 |-------|-------|-------|
 | `--color-text-primary` | `#e6e8eb` | Primary text, headings |
-| `--color-text-secondary` | `#8b8b8d` | Secondary text, labels |
+| `--color-text-secondary` | `#CCCCCC` | Secondary text, labels |
 | `--color-text-muted` | `#6b7280` | Muted text, placeholders, hints |
 
 ### Functional Colors (Use Sparingly)
@@ -94,8 +94,8 @@ box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
 | Token | Value | Usage |
 |-------|-------|-------|
 | `--text-2xs` | 10px | Badges, tiny labels |
-| `--text-xs` | 12px | Labels, captions |
-| `--text-sm` | 13px | Body text, inputs |
+| `--text-xs` | 12px | Compact UI, secondary captions |
+| `--text-sm` | 13px | Body text, inputs, labels, captions, items |
 | `--text-base` | 14px | Default text |
 | `--text-lg` | 16px | Section headers |
 | `--text-xl` | 18px | Page titles |
