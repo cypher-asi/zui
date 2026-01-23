@@ -68,8 +68,8 @@ export type { AvatarProps, AvatarSize } from './Avatar';
 export { Container } from './Container';
 export type { ContainerProps } from './Container';
 
-export { Panel } from './Panel';
-export type { PanelProps } from './Panel';
+export { Panel, PanelDrill } from './Panel';
+export type { PanelProps, PanelDrillProps, PanelDrillItem } from './Panel';
 
 export { Card, CardItem, CardItemMeta, CardItemCode, CardItemBadge, CardItemTypeBadge, CardItemStatus } from './Card';
 export type { CardProps, CardItemProps } from './Card';
@@ -114,6 +114,9 @@ export type {
 // ============================================================================
 // Navigation Components
 // ============================================================================
+export { Breadcrumb } from './Breadcrumb';
+export type { BreadcrumbProps, BreadcrumbItem } from './Breadcrumb';
+
 export { Navigator } from './Navigator';
 export type { NavigatorProps, NavigatorItemProps } from './Navigator';
 

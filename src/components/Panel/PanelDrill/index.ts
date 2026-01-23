@@ -1,5 +1,2 @@
-export { Panel } from './Panel';
-export type { PanelProps } from './Panel';
-
 export { PanelDrill } from './PanelDrill';
 export type { PanelDrillProps, PanelDrillItem } from './PanelDrill';

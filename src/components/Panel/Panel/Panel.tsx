@@ -2,7 +2,7 @@ import type { ReactNode, CSSProperties, ForwardedRef } from 'react';
 import { forwardRef, useState, useContext } from 'react';
 import clsx from 'clsx';
 import styles from './Panel.module.css';
-import { ThemeContext } from '../Theme/ThemeContext';
+import { ThemeContext } from '../../Theme/ThemeContext';
 
 type BorderType = 'none' | 'solid' | 'future';
 type BorderRadius = 'none' | 'sm' | 'md' | 'lg' | number;
