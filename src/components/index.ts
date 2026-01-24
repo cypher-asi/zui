@@ -2,7 +2,7 @@
 // ============================================================================
 // Button Components
 // ============================================================================
-export { Button, ButtonCollapsible, ButtonRadio, ButtonWindow, ButtonRefresh } from './Button';
+export { Button, ButtonCollapsible, ButtonRadio, ButtonWindow, ButtonRefresh, ButtonMore, ButtonPlus } from './Button';
 export type {
   ButtonProps,
   ButtonVariant,
@@ -18,6 +18,10 @@ export type {
   ButtonWindowAction,
   ButtonWindowRounded,
   ButtonRefreshProps,
+  ButtonMoreProps,
+  ButtonMoreIcon,
+  ButtonMoreAlign,
+  ButtonPlusProps,
 } from './Button';
 
 // ============================================================================
@@ -123,8 +127,8 @@ export type { BreadcrumbProps, BreadcrumbItem } from './Breadcrumb';
 export { Navigator } from './Navigator';
 export type { NavigatorProps, NavigatorItemProps } from './Navigator';
 
-export { Menu, MenuDropdown } from './Menu';
-export type { MenuProps, MenuItemProps, MenuItem, MenuSeparator, MenuBackground, MenuVariant, MenuRounded, MenuBorder, MenuDropdownProps, MenuDropdownItem } from './Menu';
+export { Menu, MenuDropdown, MenuMega } from './Menu';
+export type { MenuProps, MenuItemProps, MenuItem, MenuSeparator, MenuBackground, MenuVariant, MenuRounded, MenuBorder, MenuDropdownProps, MenuDropdownItem, MenuMegaProps, MenuMegaItemProps, MenuMegaColumnProps } from './Menu';
 
 export { Explorer } from './Explorer';
 export type { ExplorerProps, ExplorerNode } from './Explorer';

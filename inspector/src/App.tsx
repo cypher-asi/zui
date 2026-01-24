@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
-import { Explorer, Sidebar, Topbar, ThemePanel } from '@cypher-asi/zui';
-import type { ExplorerNode } from '@cypher-asi/zui';
+import { useState, useEffect, useRef } from 'react';
+import { Explorer, Sidebar, Topbar, ThemePanel, MenuMega, Button } from '@cypher-asi/zui';
+import type { ExplorerNode, MenuMegaColumnProps } from '@cypher-asi/zui';
+import { Code, Package, Book, Headphones, Zap, Shield, Settings, Users, FileText, BarChart, ChevronDown } from 'lucide-react';
 import { components } from './data/componentRegistry';
 import type { ComponentInfo } from './data/componentRegistry';
 import { ComponentShowcase } from './components/ComponentShowcase';
@@ -12,6 +13,113 @@ import styles from './App.module.css';
 import './data/validateRegistry';
 
 const STORAGE_KEY = 'zui-inspector-selected-item';
+
+// ============================================================================
+// Mega Menu Data for Topbar Navigation Demo
+// ============================================================================
+
+const productsMegaMenu: MenuMegaColumnProps[] = [
+  {
+    title: 'Products',
+    items: [
+      { id: 'api', icon: <Code size={18} />, label: 'API', description: 'Build integrations with our REST API' },
+      { id: 'sdk', icon: <Package size={18} />, label: 'SDK', description: 'Native libraries for popular languages' },
+      { id: 'webhooks', icon: <Zap size={18} />, label: 'Webhooks', description: 'Real-time event notifications' },
+    ],
+  },
+  {
+    title: 'Resources',
+    items: [
+      { id: 'docs', icon: <Book size={18} />, label: 'Documentation', description: 'Guides and API references' },
+      { id: 'support', icon: <Headphones size={18} />, label: 'Support', description: 'Get help from our team' },
+      { id: 'security', icon: <Shield size={18} />, label: 'Security', description: 'Learn about our security practices' },
+    ],
+  },
+];
+
+const accountMegaMenu: MenuMegaColumnProps[] = [
+  {
+    title: 'Account',
+    items: [
+      { id: 'settings', icon: <Settings size={18} />, label: 'Settings', description: 'Manage your account preferences' },
+      { id: 'team', icon: <Users size={18} />, label: 'Team', description: 'Invite members and manage permissions' },
+      { id: 'billing', icon: <FileText size={18} />, label: 'Billing', description: 'View invoices and payment methods' },
+      { id: 'usage', icon: <BarChart size={18} />, label: 'Usage', description: 'Monitor resource consumption' },
+    ],
+  },
+];
+
+// ============================================================================
+// TopbarNavItem - Navigation item that opens a mega menu
+// ============================================================================
+
+interface TopbarNavItemProps {
+  label: string;
+  columns: MenuMegaColumnProps[];
+  width?: number;
+}
+
+function TopbarNavItem({ label, columns, width = 480 }: TopbarNavItemProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selected, setSelected] = useState<string>('');
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Close on click outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [isOpen]);
+
+  // Close on Escape key
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+      }
+    }
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      return () => document.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [isOpen]);
+
+  return (
+    <div ref={containerRef} className={styles.topbarNavItem}>
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => setIsOpen(!isOpen)}
+        className={isOpen ? styles.topbarNavButtonActive : undefined}
+      >
+        {label}
+        <ChevronDown size={14} className={isOpen ? styles.chevronOpen : undefined} />
+      </Button>
+      {isOpen && (
+        <div className={styles.megaMenuDropdown}>
+          <MenuMega
+            columns={columns}
+            value={selected}
+            onChange={(id) => {
+              setSelected(id);
+              setIsOpen(false);
+            }}
+            background="solid"
+            border="solid"
+            rounded="md"
+            width={width}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
 
 const buildExplorerTree = (items: ComponentInfo[]) => {
   const nodes: ExplorerNode[] = [];
@@ -127,7 +235,18 @@ function App() {
 
   return (
     <div className={styles.app}>
-      <Topbar title={<>ZUI <span className={styles.inspectorTitle}>Inspector</span></>} actions={<ThemePanel />} />
+      <Topbar
+        title={
+          <div className={styles.topbarContent}>
+            <span>ZUI <span className={styles.inspectorTitle}>Inspector</span></span>
+            <nav className={styles.topbarNav}>
+              <TopbarNavItem label="Products" columns={productsMegaMenu} width={480} />
+              <TopbarNavItem label="Account" columns={accountMegaMenu} width={280} />
+            </nav>
+          </div>
+        }
+        actions={<ThemePanel />}
+      />
       <div className={styles.body}>
         <Sidebar
           resizable

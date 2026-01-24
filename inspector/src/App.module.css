@@ -29,3 +29,37 @@
 .inspectorTitle {
   color: var(--color-text-secondary);
 }
+
+/* Topbar navigation for mega menu demo */
+.topbarContent {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.topbarNav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.topbarNavItem {
+  position: relative;
+}
+
+.topbarNavButtonActive {
+  background-color: var(--color-overlay-light);
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.megaMenuDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: var(--space-2);
+  z-index: var(--z-dropdown, 50);
+  box-shadow: var(--shadow-lg, 0 10px 15px -3px rgb(0 0 0 / 0.3));
+}

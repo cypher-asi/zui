@@ -12,3 +12,9 @@ export type { ButtonWindowProps, ButtonWindowAction, ButtonWindowRounded } from 
 
 export { ButtonRefresh } from './ButtonRefresh';
 export type { ButtonRefreshProps } from './ButtonRefresh';
+
+export { ButtonPlus } from './ButtonPlus';
+export type { ButtonPlusProps } from './ButtonPlus';
+
+export { ButtonMore } from './ButtonMore';
+export type { ButtonMoreProps, ButtonMoreIcon, ButtonMoreAlign } from './ButtonMore';

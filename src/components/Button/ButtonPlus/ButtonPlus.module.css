@@ -1,0 +1,11 @@
+.buttonPlus {
+  transition: transform var(--transition-fast);
+}
+
+.buttonPlus:hover:not(:disabled) {
+  transform: scale(1.1);
+}
+
+.buttonPlus:active:not(:disabled) {
+  transform: scale(0.95);
+}

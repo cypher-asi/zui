@@ -20,6 +20,14 @@
   box-shadow: var(--shadow-lg);
 }
 
+/* Portal-based dropdown uses fixed positioning */
+.dropdownPortal {
+  position: fixed;
+  top: auto;
+  right: auto;
+  margin-top: 0;
+}
+
 .dropdownLeft {
   right: auto;
   left: 0;

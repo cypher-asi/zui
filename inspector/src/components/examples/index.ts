@@ -5,6 +5,7 @@ export { buttonExample } from './ButtonExample';
 export { buttoncollapsibleExample } from './ButtonCollapsibleExample';
 export { buttonradioExample } from './ButtonRadioExample';
 export { buttonwindowExample } from './ButtonWindowExample';
+export { buttonmoreExample } from './ButtonMoreExample';
 export { codeExample } from './CodeExample';
 export { containerExample } from './ContainerExample';
 export { headingExample } from './HeadingExample';
@@ -24,6 +25,7 @@ export { itemExample } from './ItemExample';
 
 // Composite Components
 export { buttonrefreshExample } from './ButtonRefreshExample';
+export { buttonplusExample } from './ButtonPlusExample';
 export { cardExample } from './CardExample';
 export { carditemExample } from './CardItemExample';
 export { codeblockExample } from './CodeBlockExample';
@@ -33,6 +35,7 @@ export { groupExample } from './GroupExample';
 export { groupcollapsibleExample } from './GroupCollapsibleExample';
 export { menuExample } from './MenuExample';
 export { menudropdownExample } from './MenuDropdownExample';
+export { menumegaExample } from './MenuMegaExample';
 export { modalExample } from './ModalExample';
 export { modalconfirmExample } from './ModalConfirmExample';
 export { pageExample } from './PageExample';

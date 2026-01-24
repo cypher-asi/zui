@@ -16,6 +16,7 @@ export const componentDescriptions: Record<string, string> = {
   'button-collapsible': 'Chevron toggle button for expand/collapse interactions with direction support.',
   'button-radio': 'Radio button component for selecting a single option from a group.',
   'button-window': 'Icon buttons for window controls: minimize, maximize, and close.',
+  'button-more': 'Icon button that opens a dropdown menu for additional actions.',
   'code': 'Inline code snippets with monospace font styling for displaying code within text.',
   'heading': 'Semantic heading component with different levels (h1-h6) and styling options.',
   'input': 'Text input field with size variants and optional monospace font for code or data entry.',
@@ -34,6 +35,7 @@ export const componentDescriptions: Record<string, string> = {
   
   // Composite Components
   'button-refresh': 'Button with refresh icon and loading state for triggering data refreshes.',
+  'button-plus': 'Plus icon button for triggering add/create actions.',
   'card': 'Content container with border and background for grouping related information.',
   'card-item': 'Card for displaying list items with metadata, badges, and action buttons.',
   'code-block': 'Syntax-highlighted code block component for displaying multi-line code.',
@@ -43,6 +45,7 @@ export const componentDescriptions: Record<string, string> = {
   'explorer': 'Tree component for hierarchical data with expand/collapse, multi-selection, and drag & drop.',
   'menu': 'Navigation menu with selectable items, supporting solid, glass, and transparent backgrounds.',
   'menu-dropdown': 'Dropdown menu with items for contextual actions and commands.',
+  'menu-mega': 'Mega menu panel with rich items (icon, name, description) arranged in multi-column layouts.',
   'modal': 'Dialog overlay for displaying content above the main page with backdrop and animations.',
   'modal-confirm': 'Confirmation dialog with customizable actions for destructive or important operations.',
   'page': 'Full page layout structure with consistent spacing and styling.',
@@ -70,7 +73,7 @@ export const groupDescriptions: Record<string, string> = {
   'code': 'Code display components for showing source code. Includes inline code snippets and syntax-highlighted code blocks.',
   'group': 'Grouping components for organizing related content. Includes static group headers and collapsible sections.',
   'item': 'Composable item components for building navigation, trees, and menus. Provides a unified API with subcomponents for icons, labels, chevrons, and actions.',
-  'menu': 'Menu components for navigation and actions. Includes standard navigation menus and dropdown menus for contextual commands.',
+  'menu': 'Menu components for navigation and actions. Includes standard navigation menus, dropdown menus for contextual commands, and mega menus for rich multi-column layouts.',
   'modal': 'Modal dialog components for overlaying content. Includes general-purpose modals and confirmation dialogs for important actions.',
   'page': 'Page layout components for structuring application views. Includes page containers, headers, loaders, empty states, and list displays.',
   'text': 'Text components for displaying content. Includes headings, body text, and textarea inputs.',

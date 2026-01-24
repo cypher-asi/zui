@@ -3,3 +3,6 @@ export type { MenuProps, MenuItemProps, MenuItem, MenuSeparator, MenuBackground,
 
 export { MenuDropdown } from './MenuDropdown';
 export type { MenuDropdownProps, MenuDropdownItem } from './MenuDropdown';
+
+export { MenuMega } from './MenuMega';
+export type { MenuMegaProps, MenuMegaItemProps, MenuMegaColumnProps } from './MenuMega';
