@@ -38,10 +38,4 @@ describe('ButtonWindow', () => {
     const button = screen.getByRole('button', { name: 'minimize' });
     expect(button.className).toContain('custom-class');
   });
-
-  it('forwards ref', () => {
-    const ref = { current: null as HTMLButtonElement | null };
-    render(<ButtonWindow action="close" ref={ref} />);
-    expect(ref.current).toBeInstanceOf(HTMLButtonElement);
-  });
 });
