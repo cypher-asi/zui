@@ -83,6 +83,9 @@ export type { DrawerProps, DrawerSide } from './Drawer';
 export { Sidebar } from './Sidebar';
 export type { SidebarProps } from './Sidebar';
 
+export { Topbar } from './Topbar';
+export type { TopbarProps } from './Topbar';
+
 export { Tabs } from './Tabs';
 export type { TabsProps, Tab } from './Tabs';
 
@@ -121,7 +124,7 @@ export { Navigator } from './Navigator';
 export type { NavigatorProps, NavigatorItemProps } from './Navigator';
 
 export { Menu, MenuDropdown } from './Menu';
-export type { MenuProps, MenuItemProps, MenuItem, MenuSeparator, MenuVariant, MenuRounded, MenuBorder, MenuDropdownProps, MenuDropdownItem } from './Menu';
+export type { MenuProps, MenuItemProps, MenuItem, MenuSeparator, MenuBackground, MenuVariant, MenuRounded, MenuBorder, MenuDropdownProps, MenuDropdownItem } from './Menu';
 
 export { Explorer } from './Explorer';
 export type { ExplorerProps, ExplorerNode } from './Explorer';
@@ -155,3 +158,6 @@ export type {
   AccentColor,
   ThemeContextValue,
 } from './Theme';
+
+export { ThemePanel } from './ThemePanel';
+export type { ThemePanelProps } from './ThemePanel';

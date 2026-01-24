@@ -1,6 +1,6 @@
 .spinner {
-  width: 24px;
-  height: 24px;
+  width: var(--icon-xl);
+  height: var(--icon-xl);
   border: 2px solid var(--color-border);
   border-top-color: var(--color-accent);
   border-radius: 50%;
@@ -8,8 +8,8 @@
 }
 
 .spinnerSm {
-  width: 16px;
-  height: 16px;
+  width: var(--icon-md);
+  height: var(--icon-md);
   border-width: 1.5px;
 }
 

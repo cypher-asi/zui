@@ -1,5 +1,5 @@
 import type { ReactNode, ForwardedRef } from 'react';
-import { forwardRef, useMemo, useRef, useEffect, useState } from 'react';
+import { forwardRef, useMemo } from 'react';
 import clsx from 'clsx';
 import { Panel } from '../Panel';
 import type { PanelProps } from '../Panel';
@@ -67,40 +67,14 @@ export const PanelDrill = forwardRef(function PanelDrill(
   }: PanelDrillProps,
   ref: ForwardedRef<HTMLDivElement>
 ) {
-  const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
-  const [isAnimating, setIsAnimating] = useState(false);
-  const prevStackLengthRef = useRef(stack.length);
-
-  // Determine animation direction based on stack length changes
-  useEffect(() => {
-    if (stack.length > prevStackLengthRef.current) {
-      setDirection('forward');
-      setIsAnimating(true);
-    } else if (stack.length < prevStackLengthRef.current) {
-      setDirection('backward');
-      setIsAnimating(true);
-    }
-    prevStackLengthRef.current = stack.length;
-
-    // Reset animation state after animation completes
-    const timer = setTimeout(() => {
-      setIsAnimating(false);
-    }, 200); // Match CSS transition duration
-
-    return () => clearTimeout(timer);
-  }, [stack.length]);
-
   // Convert stack to breadcrumb items
   const breadcrumbItems: BreadcrumbItem[] = useMemo(
     () => stack.map(({ id, label }) => ({ id, label })),
     [stack]
   );
 
-  // Get the active (last) panel in the stack
-  const activePanel = stack[stack.length - 1];
-
-  // Show breadcrumb only when there are multiple items in the stack
-  const shouldShowBreadcrumb = showBreadcrumb && stack.length > 1;
+  // Show breadcrumb when enabled (even with single item for consistent UI)
+  const shouldShowBreadcrumb = showBreadcrumb;
 
   if (stack.length === 0) {
     return (
@@ -122,15 +96,22 @@ export const PanelDrill = forwardRef(function PanelDrill(
           />
         </div>
       )}
-      <div
-        className={clsx(
-          styles.content,
-          isAnimating && direction === 'forward' && styles.slideInRight,
-          isAnimating && direction === 'backward' && styles.slideInLeft
-        )}
-        key={activePanel.id}
-      >
-        {activePanel.content}
+      <div className={styles.panels}>
+        {stack.map((panel, index) => {
+          const isActive = index === stack.length - 1;
+          return (
+            <div
+              key={panel.id}
+              className={clsx(
+                styles.content,
+                isActive ? styles.active : styles.hidden
+              )}
+              aria-hidden={!isActive}
+            >
+              {panel.content}
+            </div>
+          );
+        })}
       </div>
     </Panel>
   );

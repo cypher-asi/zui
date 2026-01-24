@@ -1,27 +1,22 @@
 .app {
   display: flex;
+  flex-direction: column;
   height: 100vh;
   overflow: hidden;
 }
 
-.sidebarHeader {
-  padding: 1.5rem 1rem;
-}
-
-.title {
-  margin-bottom: 0.25rem;
-}
-
-.subtitle {
-  margin: 0;
+.body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
 }
 
 .sidebarContent {
-  padding: 0;
+  padding: var(--space-2) 0;
 }
 
 .explorer {
-  margin-top: 0.25rem;
+  margin-top: 0;
 }
 
 .main {
@@ -29,4 +24,8 @@
   overflow-y: auto;
   scrollbar-gutter: stable;
   background: var(--bg-secondary);
+}
+
+.inspectorTitle {
+  color: var(--color-text-secondary);
 }

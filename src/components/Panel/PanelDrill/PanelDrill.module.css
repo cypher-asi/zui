@@ -14,9 +14,28 @@
   /* Breadcrumb inherits styles from its own module */
 }
 
-.content {
+.panels {
+  position: relative;
   flex: 1;
+  overflow: hidden;
+}
+
+.content {
+  position: absolute;
+  inset: 0;
   overflow: auto;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.content.active {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.content.hidden {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .empty {
@@ -27,36 +46,4 @@
   padding: var(--space-4);
   color: var(--color-text-muted);
   font-size: var(--text-sm);
-}
-
-/* Animation for drilling forward (slide in from right) */
-.slideInRight {
-  animation: slideInFromRight 200ms ease-out;
-}
-
-@keyframes slideInFromRight {
-  from {
-    opacity: 0;
-    transform: translateX(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Animation for navigating backward (slide in from left) */
-.slideInLeft {
-  animation: slideInFromLeft 200ms ease-out;
-}
-
-@keyframes slideInFromLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
 }

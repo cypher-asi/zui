@@ -11,6 +11,19 @@
   --space-6: 24px;
   --space-8: 32px;
 
+  /* Icon sizes */
+  --icon-xs: 14px;
+  --icon-sm: 16px;
+  --icon-md: 18px;
+  --icon-lg: 20px;
+  --icon-xl: 24px;
+
+  /* Button/control heights */
+  --control-height-xs: 28px;
+  --control-height-sm: 32px;
+  --control-height-md: 36px;
+  --control-height-lg: 44px;
+
   /* Border radius */
   --radius-sm: 0;
   --radius-md: 0;

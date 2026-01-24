@@ -3,8 +3,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: var(--control-height-md);
+  height: var(--control-height-md);
   padding: 0;
   border: none;
   border-radius: var(--radius-sm);
@@ -14,6 +14,8 @@
   transition: all var(--transition-fast);
   flex-shrink: 0;
 }
+
+/* Icon sizing is controlled via inline size prop for visual balance */
 
 .buttonWindow:focus-visible {
   outline: none;
@@ -27,14 +29,14 @@
 
 /* Size variants */
 .xs {
-  width: 16px;
-  height: 16px;
+  width: var(--control-height-xs);
+  height: var(--control-height-xs);
   border-radius: 0;
 }
 
 .sm {
-  width: 22px;
-  height: 22px;
+  width: var(--control-height-sm);
+  height: var(--control-height-sm);
 }
 
 /* Action variants - hover state */

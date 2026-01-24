@@ -1,4 +1,5 @@
 import { Avatar, Heading } from '@cypher-asi/zui';
+import { User, Bot, UserCircle } from 'lucide-react';
 import styles from './Example.module.css';
 
 export function avatarExample() {
@@ -23,6 +24,26 @@ export function avatarExample() {
           <Avatar name="Bob Johnson" size="md" />
           <Avatar name="Alice Williams" size="lg" />
           <Avatar name="Charlie Brown" size="xl" />
+        </div>
+      </div>
+
+      <div className={styles.section}>
+        <Heading level={3} className={styles.exampleTitle}>With Icon (Default User)</Heading>
+        <div className={styles.row}>
+          <Avatar name="User" icon size="xs" />
+          <Avatar name="User" icon size="sm" />
+          <Avatar name="User" icon size="md" />
+          <Avatar name="User" icon size="lg" />
+          <Avatar name="User" icon size="xl" />
+        </div>
+      </div>
+
+      <div className={styles.section}>
+        <Heading level={3} className={styles.exampleTitle}>With Custom Icons</Heading>
+        <div className={styles.row}>
+          <Avatar name="User" icon={User} size="md" />
+          <Avatar name="Bot" icon={Bot} size="md" />
+          <Avatar name="Profile" icon={UserCircle} size="md" />
         </div>
       </div>
 

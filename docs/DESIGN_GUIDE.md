@@ -110,6 +110,29 @@ Use the spacing scale consistently:
 - `--space-6` (24px) - Large spacing
 - `--space-8` (32px) - Extra large spacing
 
+## Icon Sizes
+
+Use consistent icon sizing:
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--icon-xs` | 14px | Tiny indicators, compact UI |
+| `--icon-sm` | 16px | Small buttons, tree items |
+| `--icon-md` | 18px | Default buttons, menu items |
+| `--icon-lg` | 20px | Emphasized icons |
+| `--icon-xl` | 24px | Large icons, headers |
+
+## Control Heights
+
+Interactive elements use standard heights for consistency and accessibility:
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--control-height-xs` | 28px | Compact controls (window buttons) |
+| `--control-height-sm` | 32px | Small buttons, inputs, tree items |
+| `--control-height-md` | 36px | Default buttons, inputs, items |
+| `--control-height-lg` | 44px | Large buttons, touch-friendly |
+
+Note: Touch targets should be at least 44x44px (--control-height-lg) for accessibility.
+
 ## Animations
 
 Keep animations subtle and fast:

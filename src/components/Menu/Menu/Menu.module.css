@@ -12,6 +12,10 @@
 }
 
 /* Variant styles */
+.none {
+  background: none;
+}
+
 .solid {
   background-color: var(--color-bg, #09090b);
 }
@@ -65,7 +69,16 @@
 /* Menu Item - Built on Item primitive */
 /* Using .menu context for higher specificity to override Item base styles */
 .menu .menuItem {
-  padding: var(--space-1-5, 6px) var(--space-4, 16px);
+  padding: var(--space-2, 8px) var(--space-4, 16px);
+  min-height: var(--control-height-md, 36px);
+  color: var(--color-text-secondary);
+}
+
+/* Icon sizing in menu items */
+.icon svg {
+  width: var(--icon-md, 18px);
+  height: var(--icon-md, 18px);
+  stroke-width: 1.5;
 }
 
 .menu .menuItem:hover:not(:disabled) {
@@ -109,6 +122,16 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* Status - right-aligned content before submenu arrow */
+.status {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: var(--space-3, 12px);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm, 13px);
 }
 
 /* Separator - full bleed divider */

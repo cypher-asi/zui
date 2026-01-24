@@ -4,9 +4,12 @@ import { ChevronRight } from 'lucide-react';
 import { Item } from '../../Item';
 import styles from './Menu.module.css';
 
-export type MenuVariant = 'solid' | 'transparent' | 'glass';
+export type MenuBackground = 'none' | 'solid' | 'transparent' | 'glass';
 export type MenuRounded = 'none' | 'sm' | 'md' | 'lg';
 export type MenuBorder = 'none' | 'solid' | 'future';
+
+/** @deprecated Use MenuBackground instead */
+export type MenuVariant = MenuBackground;
 
 export interface MenuItemProps {
   /** Unique identifier for the item */
@@ -15,6 +18,8 @@ export interface MenuItemProps {
   label: string;
   /** Optional icon to display on the left */
   icon?: ReactNode;
+  /** Optional status/data to display on the right (before submenu chevron) */
+  status?: ReactNode;
   /** Whether this item is disabled */
   disabled?: boolean;
   /** Nested submenu items (creates a flyout submenu) */
@@ -64,10 +69,14 @@ export interface MenuProps {
    */
   onSelect?: (id: string) => void;
   /**
-   * Background variant
+   * Background style
    * @default 'solid'
    */
-  variant?: MenuVariant;
+  background?: MenuBackground;
+  /**
+   * @deprecated Use `background` instead
+   */
+  variant?: MenuBackground;
   /**
    * Corner radius
    * @default 'none'
@@ -109,7 +118,7 @@ interface MenuItemComponentProps {
   isSelected: boolean;
   currentValue: string | string[] | undefined;
   onSelect: ((id: string) => void) | undefined;
-  variant: MenuVariant;
+  background: MenuBackground;
   rounded: MenuRounded;
   border: MenuBorder;
   depth: number;
@@ -123,7 +132,7 @@ function MenuItemComponent({
   isSelected,
   currentValue,
   onSelect,
-  variant,
+  background,
   rounded,
   border,
   depth,
@@ -209,6 +218,7 @@ function MenuItemComponent({
       >
         {item.icon && <Item.Icon className={styles.icon}>{item.icon}</Item.Icon>}
         <Item.Label className={styles.label}>{item.label}</Item.Label>
+        {item.status && <span className={styles.status}>{item.status}</span>}
         {hasSubmenu && (
           <Item.Action className={styles.submenuArrow}>
             <ChevronRight size={14} />
@@ -236,7 +246,7 @@ function MenuItemComponent({
             items={item.children!}
             value={currentValue}
             onChange={onSelect}
-            variant={variant}
+            background={background}
             rounded={rounded}
             border={border}
             _depth={depth + 1}
@@ -259,7 +269,8 @@ export function Menu({
   onChange,
   selectedId,
   onSelect,
-  variant = 'solid',
+  background,
+  variant,
   rounded = 'none',
   bordered = true,
   border,
@@ -279,6 +290,9 @@ export function Menu({
   // Support both old and new prop names (old names are deprecated)
   const currentValue = value ?? selectedId;
   const handleChange = onChange ?? onSelect;
+
+  // Resolve background: new `background` prop takes precedence over deprecated `variant`
+  const backgroundStyle = background ?? variant ?? 'solid';
 
   // Resolve border style: new `border` prop takes precedence over deprecated `bordered`
   const borderStyle = border ?? (bordered ? 'solid' : 'none');
@@ -332,7 +346,7 @@ export function Menu({
       ref={menuRef}
       className={clsx(
         styles.menu,
-        styles[variant],
+        styles[backgroundStyle],
         styles[`rounded${rounded.charAt(0).toUpperCase() + rounded.slice(1)}`],
         borderClass,
         className
@@ -354,7 +368,7 @@ export function Menu({
             isSelected={isItemSelected(item.id, currentValue)}
             currentValue={currentValue}
             onSelect={handleChange}
-            variant={variant}
+            background={backgroundStyle}
             rounded={rounded}
             border={borderStyle}
             depth={_depth}

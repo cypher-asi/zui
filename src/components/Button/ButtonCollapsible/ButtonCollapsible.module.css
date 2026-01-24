@@ -21,17 +21,24 @@
 }
 
 .sm {
-  width: 28px;
-  height: 28px;
+  width: var(--control-height-sm);
+  height: var(--control-height-sm);
 }
 
 .md {
-  width: 36px;
-  height: 40px;
+  width: var(--control-height-md);
+  height: var(--control-height-md);
 }
 
 .icon {
   transition: transform 0.2s ease;
+  width: var(--icon-md);
+  height: var(--icon-md);
+}
+
+.sm .icon {
+  width: var(--icon-sm);
+  height: var(--icon-sm);
 }
 
 .collapsed .icon {

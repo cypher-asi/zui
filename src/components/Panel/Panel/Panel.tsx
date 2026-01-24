@@ -7,10 +7,19 @@ import { ThemeContext } from '../../Theme/ThemeContext';
 type BorderType = 'none' | 'solid' | 'future';
 type BorderRadius = 'none' | 'sm' | 'md' | 'lg' | number;
 type PanelVariant = 'solid' | 'transparent' | 'glass';
+type PanelBackground = 'bg' | 'surface' | 'elevated';
+
+const backgroundMap: Record<PanelBackground, string> = {
+  bg: 'var(--color-bg)',
+  surface: 'var(--color-surface)',
+  elevated: 'var(--color-elevated)',
+};
 
 export interface PanelProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Background variant (matches Menu component) */
   variant?: PanelVariant;
+  /** Semantic background color (theme-aware, overrides variant) */
+  background?: PanelBackground;
   /** Border style variant */
   border?: BorderType;
   /** Border radius - preset or custom number */
@@ -78,6 +87,7 @@ const lightHoverBgOpen = 'rgba(255, 255, 255, 0.9)';
 export const Panel = forwardRef(function Panel(
   {
     variant = 'glass',
+    background,
     border = 'future',
     borderRadius = 'none',
     focused = false,
@@ -100,6 +110,9 @@ export const Panel = forwardRef(function Panel(
   // Select appropriate styles based on theme
   const variantStyles = isLightMode ? lightVariantStyles : darkVariantStyles;
 
+  // Resolve background from semantic value
+  const resolvedBackground = background ? backgroundMap[background] : undefined;
+
   // Determine hover background based on open/closed state and theme
   const getHoverBg = () => {
     if (!hoverable || !isHovered) return undefined;
@@ -113,6 +126,7 @@ export const Panel = forwardRef(function Panel(
     position: 'relative',
     transition: 'background-color 75ms ease-out',
     ...variantStyles[variant],
+    ...(resolvedBackground ? { backgroundColor: resolvedBackground } : {}),
     ...(border !== 'future' ? borderStyleMap[border] : {}),
     ...(focused ? { boxShadow: '0 0 0 1px var(--color-accent, #01f4cb)' } : {}),
     borderRadius: typeof borderRadius === 'number' ? borderRadius : radiusMap[borderRadius],

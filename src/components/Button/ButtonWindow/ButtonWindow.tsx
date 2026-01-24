@@ -28,16 +28,19 @@ const iconMap = {
 
 // Base icon sizes per button size
 const baseSizes = {
-  xs: 10,
-  sm: 12,
-  md: 14,
+  xs: 12,
+  sm: 14,
+  md: 16,
 } as const;
 
-// Per-icon size adjustments (X appears smaller visually, so increase it)
+// Per-icon size adjustments for visual balance
+// - Minus (minimize) is thin, needs to be larger
+// - Square (maximize) outline appears smaller, bump up
+// - X (close) diagonal strokes create whitespace, needs extra size
 const iconSizeAdjustments: Record<ButtonWindowAction, number> = {
-  minimize: 0,
-  maximize: 0,
-  close: 2,
+  minimize: 2,
+  maximize: 2,
+  close: 6,
 };
 
 export const ButtonWindow = forwardRef<HTMLButtonElement, ButtonWindowProps>(

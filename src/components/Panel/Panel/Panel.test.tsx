@@ -58,4 +58,30 @@ describe('Panel', () => {
     render(<Panel data-testid="test-panel">Content</Panel>);
     expect(screen.getByTestId('test-panel')).toBeInTheDocument();
   });
+
+  it('applies semantic background "bg"', () => {
+    const { container } = render(<Panel background="bg">Content</Panel>);
+    const panel = container.firstChild as HTMLElement;
+    expect(panel.style.backgroundColor).toBe('var(--color-bg)');
+  });
+
+  it('applies semantic background "surface"', () => {
+    const { container } = render(<Panel background="surface">Content</Panel>);
+    const panel = container.firstChild as HTMLElement;
+    expect(panel.style.backgroundColor).toBe('var(--color-surface)');
+  });
+
+  it('applies semantic background "elevated"', () => {
+    const { container } = render(<Panel background="elevated">Content</Panel>);
+    const panel = container.firstChild as HTMLElement;
+    expect(panel.style.backgroundColor).toBe('var(--color-elevated)');
+  });
+
+  it('background overrides variant', () => {
+    const { container } = render(
+      <Panel variant="glass" background="surface">Content</Panel>
+    );
+    const panel = container.firstChild as HTMLElement;
+    expect(panel.style.backgroundColor).toBe('var(--color-surface)');
+  });
 });

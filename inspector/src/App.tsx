@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Explorer, Heading, Sidebar, Text } from '@cypher-asi/zui';
+import { Explorer, Sidebar, Topbar, ThemePanel } from '@cypher-asi/zui';
 import type { ExplorerNode } from '@cypher-asi/zui';
 import { components } from './data/componentRegistry';
 import type { ComponentInfo } from './data/componentRegistry';
@@ -127,41 +127,38 @@ function App() {
 
   return (
     <div className={styles.app}>
-      <Sidebar
-        resizable
-        minWidth={200}
-        maxWidth={400}
-        defaultWidth={260}
-        storageKey="zui-inspector-main-sidebar-width"
-        header={
-          <div className={styles.sidebarHeader}>
-            <Heading level={3} className={styles.title}>ZUI Inspector</Heading>
-            <Text variant="secondary" size="sm" className={styles.subtitle}>Component Library</Text>
+      <Topbar title={<>ZUI <span className={styles.inspectorTitle}>Inspector</span></>} actions={<ThemePanel />} />
+      <div className={styles.body}>
+        <Sidebar
+          resizable
+          minWidth={200}
+          maxWidth={400}
+          defaultWidth={260}
+          storageKey="zui-inspector-main-sidebar-width"
+        >
+          <div className={styles.sidebarContent}>
+            <Explorer
+              data={explorerTree.data}
+              defaultExpandedIds={explorerTree.groupIds}
+              defaultSelectedIds={[selectedId]}
+              enableDragDrop={false}
+              enableMultiSelect={false}
+              expandOnSelect
+              onSelect={handleExplorerSelect}
+              className={styles.explorer}
+              searchable
+            />
           </div>
-        }
-      >
-        <div className={styles.sidebarContent}>
-          <Explorer
-            data={explorerTree.data}
-            defaultExpandedIds={explorerTree.groupIds}
-            defaultSelectedIds={[selectedId]}
-            enableDragDrop={false}
-            enableMultiSelect={false}
-            expandOnSelect
-            onSelect={handleExplorerSelect}
-            className={styles.explorer}
-            searchable
-          />
-        </div>
-      </Sidebar>
-      <main className={styles.main}>
-        {selectedComponent && (
-          <ComponentShowcase component={selectedComponent} />
-        )}
-        {selectedGroup && (
-          <GroupShowcase group={selectedGroup} onComponentSelect={handleComponentSelect} />
-        )}
-      </main>
+        </Sidebar>
+        <main className={styles.main}>
+          {selectedComponent && (
+            <ComponentShowcase component={selectedComponent} />
+          )}
+          {selectedGroup && (
+            <GroupShowcase group={selectedGroup} onComponentSelect={handleComponentSelect} />
+          )}
+        </main>
+      </div>
     </div>
   );
 }

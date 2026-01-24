@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -11,11 +12,21 @@ describe('PanelDrill', () => {
     { id: 'account', label: 'Account', content: <div>Account Content</div> },
   ];
 
-  it('renders active (last) panel content', () => {
+  it('renders all panels in stack with only active one visible', () => {
     render(<PanelDrill stack={mockStack} />);
+    // All content is in the DOM (panels stay mounted)
     expect(screen.getByText('Account Content')).toBeInTheDocument();
-    expect(screen.queryByText('Home Content')).not.toBeInTheDocument();
-    expect(screen.queryByText('Settings Content')).not.toBeInTheDocument();
+    expect(screen.getByText('Home Content')).toBeInTheDocument();
+    expect(screen.getByText('Settings Content')).toBeInTheDocument();
+
+    // Only active panel is not hidden
+    const accountPanel = screen.getByText('Account Content').closest('[aria-hidden]');
+    const homePanel = screen.getByText('Home Content').closest('[aria-hidden]');
+    const settingsPanel = screen.getByText('Settings Content').closest('[aria-hidden]');
+
+    expect(accountPanel).toHaveAttribute('aria-hidden', 'false');
+    expect(homePanel).toHaveAttribute('aria-hidden', 'true');
+    expect(settingsPanel).toHaveAttribute('aria-hidden', 'true');
   });
 
   it('renders empty state when stack is empty', () => {
@@ -30,14 +41,15 @@ describe('PanelDrill', () => {
     expect(screen.getByText('Account')).toBeInTheDocument();
   });
 
-  it('hides breadcrumb when stack has only one item', () => {
+  it('shows breadcrumb even when stack has only one item', () => {
     render(
       <PanelDrill
         stack={[{ id: 'root', label: 'Home', content: <div>Home Content</div> }]}
         onNavigate={vi.fn()}
       />
     );
-    expect(screen.queryByRole('navigation')).not.toBeInTheDocument();
+    expect(screen.getByRole('navigation')).toBeInTheDocument();
+    expect(screen.getByText('Home')).toBeInTheDocument();
     expect(screen.getByText('Home Content')).toBeInTheDocument();
   });
 
@@ -89,7 +101,7 @@ describe('PanelDrill', () => {
     expect(screen.getAllByText('>')).toHaveLength(2);
   });
 
-  it('updates content when stack changes', () => {
+  it('updates active panel when stack changes while keeping all mounted', () => {
     const { rerender } = render(
       <PanelDrill
         stack={[{ id: 'root', label: 'Home', content: <div>Home Content</div> }]}
@@ -105,7 +117,76 @@ describe('PanelDrill', () => {
         ]}
       />
     );
+    // Both panels are in DOM
     expect(screen.getByText('Settings Content')).toBeInTheDocument();
-    expect(screen.queryByText('Home Content')).not.toBeInTheDocument();
+    expect(screen.getByText('Home Content')).toBeInTheDocument();
+
+    // Settings is active, Home is hidden
+    const settingsPanel = screen.getByText('Settings Content').closest('[aria-hidden]');
+    const homePanel = screen.getByText('Home Content').closest('[aria-hidden]');
+    expect(settingsPanel).toHaveAttribute('aria-hidden', 'false');
+    expect(homePanel).toHaveAttribute('aria-hidden', 'true');
+  });
+
+  it('preserves component state when navigating back', async () => {
+    // Stateful component to test state preservation
+    function StatefulCounter({ testId }: { testId: string }) {
+      const [count, setCount] = useState(0);
+      return (
+        <div>
+          <span data-testid={testId}>{count}</span>
+          <button onClick={() => setCount((c) => c + 1)}>Increment {testId}</button>
+        </div>
+      );
+    }
+
+    const user = userEvent.setup();
+
+    function TestHarness() {
+      const [stack, setStack] = useState<PanelDrillItem[]>([
+        { id: 'home', label: 'Home', content: <StatefulCounter testId="home-count" /> },
+      ]);
+
+      const pushSettings = () => {
+        setStack((prev) => [
+          ...prev,
+          { id: 'settings', label: 'Settings', content: <StatefulCounter testId="settings-count" /> },
+        ]);
+      };
+
+      const navigateBack = (_id: string, index: number) => {
+        setStack((prev) => prev.slice(0, index + 1));
+      };
+
+      return (
+        <div>
+          <button onClick={pushSettings}>Go to Settings</button>
+          <PanelDrill stack={stack} onNavigate={navigateBack} />
+        </div>
+      );
+    }
+
+    render(<TestHarness />);
+
+    // Initial state: home counter is 0
+    expect(screen.getByTestId('home-count')).toHaveTextContent('0');
+
+    // Increment home counter
+    await user.click(screen.getByRole('button', { name: 'Increment home-count' }));
+    expect(screen.getByTestId('home-count')).toHaveTextContent('1');
+
+    // Navigate to settings
+    await user.click(screen.getByRole('button', { name: 'Go to Settings' }));
+    expect(screen.getByTestId('settings-count')).toHaveTextContent('0');
+
+    // Increment settings counter
+    await user.click(screen.getByRole('button', { name: 'Increment settings-count' }));
+    expect(screen.getByTestId('settings-count')).toHaveTextContent('1');
+
+    // Navigate back to home via breadcrumb
+    await user.click(screen.getByRole('button', { name: 'Home' }));
+
+    // Home counter should still be 1 (state preserved)
+    expect(screen.getByTestId('home-count')).toHaveTextContent('1');
   });
 });
