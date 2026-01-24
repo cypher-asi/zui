@@ -2,7 +2,7 @@
 // ============================================================================
 // Button Components
 // ============================================================================
-export { Button, ButtonCollapsible, ButtonRadio, ButtonWindow, ButtonRefresh, ButtonMore, ButtonPlus } from './Button';
+export { Button, ButtonCollapsible, ButtonRadio, ButtonWindow, ButtonRefresh, ButtonMore, ButtonPlus, ButtonCopy } from './Button';
 export type {
   ButtonProps,
   ButtonVariant,
@@ -22,6 +22,7 @@ export type {
   ButtonMoreIcon,
   ButtonMoreAlign,
   ButtonPlusProps,
+  ButtonCopyProps,
 } from './Button';
 
 // ============================================================================

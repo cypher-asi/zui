@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { RefreshCw } from 'lucide-react';
-import { Button } from '../Button';
+import { Button, type ButtonVariant, type ButtonSize } from '../Button';
+import clsx from 'clsx';
 import styles from './ButtonRefresh.module.css';
 
 export interface ButtonRefreshProps {
@@ -10,16 +11,26 @@ export interface ButtonRefreshProps {
   isRefreshing?: boolean;
   /** Button title/tooltip */
   title?: string;
-  /** Icon size */
-  iconSize?: number;
+  /** Button size variant */
+  size?: ButtonSize;
+  /** Button style variant */
+  variant?: ButtonVariant;
+  /** Whether the button is disabled */
+  disabled?: boolean;
+  /** Additional CSS class */
+  className?: string;
 }
 
 export function ButtonRefresh({
   onRefresh,
   isRefreshing = false,
   title = 'Refresh',
-  iconSize = 14,
+  size = 'sm',
+  variant = 'ghost',
+  disabled = false,
+  className,
 }: ButtonRefreshProps) {
+  const iconSize = size === 'sm' ? 14 : 16;
   const [isClicking, setIsClicking] = useState(false);
 
   const handleClick = () => {
@@ -44,14 +55,15 @@ export function ButtonRefresh({
 
   return (
     <Button
-      variant="ghost"
-      size="sm"
+      variant={variant}
+      size={size}
       iconOnly
       onClick={handleClick}
-      disabled={isRefreshing}
+      disabled={disabled || isRefreshing}
       title={title}
+      className={className}
     >
-      <RefreshCw size={iconSize} className={getIconClassName()} />
+      <RefreshCw size={iconSize} strokeWidth={2} className={clsx(styles.icon, getIconClassName())} />
     </Button>
   );
 }

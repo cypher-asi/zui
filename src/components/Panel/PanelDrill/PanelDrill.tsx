@@ -14,6 +14,8 @@ export interface PanelDrillItem {
   label: string;
   /** Content to render when this panel is active */
   content: ReactNode;
+  /** Optional action element rendered on the far right of the header */
+  action?: ReactNode;
 }
 
 export interface PanelDrillProps extends Omit<PanelProps, 'children'> {
@@ -94,6 +96,11 @@ export const PanelDrill = forwardRef(function PanelDrill(
             separator={breadcrumbSeparator}
             className={styles.breadcrumb}
           />
+          {stack[stack.length - 1]?.action && (
+            <div className={styles.action}>
+              {stack[stack.length - 1].action}
+            </div>
+          )}
         </div>
       )}
       <div className={styles.panels}>

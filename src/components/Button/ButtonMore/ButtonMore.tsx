@@ -145,7 +145,7 @@ export function ButtonMore({
           aria-haspopup="menu"
           aria-expanded={isOpen}
         >
-          <IconComponent size={size === 'sm' ? 14 : 16} />
+          <IconComponent size={size === 'sm' ? 14 : 16} strokeWidth={2} />
         </Button>
       </div>
       {menuContent && createPortal(menuContent, document.body)}

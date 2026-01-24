@@ -1,44 +1,18 @@
 .button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  color: inherit;
   flex-shrink: 0;
+  transition: transform var(--transition-fast);
 }
 
-.button:focus-visible {
-  outline: 2px solid var(--color-overlay-focus);
-  outline-offset: -2px;
+.button:hover:not(:disabled) {
+  transform: scale(1.1);
 }
 
-.button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.sm {
-  width: var(--control-height-sm);
-  height: var(--control-height-sm);
-}
-
-.md {
-  width: var(--control-height-md);
-  height: var(--control-height-md);
+.button:active:not(:disabled) {
+  transform: scale(0.95);
 }
 
 .icon {
-  transition: transform 0.2s ease;
-  width: var(--icon-md);
-  height: var(--icon-md);
-}
-
-.sm .icon {
-  width: var(--icon-sm);
-  height: var(--icon-sm);
+  transition: transform var(--transition-fast);
 }
 
 .collapsed .icon {

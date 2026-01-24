@@ -18,3 +18,6 @@ export type { ButtonPlusProps } from './ButtonPlus';
 
 export { ButtonMore } from './ButtonMore';
 export type { ButtonMoreProps, ButtonMoreIcon, ButtonMoreAlign } from './ButtonMore';
+
+export { ButtonCopy } from './ButtonCopy';
+export type { ButtonCopyProps } from './ButtonCopy';

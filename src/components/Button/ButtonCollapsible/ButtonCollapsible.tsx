@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { ChevronDown, ChevronUp, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Button, type ButtonVariant, type ButtonSize } from '../Button';
 import styles from './ButtonCollapsible.module.css';
 
 export type ButtonCollapsibleDirection = 'down' | 'up' | 'left' | 'right';
@@ -9,7 +10,8 @@ export interface ButtonCollapsibleProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   className?: string;
   iconClassName?: string;
-  size?: 'sm' | 'md';
+  size?: ButtonSize;
+  variant?: ButtonVariant;
   disabled?: boolean;
   title?: string;
   ariaLabel?: string;
@@ -29,7 +31,8 @@ export function ButtonCollapsible({
   onClick,
   className,
   iconClassName,
-  size = 'md',
+  size = 'sm',
+  variant = 'ghost',
   disabled = false,
   title,
   ariaLabel,
@@ -37,17 +40,21 @@ export function ButtonCollapsible({
   direction = 'down',
 }: ButtonCollapsibleProps) {
   const ChevronIcon = chevronIcons[direction];
+  const iconSize = size === 'sm' ? 14 : 16;
 
   return (
-    <button
+    <Button
       type={type}
-      className={clsx(styles.button, styles[size], isCollapsed && styles.collapsed, className)}
+      variant={variant}
+      size={size}
+      iconOnly
+      className={clsx(styles.button, isCollapsed && styles.collapsed, className)}
       onClick={onClick}
       aria-label={ariaLabel}
       title={title}
       disabled={disabled}
     >
-      <ChevronIcon size={16} className={clsx(styles.icon, iconClassName)} />
-    </button>
+      <ChevronIcon size={iconSize} strokeWidth={2.5} className={clsx(styles.icon, iconClassName)} />
+    </Button>
   );
 }

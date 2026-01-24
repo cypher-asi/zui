@@ -10,8 +10,6 @@ export interface ButtonPlusProps {
   title?: string;
   /** Whether the button is disabled */
   disabled?: boolean;
-  /** Icon size */
-  iconSize?: number;
   /** Button size variant */
   size?: ButtonSize;
   /** Button style variant */
@@ -24,11 +22,12 @@ export function ButtonPlus({
   onClick,
   title = 'Add',
   disabled = false,
-  iconSize = 14,
   size = 'sm',
   variant = 'ghost',
   className,
 }: ButtonPlusProps) {
+  const iconSize = size === 'sm' ? 14 : 16;
+
   return (
     <Button
       variant={variant}
@@ -39,7 +38,7 @@ export function ButtonPlus({
       title={title}
       className={clsx(styles.buttonPlus, className)}
     >
-      <Plus size={iconSize} />
+      <Plus size={iconSize} strokeWidth={2} />
     </Button>
   );
 }
