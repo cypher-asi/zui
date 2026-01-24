@@ -194,6 +194,10 @@ const flatColumns: MenuMegaColumnProps[] = [
   },
 ];
 
+// Placeholder images for demo
+const PLACEHOLDER_IMAGE_1 = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=320&h=400&fit=crop';
+const PLACEHOLDER_IMAGE_2 = 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=320&h=400&fit=crop';
+
 export function menumegaExample() {
   const [selected1, setSelected1] = useState('api');
   const [selected2, setSelected2] = useState('servers');
@@ -201,6 +205,8 @@ export function menumegaExample() {
   const [selected4, setSelected4] = useState('');
   const [selected5, setSelected5] = useState('');
   const [selected6, setSelected6] = useState('flat-api');
+  const [selected7, setSelected7] = useState('api');
+  const [selected8, setSelected8] = useState('settings');
 
   return (
     <div className={styles.exampleGroup}>
@@ -285,6 +291,36 @@ export function menumegaExample() {
           background="solid"
           border="solid"
           rounded="md"
+        />
+      </div>
+
+      <div className={styles.section}>
+        <Heading level={3} className={styles.sectionTitle}>
+          With Vertical Image
+        </Heading>
+        <MenuMega
+          columns={productColumns}
+          value={selected7}
+          onChange={setSelected7}
+          background="solid"
+          border="solid"
+          rounded="md"
+          image={PLACEHOLDER_IMAGE_1}
+        />
+      </div>
+
+      <div className={styles.section}>
+        <Heading level={3} className={styles.sectionTitle}>
+          Single Column with Image
+        </Heading>
+        <MenuMega
+          columns={singleColumn}
+          value={selected8}
+          onChange={setSelected8}
+          background="solid"
+          border="solid"
+          rounded="md"
+          image={PLACEHOLDER_IMAGE_2}
         />
       </div>
     </div>

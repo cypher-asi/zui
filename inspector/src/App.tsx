@@ -57,10 +57,25 @@ interface TopbarNavItemProps {
   label: string;
   columns: MenuMegaColumnProps[];
   width?: number;
+  image?: string;
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+  onHover: () => void;
+  anyMenuOpen: boolean;
 }
 
-function TopbarNavItem({ label, columns, width = 480 }: TopbarNavItemProps) {
-  const [isOpen, setIsOpen] = useState(false);
+function TopbarNavItem({
+  label,
+  columns,
+  width = 480,
+  image,
+  isOpen,
+  onOpen,
+  onClose,
+  onHover,
+  anyMenuOpen,
+}: TopbarNavItemProps) {
   const [selected, setSelected] = useState<string>('');
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -68,56 +83,98 @@ function TopbarNavItem({ label, columns, width = 480 }: TopbarNavItemProps) {
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
+        onClose();
       }
     }
     if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside);
       return () => document.removeEventListener('mousedown', handleClickOutside);
     }
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   // Close on Escape key
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') {
-        setIsOpen(false);
+        onClose();
       }
     }
     if (isOpen) {
       document.addEventListener('keydown', handleKeyDown);
       return () => document.removeEventListener('keydown', handleKeyDown);
     }
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   return (
-    <div ref={containerRef} className={styles.topbarNavItem}>
+    <div
+      ref={containerRef}
+      className={styles.topbarNavItem}
+      onMouseEnter={() => {
+        if (anyMenuOpen && !isOpen) {
+          onHover();
+        }
+      }}
+    >
       <Button
         variant="ghost"
         size="sm"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => (isOpen ? onClose() : onOpen())}
         className={isOpen ? styles.topbarNavButtonActive : undefined}
       >
         {label}
-        <ChevronDown size={14} className={isOpen ? styles.chevronOpen : undefined} />
+        <ChevronDown size={14} className={`${styles.chevron} ${isOpen ? styles.chevronOpen : ''}`} />
       </Button>
       {isOpen && (
-        <div className={styles.megaMenuDropdown}>
+        <div className={styles.megaMenuDropdown} style={{ width }}>
           <MenuMega
             columns={columns}
             value={selected}
             onChange={(id) => {
               setSelected(id);
-              setIsOpen(false);
+              onClose();
             }}
-            background="solid"
-            border="solid"
+            background="glass"
+            border="future"
             rounded="md"
-            width={width}
+            image={image}
           />
         </div>
       )}
     </div>
+  );
+}
+
+// ============================================================================
+// TopbarNav - Manages shared menu state
+// ============================================================================
+
+function TopbarNav() {
+  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
+
+  return (
+    <nav className={styles.topbarNav}>
+      <TopbarNavItem
+        label="Products"
+        columns={productsMegaMenu}
+        width={640}
+        image="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=320&h=400&fit=crop"
+        isOpen={openMenuId === 'products'}
+        onOpen={() => setOpenMenuId('products')}
+        onClose={() => setOpenMenuId(null)}
+        onHover={() => setOpenMenuId('products')}
+        anyMenuOpen={openMenuId !== null}
+      />
+      <TopbarNavItem
+        label="Account"
+        columns={accountMegaMenu}
+        width={280}
+        isOpen={openMenuId === 'account'}
+        onOpen={() => setOpenMenuId('account')}
+        onClose={() => setOpenMenuId(null)}
+        onHover={() => setOpenMenuId('account')}
+        anyMenuOpen={openMenuId !== null}
+      />
+    </nav>
   );
 }
 
@@ -239,10 +296,7 @@ function App() {
         title={
           <div className={styles.topbarContent}>
             <span>ZUI <span className={styles.inspectorTitle}>Inspector</span></span>
-            <nav className={styles.topbarNav}>
-              <TopbarNavItem label="Products" columns={productsMegaMenu} width={480} />
-              <TopbarNavItem label="Account" columns={accountMegaMenu} width={280} />
-            </nav>
+            <TopbarNav />
           </div>
         }
         actions={<ThemePanel />}
