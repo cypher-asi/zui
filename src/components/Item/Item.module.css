@@ -9,7 +9,7 @@
   align-items: center;
   gap: var(--space-2, 8px);
   width: 100%;
-  padding: var(--space-2, 8px) 0 var(--space-2, 8px) var(--space-3, 12px);
+  padding: var(--space-2, 8px) var(--space-3, 12px) var(--space-2, 8px) var(--space-3, 12px);
   min-height: var(--control-height-md, 36px);
   border: none;
   border-radius: 0;
@@ -114,6 +114,11 @@
   border-radius: var(--radius-sm, 2px);
 }
 
+/* When chevron is last child (positioned on right side), remove extra padding */
+.chevron:last-child {
+  margin-right: calc(var(--space-3, 12px) * -1);
+}
+
 .chevron:hover {
   color: var(--color-text-secondary);
   background: var(--color-overlay-light);
@@ -153,6 +158,7 @@
   justify-content: center;
   flex-shrink: 0;
   margin-left: auto;
+  margin-right: calc(var(--space-3, 12px) * -1);
   color: inherit;
   opacity: 0.6;
   transition: opacity var(--transition-fast, 75ms ease-out);
@@ -222,7 +228,7 @@
 
 .item.treeVariant {
   gap: var(--space-1, 4px);
-  padding: var(--space-1, 4px) 0 var(--space-1, 4px) var(--space-2, 8px);
+  padding: var(--space-1, 4px) var(--space-2, 8px) var(--space-1, 4px) var(--space-2, 8px);
   min-height: var(--control-height-sm, 32px);
   font-size: var(--text-sm, 13px);
   line-height: 1.3;
@@ -242,7 +248,7 @@
    ============================================================================ */
 
 .item.navVariant {
-  padding: var(--space-2, 8px) 0 var(--space-2, 8px) var(--space-3, 12px);
+  padding: var(--space-2, 8px) var(--space-3, 12px) var(--space-2, 8px) var(--space-3, 12px);
   margin-bottom: var(--space-1, 4px);
   font-size: var(--text-base, 14px);
   line-height: 1.5;

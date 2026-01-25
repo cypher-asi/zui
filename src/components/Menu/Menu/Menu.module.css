@@ -69,7 +69,7 @@
 /* Menu Item - Built on Item primitive */
 /* Using .menu context for higher specificity to override Item base styles */
 .menu .menuItem {
-  padding: var(--space-2, 8px) 0 var(--space-2, 8px) var(--space-4, 16px);
+  padding: var(--space-2, 8px) var(--space-4, 16px) var(--space-2, 8px) var(--space-4, 16px);
   min-height: var(--control-height-md, 36px);
   color: var(--color-text-secondary);
 }
@@ -142,12 +142,9 @@
   width: 100%;
 }
 
-/* Submenu arrow */
-.submenuArrow {
-  margin-left: auto;
-  opacity: 0.6;
-  display: flex;
-  align-items: center;
+/* Submenu arrow - override Item.Action's negative margin to match menu padding */
+.menu .menuItem .submenuArrow {
+  margin-right: calc(var(--space-4, 16px) * -1);
 }
 
 .menu .menuItem:hover .submenuArrow {
