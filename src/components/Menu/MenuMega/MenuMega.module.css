@@ -311,10 +311,9 @@
   min-height: 200px;
   overflow: hidden;
   background-color: var(--color-bg, #09090b);
-  animation: imageFadeIn 400ms ease-out 200ms backwards;
+  animation: imageFadeSlideIn 800ms ease-out 200ms backwards;
   isolation: isolate;
   backface-visibility: hidden;
-  transform: translateZ(0);
 }
 
 .imageElement {
@@ -323,12 +322,14 @@
   object-fit: cover;
 }
 
-@keyframes imageFadeIn {
+@keyframes imageFadeSlideIn {
   from {
     opacity: 0;
+    transform: translate3d(40px, 0, 0);
   }
   to {
     opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
 }
 

@@ -50,6 +50,7 @@ export { toastsExample } from './ToastsExample';
 // Orbital-OS Components
 export { panelExample } from './PanelExample';
 export { paneldrillExample } from './PanelDrillExample';
+export { panelloginExample } from './PanelLoginExample';
 
 // Theme System
 export { themeExample } from './ThemeExample';

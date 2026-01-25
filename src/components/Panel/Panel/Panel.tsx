@@ -7,9 +7,10 @@ import { ThemeContext } from '../../Theme/ThemeContext';
 type BorderType = 'none' | 'solid' | 'future';
 type BorderRadius = 'none' | 'sm' | 'md' | 'lg' | number;
 type PanelVariant = 'solid' | 'transparent' | 'glass';
-type PanelBackground = 'bg' | 'surface' | 'elevated';
+type PanelBackground = 'none' | 'bg' | 'surface' | 'elevated';
 
 const backgroundMap: Record<PanelBackground, string> = {
+  none: 'transparent',
   bg: 'var(--color-bg)',
   surface: 'var(--color-surface)',
   elevated: 'var(--color-elevated)',
@@ -30,6 +31,10 @@ export interface PanelProps extends React.HTMLAttributes<HTMLDivElement> {
   open?: boolean;
   /** Whether to show hover effects */
   hoverable?: boolean;
+  /** Optional image URL to display at the top with fade effect */
+  image?: string;
+  /** Height of the image area (default: '200px') */
+  imageHeight?: string;
   /** Panel content */
   children?: ReactNode;
 }
@@ -93,6 +98,8 @@ export const Panel = forwardRef(function Panel(
     focused = false,
     open = false,
     hoverable = false,
+    image,
+    imageHeight = '200px',
     className,
     style,
     children,
@@ -125,7 +132,10 @@ export const Panel = forwardRef(function Panel(
   const combinedStyle: CSSProperties = {
     position: 'relative',
     transition: 'background-color 75ms ease-out',
-    ...variantStyles[variant],
+    // Only apply flex column layout when image is present
+    ...(image ? { display: 'flex', flexDirection: 'column', overflow: 'hidden' } : {}),
+    // Skip variant styles when background is explicitly set to 'none'
+    ...(background !== 'none' ? variantStyles[variant] : {}),
     ...(resolvedBackground ? { backgroundColor: resolvedBackground } : {}),
     ...(border !== 'future' ? borderStyleMap[border] : {}),
     ...(focused ? { boxShadow: '0 0 0 1px var(--color-accent, #01f4cb)' } : {}),
@@ -138,6 +148,35 @@ export const Panel = forwardRef(function Panel(
   // 'future' border uses global .border-future class from @cypher-asi/zui/styles/borders.css
   const classNames = clsx(styles.panel, border === 'future' && 'border-future', className);
 
+  const imageStyle: CSSProperties = {
+    position: 'relative',
+    width: '100%',
+    height: imageHeight,
+    backgroundImage: `url(${image})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    flexShrink: 0,
+  };
+
+  const imageFadeStyle: CSSProperties = {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: '40%',
+    background: isLightMode
+      ? 'linear-gradient(to bottom, transparent 0%, var(--color-bg, #ffffff) 100%)'
+      : 'linear-gradient(to bottom, transparent 0%, var(--color-bg, #09090b) 100%)',
+    pointerEvents: 'none',
+  };
+
+  const contentStyle: CSSProperties = image ? {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+  } : {};
+
   return (
     <div
       ref={ref}
@@ -147,7 +186,18 @@ export const Panel = forwardRef(function Panel(
       onMouseLeave={() => setIsHovered(false)}
       {...props}
     >
-      {children}
+      {image && (
+        <div style={imageStyle}>
+          <div style={imageFadeStyle} />
+        </div>
+      )}
+      {image ? (
+        <div style={contentStyle}>
+          {children}
+        </div>
+      ) : (
+        children
+      )}
     </div>
   );
 });

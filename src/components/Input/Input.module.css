@@ -1,3 +1,9 @@
+/* Input wrapper (when validation icon is present) */
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
 /* Input styles */
 .input {
   width: 100%;
@@ -11,6 +17,11 @@
   transition:
     border-color var(--transition-fast),
     background-color var(--transition-fast);
+}
+
+/* Add padding for validation icon */
+.inputWrapper .input {
+  padding-right: var(--space-10);
 }
 
 .input:hover {
@@ -38,4 +49,30 @@
 
 .mono {
   font-family: var(--font-mono);
+}
+
+/* Validation icon */
+.validationIcon {
+  position: absolute;
+  right: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-accent);
+  cursor: help;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  opacity: 0.8;
+  transition: opacity var(--transition-fast);
+  z-index: 10;
+}
+
+.validationIcon:hover {
+  opacity: 1;
+}
+
+/* Tooltip on hover using native title attribute */
+.validationIcon svg {
+  display: block;
 }

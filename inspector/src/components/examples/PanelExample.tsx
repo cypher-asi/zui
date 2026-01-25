@@ -170,6 +170,68 @@ export function panelExample() {
       </div>
 
       <div className={styles.section}>
+        <Heading level={3} className={styles.sectionTitle}>Panel with Image + Fade Effect</Heading>
+        <Text variant="secondary" size="sm" className={styles.exampleDescription}>
+          Optional image at the top with gradient fade into panel background
+        </Text>
+        <div className={styles.exampleGrid}>
+          <div className={styles.exampleItem}>
+            <Text variant="secondary" size="sm">Default glass with image</Text>
+            <Panel
+              image="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23667eea'/%3E%3Cstop offset='100%25' style='stop-color:%23764ba2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='400' fill='url(%23a)'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-family='system-ui' font-size='32' font-weight='600'%3ESpace Imagery%3C/text%3E%3C/svg%3E"
+              imageHeight="180px"
+              style={{ maxWidth: '400px' }}
+            >
+              <div style={{ padding: '1.5rem' }}>
+                <Heading level={4}>Space Station</Heading>
+                <Text variant="secondary" size="sm">
+                  The fade effect seamlessly blends the image into the panel background.
+                </Text>
+              </div>
+            </Panel>
+          </div>
+
+          <div className={styles.exampleItem}>
+            <Text variant="secondary" size="sm">Solid background with image</Text>
+            <Panel
+              variant="solid"
+              border="solid"
+              borderRadius="md"
+              image="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400'%3E%3Cdefs%3E%3ClinearGradient id='b' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2306b6d4'/%3E%3Cstop offset='100%25' style='stop-color:%230891b2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='400' fill='url(%23b)'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-family='system-ui' font-size='32' font-weight='600'%3ENorthern Lights%3C/text%3E%3C/svg%3E"
+              imageHeight="160px"
+              style={{ maxWidth: '400px' }}
+            >
+              <div style={{ padding: '1.5rem' }}>
+                <Heading level={4}>Northern Lights</Heading>
+                <Text variant="secondary" size="sm">
+                  Works with any panel variant and border style.
+                </Text>
+              </div>
+            </Panel>
+          </div>
+
+          <div className={styles.exampleItem}>
+            <Text variant="secondary" size="sm">Card-like usage</Text>
+            <Panel
+              variant="glass"
+              border="future"
+              borderRadius="lg"
+              image="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400'%3E%3Cdefs%3E%3ClinearGradient id='c' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23ec4899'/%3E%3Cstop offset='100%25' style='stop-color:%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='400' fill='url(%23c)'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-family='system-ui' font-size='32' font-weight='600'%3EAbstract Waves%3C/text%3E%3C/svg%3E"
+              imageHeight="200px"
+              style={{ maxWidth: '400px' }}
+            >
+              <div style={{ padding: '1.5rem' }}>
+                <Heading level={4}>Abstract Waves</Heading>
+                <Text variant="secondary" size="sm">
+                  Perfect for cards, profiles, or featured content.
+                </Text>
+              </div>
+            </Panel>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.section}>
         <Heading level={3} className={styles.sectionTitle}>Window-like Usage</Heading>
         <Panel style={{ maxWidth: '500px' }}>
           <div style={{ 

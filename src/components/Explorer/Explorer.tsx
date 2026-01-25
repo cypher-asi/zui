@@ -4,6 +4,7 @@ import {
   DragOverlay,
   DragStartEvent,
   DragEndEvent,
+  DragOverEvent,
   PointerSensor,
   KeyboardSensor,
   useSensor,
@@ -30,12 +31,14 @@ interface ExplorerItemProps {
   node: ExplorerNode;
   level: number;
   path: string[];
+  dropTargetId: string | null;
+  activeDropPosition: DropPosition | null;
 }
 
 /**
  * ExplorerItem - Renders a single tree item using the unified Item component
  */
-function ExplorerItem({ node, level, path }: ExplorerItemProps) {
+function ExplorerItem({ node, level, path, dropTargetId, activeDropPosition }: ExplorerItemProps) {
   const {
     expandedIds,
     selectedIds,
@@ -54,8 +57,8 @@ function ExplorerItem({ node, level, path }: ExplorerItemProps) {
 
   const isMatch = matchingIds.has(node.id);
   const isFocused = focusedId === node.id;
+  const isActiveDropTarget = dropTargetId === node.id;
 
-  const [dropPosition, setDropPosition] = useState<DropPosition | null>(null);
   const itemRef = useRef<HTMLButtonElement>(null);
 
   const isExpanded = expandedIds.has(node.id);
@@ -160,32 +163,6 @@ function ExplorerItem({ node, level, path }: ExplorerItemProps) {
     [isDisabled, hasChildren, isExpanded, node.id, selectNode, toggleExpanded, expandOnSelect]
   );
 
-  // Calculate drop position
-  const handleDragOver = useCallback(
-    (e: React.DragEvent) => {
-      if (!enableDragDrop || isDisabled) return;
-
-      const rect = e.currentTarget.getBoundingClientRect();
-      const y = e.clientY - rect.top;
-      const height = rect.height;
-
-      if (hasChildren) {
-        if (y < height * 0.25) setDropPosition('before');
-        else if (y > height * 0.75) setDropPosition('after');
-        else setDropPosition('inside');
-      } else {
-        setDropPosition(y < height * 0.5 ? 'before' : 'after');
-      }
-    },
-    [enableDragDrop, isDisabled, hasChildren]
-  );
-
-  const handleDragLeave = useCallback(() => setDropPosition(null), []);
-  const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    setDropPosition(null);
-  }, []);
-
   const indent = BASE_INDENT + level * INDENT_STEP;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -237,7 +214,7 @@ function ExplorerItem({ node, level, path }: ExplorerItemProps) {
           isSelected && styles.itemSelected,
           isDisabled && styles.itemDisabled,
           isDragging && styles.itemDragging,
-          isOver && styles.itemDragOver,
+          isActiveDropTarget && styles.itemDragOver,
           isMatch && styles.itemMatch,
           isFocused && styles.itemFocused
         )}
@@ -245,9 +222,6 @@ function ExplorerItem({ node, level, path }: ExplorerItemProps) {
         selected={isSelected}
         disabled={isDisabled}
         onKeyDown={handleKeyDown}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
         level={level}
         hasChildren={hasChildren}
         expanded={isExpanded}
@@ -270,16 +244,23 @@ function ExplorerItem({ node, level, path }: ExplorerItemProps) {
         {node.icon && <Item.Icon className={styles.icon}>{node.icon}</Item.Icon>}
         <Item.Label className={styles.label}>{renderLabel()}</Item.Label>
 
-        {isOver && dropPosition === 'before' && <div className={styles.dropIndicatorBefore} />}
-        {isOver && dropPosition === 'after' && <div className={styles.dropIndicatorAfter} />}
-        {isOver && dropPosition === 'inside' && <div className={styles.dropIndicatorInside} />}
+        {isActiveDropTarget && activeDropPosition === 'before' && <div className={styles.dropIndicatorBefore} />}
+        {isActiveDropTarget && activeDropPosition === 'after' && <div className={styles.dropIndicatorAfter} />}
+        {isActiveDropTarget && activeDropPosition === 'inside' && <div className={styles.dropIndicatorInside} />}
       </Item>
 
       {hasChildren && (
         <div className={clsx(styles.children, !isExpanded && styles.childrenCollapsed)}>
           <div className={styles.childrenInner}>
             {node.children!.map((child) => (
-              <ExplorerItem key={child.id} node={child} level={level + 1} path={[...path, child.id]} />
+              <ExplorerItem 
+                key={child.id} 
+                node={child} 
+                level={level + 1} 
+                path={[...path, child.id]}
+                activeDropPosition={activeDropPosition}
+                isActiveDropTarget={isActiveDropTarget}
+              />
             ))}
           </div>
         </div>
@@ -292,8 +273,9 @@ function ExplorerItem({ node, level, path }: ExplorerItemProps) {
  * Internal component that renders the explorer items
  */
 function ExplorerContent() {
-  const { flatNodes, selectedIds, onDrop, searchQuery, filteredData } = useExplorerContext();
+  const { flatNodes, selectedIds, onDrop, searchQuery, filteredData, enableDragDrop } = useExplorerContext();
   const [activeNode, setActiveNode] = useState<ExplorerNode | null>(null);
+  const [dropTarget, setDropTarget] = useState<{ id: string; position: DropPosition } | null>(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
@@ -305,10 +287,56 @@ function ExplorerContent() {
     if (node) setActiveNode(node);
   }, [flatNodes]);
 
+  const handleDragOver = useCallback(
+    (event: DragOverEvent) => {
+      if (!enableDragDrop) return;
+      
+      const { active, over } = event;
+      if (!over || !active) {
+        setDropTarget(null);
+        return;
+      }
+
+      // Get the target node element to calculate position
+      const targetElement = document.querySelector(`[id="${over.id}"]`);
+      if (!targetElement) {
+        setDropTarget(null);
+        return;
+      }
+
+      const targetNode = flatNodes.find((n) => n.id === over.id);
+      if (!targetNode) {
+        setDropTarget(null);
+        return;
+      }
+
+      // Calculate drop position based on pointer position
+      const rect = targetElement.getBoundingClientRect();
+      const pointerY = event.activatorEvent?.clientY ?? event.delta.y;
+      const y = pointerY - rect.top;
+      const height = rect.height;
+
+      let position: DropPosition;
+      if (targetNode.hasChildren) {
+        if (y < height * 0.25) position = 'before';
+        else if (y > height * 0.75) position = 'after';
+        else position = 'inside';
+      } else {
+        position = y < height * 0.5 ? 'before' : 'after';
+      }
+
+      setDropTarget({ id: over.id as string, position });
+    },
+    [flatNodes, enableDragDrop]
+  );
+
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
       const { active, over } = event;
       setActiveNode(null);
+      
+      const finalPosition = dropTarget?.position;
+      setDropTarget(null);
 
       if (!over || active.id === over.id) return;
 
@@ -318,10 +346,10 @@ function ExplorerContent() {
       if (!draggedNode || !targetNode) return;
       if (targetNode.path.includes(active.id as string)) return;
 
-      const position: DropPosition = targetNode.hasChildren ? 'inside' : 'after';
+      const position: DropPosition = finalPosition ?? (targetNode.hasChildren ? 'inside' : 'after');
       onDrop?.(active.id as string, over.id as string, position);
     },
-    [flatNodes, onDrop]
+    [flatNodes, onDrop, dropTarget]
   );
 
   // Use filtered data when searching, otherwise use all data
@@ -339,11 +367,19 @@ function ExplorerContent() {
       sensors={sensors}
       collisionDetection={closestCenter}
       onDragStart={handleDragStart}
+      onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
       <div role="tree">
         {displayData.map((node) => (
-          <ExplorerItem key={node.id} node={node} level={0} path={[node.id]} />
+          <ExplorerItem 
+            key={node.id} 
+            node={node} 
+            level={0} 
+            path={[node.id]}
+            activeDropPosition={dropTarget?.position ?? null}
+            isActiveDropTarget={dropTarget?.id === node.id}
+          />
         ))}
       </div>
 

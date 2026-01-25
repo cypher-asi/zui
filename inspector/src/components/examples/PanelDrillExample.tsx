@@ -171,6 +171,18 @@ export function paneldrillExample() {
           <PanelDrillVariantDemo variant="solid" border="solid" label="Solid + Solid Border" />
         </div>
       </div>
+
+      <div className={styles.section}>
+        <Heading level={3} className={styles.sectionTitle}>Background Prop Support</Heading>
+        <Text variant="secondary" size="sm" className={styles.exampleDescription}>
+          PanelDrill supports all Panel background props including background="none" for transparent panels.
+        </Text>
+        <div className={styles.exampleGrid}>
+          <PanelDrillBackgroundDemo background="bg" label="background='bg'" />
+          <PanelDrillBackgroundDemo background="surface" label="background='surface'" />
+          <PanelDrillBackgroundDemo background="none" label="background='none' (transparent)" />
+        </div>
+      </div>
     </div>
   );
 }
@@ -237,6 +249,38 @@ function PanelDrillVariantDemo({
           onNavigate={(_id, index) => setStack((s) => s.slice(0, index + 1))}
           variant={variant}
           border={border}
+          style={{ height: '100%' }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function PanelDrillBackgroundDemo({
+  background,
+  label,
+}: {
+  background: 'none' | 'bg' | 'surface' | 'elevated';
+  label: string;
+}) {
+  const [stack, setStack] = useState<PanelDrillItem[]>([
+    { id: 'home', label: 'Home', content: <SimpleContent level={1} onNext={(item) => setStack((s) => [...s, item])} /> },
+  ]);
+
+  return (
+    <div className={styles.exampleItem}>
+      <Text variant="secondary" size="sm">{label}</Text>
+      <div style={{
+        height: '200px',
+        background: 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%)',
+        borderRadius: '8px',
+        padding: '1rem',
+      }}>
+        <PanelDrill
+          stack={stack}
+          onNavigate={(_id, index) => setStack((s) => s.slice(0, index + 1))}
+          background={background}
+          border="solid"
           style={{ height: '100%' }}
         />
       </div>
