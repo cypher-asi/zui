@@ -85,11 +85,13 @@ export const PanelWizard = forwardRef(function PanelWizard(
     onFinish,
     showSteps = true,
     showFooter = true,
+    border,
     className,
     ...panelProps
   }: PanelWizardProps,
   ref: ForwardedRef<HTMLDivElement>
 ) {
+  const borderNone = border === 'none';
   const isFirstStep = currentStep === 0;
   const isLastStep = currentStep === steps.length - 1;
   const currentStepData = steps[currentStep];
@@ -134,14 +136,14 @@ export const PanelWizard = forwardRef(function PanelWizard(
 
   if (steps.length === 0) {
     return (
-      <Panel ref={ref} className={clsx(styles.panelWizard, className)} {...panelProps}>
+      <Panel ref={ref} border={border} className={clsx(styles.panelWizard, borderNone && styles.borderNone, className)} {...panelProps}>
         <div className={styles.empty}>No steps defined</div>
       </Panel>
     );
   }
 
   return (
-    <Panel ref={ref} className={clsx(styles.panelWizard, className)} {...panelProps}>
+    <Panel ref={ref} border={border} className={clsx(styles.panelWizard, borderNone && styles.borderNone, className)} {...panelProps}>
       {showSteps && (
         <div className={styles.header}>
           <div className={styles.steps}>
