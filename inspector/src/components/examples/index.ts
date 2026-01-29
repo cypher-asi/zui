@@ -51,6 +51,7 @@ export { toastsExample } from './ToastsExample';
 export { panelExample } from './PanelExample';
 export { paneldrillExample } from './PanelDrillExample';
 export { panelloginExample } from './PanelLoginExample';
+export { panelwizardExample } from './PanelWizardExample';
 
 // Theme System
 export { themeExample } from './ThemeExample';

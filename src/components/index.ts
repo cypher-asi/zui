@@ -73,8 +73,8 @@ export type { AvatarProps, AvatarSize } from './Avatar';
 export { Container } from './Container';
 export type { ContainerProps } from './Container';
 
-export { Panel, PanelDrill, PanelLogin } from './Panel';
-export type { PanelProps, PanelDrillProps, PanelDrillItem, PanelLoginProps, LoginProvider } from './Panel';
+export { Panel, PanelDrill, PanelLogin, PanelWizard } from './Panel';
+export type { PanelProps, PanelDrillProps, PanelDrillItem, PanelLoginProps, LoginProvider, PanelWizardProps, WizardStep } from './Panel';
 
 export { Card, CardItem, CardItemMeta, CardItemCode, CardItemBadge, CardItemTypeBadge, CardItemStatus } from './Card';
 export type { CardProps, CardItemProps } from './Card';
