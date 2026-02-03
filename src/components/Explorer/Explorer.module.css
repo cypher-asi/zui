@@ -48,6 +48,14 @@
 
 .itemMenuHeight .icon {
   margin-right: var(--space-1, 4px);
+  min-width: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.itemMenuHeight .icon svg {
+  width: 16px;
+  height: 16px;
 }
 
 /* Larger chevron/spacer for menu height mode */
@@ -119,6 +127,20 @@
   flex-shrink: 0;
   margin-right: 4px;
   color: inherit;
+  min-width: 14px;
+  width: 14px;
+  height: 14px;
+}
+
+.icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Small spacer for items without icons */
+.iconSpacer {
+  width: 2px;
+  flex-shrink: 0;
 }
 
 /* Label */
@@ -206,6 +228,13 @@
   flex-shrink: 0;
   margin-right: 2px;
   color: inherit;
+  width: 14px;
+  height: 14px;
+}
+
+.dragOverlayIcon svg {
+  width: 14px;
+  height: 14px;
 }
 
 .dragOverlayLabel {
