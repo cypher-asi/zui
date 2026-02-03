@@ -24,6 +24,9 @@
   --control-height-md: 36px;
   --control-height-lg: 44px;
 
+  /* Control widths */
+  --control-width-default: 200px;
+
   /* Border radius */
   --radius-sm: 0;
   --radius-md: 0;

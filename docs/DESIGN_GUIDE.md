@@ -121,15 +121,22 @@ Use consistent icon sizing:
 | `--icon-lg` | 20px | Emphasized icons |
 | `--icon-xl` | 24px | Large icons, headers |
 
-## Control Heights
+## Control Sizes
 
-Interactive elements use standard heights for consistency and accessibility:
+Interactive elements use standard dimensions for consistency and accessibility:
+
+### Heights
 | Token | Value | Usage |
 |-------|-------|-------|
 | `--control-height-xs` | 28px | Compact controls (window buttons) |
 | `--control-height-sm` | 32px | Small buttons, inputs, tree items |
 | `--control-height-md` | 36px | Default buttons, inputs, items |
 | `--control-height-lg` | 44px | Large buttons, touch-friendly |
+
+### Widths
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--control-width-default` | 200px | Default min-width for buttons and inputs |
 
 Note: Touch targets should be at least 44x44px (--control-height-lg) for accessibility.
 

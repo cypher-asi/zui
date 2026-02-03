@@ -1,4 +1,4 @@
-import { useEffect, useRef, useLayoutEffect, useState, type ReactNode, type RefObject } from 'react';
+import { useEffect, useRef, type ReactNode, type RefObject } from 'react';
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
 import { X } from 'lucide-react';
@@ -19,8 +19,6 @@ export interface ModalProps {
   titleClassName?: string;
   initialFocusRef?: RefObject<HTMLElement>;
   size?: ModalSize;
-  /** Enable animated height transitions when content changes */
-  animateHeight?: boolean;
   /** Make modal take full available height */
   fullHeight?: boolean;
   /** Remove default padding from content area */
@@ -40,13 +38,10 @@ export function Modal({
   titleClassName,
   initialFocusRef,
   size = 'md',
-  animateHeight = false,
   fullHeight = false,
   noPadding = false,
 }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [contentHeight, setContentHeight] = useState<number | 'auto'>('auto');
 
   useEffect(() => {
     if (!isOpen) return;
@@ -71,32 +66,6 @@ export function Modal({
     };
   }, [isOpen, onClose, initialFocusRef]);
 
-  // Handle animated height changes
-  useLayoutEffect(() => {
-    if (!animateHeight || !contentRef.current || !isOpen) return;
-
-    const updateHeight = () => {
-      if (contentRef.current) {
-        const height = contentRef.current.scrollHeight;
-        setContentHeight(height);
-      }
-    };
-
-    // Initial measurement
-    updateHeight();
-
-    // Set up ResizeObserver for content changes
-    const resizeObserver = new ResizeObserver(() => {
-      updateHeight();
-    });
-
-    resizeObserver.observe(contentRef.current);
-
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, [animateHeight, isOpen, children]);
-
   if (!isOpen) return null;
 
   return createPortal(
@@ -119,27 +88,16 @@ export function Modal({
             </button>
           </div>
         </div>
-        {animateHeight ? (
-          <div className={styles.contentWrapper} style={{ height: contentHeight }}>
-            <div
-              ref={contentRef}
-              className={clsx(styles.content, noPadding && styles.noPadding, contentClassName)}
-            >
-              {children}
-            </div>
-          </div>
-        ) : (
-          <div
-            className={clsx(
-              styles.content,
-              noPadding && styles.noPadding,
-              fullHeight && styles.contentFullHeight,
-              contentClassName
-            )}
-          >
-            {children}
-          </div>
-        )}
+        <div
+          className={clsx(
+            styles.content,
+            noPadding && styles.noPadding,
+            fullHeight && styles.contentFullHeight,
+            contentClassName
+          )}
+        >
+          {children}
+        </div>
         {footer && <div className={styles.footer}>{footer}</div>}
       </div>
     </div>,

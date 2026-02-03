@@ -65,15 +65,8 @@
 }
 
 .stepNumber {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
   font-size: var(--text-xs);
   font-weight: 500;
-  border: 1px solid currentColor;
   flex-shrink: 0;
 }
 
@@ -81,37 +74,20 @@
   white-space: nowrap;
 }
 
-/* Completed steps - light/secondary text (theme-aware) */
+/* Completed steps - secondary text */
 .step.completed {
   color: var(--color-text-secondary);
 }
 
-.step.completed .stepNumber {
-  background-color: transparent;
-  color: var(--color-text-secondary);
-  border-color: var(--color-text-secondary);
-}
-
-/* Current step - accent color */
+/* Current step - white/primary text */
 .step.current {
-  color: var(--color-accent);
-}
-
-.step.current .stepNumber {
-  background-color: var(--color-accent);
-  color: var(--color-bg);
-  border-color: var(--color-accent);
+  color: var(--color-text-primary);
 }
 
 /* Future steps - muted/grayed out (not reachable) */
 .step.future {
   color: var(--color-text-muted);
   opacity: 0.6;
-}
-
-.step.future .stepNumber {
-  background-color: transparent;
-  border-color: var(--color-text-muted);
 }
 
 /* Reachable future steps - clickable but not yet visited */
@@ -122,11 +98,6 @@
 
 .step.reachable:hover {
   opacity: 1;
-}
-
-.step.reachable .stepNumber {
-  background-color: transparent;
-  border-color: var(--color-text);
 }
 
 .content {

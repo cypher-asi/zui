@@ -103,12 +103,6 @@
   color: var(--color-text-primary);
 }
 
-/* Animated content wrapper */
-.contentWrapper {
-  overflow: hidden;
-  transition: height 200ms ease-out;
-}
-
 .content {
   flex: 1;
   overflow-y: auto;

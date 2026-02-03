@@ -10,6 +10,7 @@
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
   min-height: var(--control-height-md);
+  min-width: var(--control-width-default);
   cursor: pointer;
   text-decoration: none;
   border: 1px solid transparent;
@@ -165,7 +166,7 @@
 
 .iconOnly {
   padding: var(--space-2);
-  min-width: var(--control-height-md);
+  min-width: var(--control-height-md); /* Override default to keep square */
   min-height: var(--control-height-md);
 }
 

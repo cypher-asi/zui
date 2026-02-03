@@ -28,27 +28,14 @@
 }
 
 .panels {
-  position: relative;
-  flex: 1;
-  overflow: hidden;
 }
 
 .content {
-  position: absolute;
-  inset: 0;
-  overflow: auto;
-  visibility: hidden;
-  pointer-events: none;
+  display: none;
 }
 
 .content.active {
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.content.hidden {
-  visibility: hidden;
-  pointer-events: none;
+  display: block;
 }
 
 .empty {
