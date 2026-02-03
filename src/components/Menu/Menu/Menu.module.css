@@ -26,6 +26,7 @@
 
 .glass {
   background-color: rgba(9, 9, 11, 0.15);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
 }
 
@@ -104,6 +105,7 @@
 .menu .menuItem:focus-visible {
   outline: none;
   background-color: var(--color-overlay-medium);
+  color: var(--color-text-primary);
 }
 
 /* Icon */
@@ -163,13 +165,24 @@
 /* Submenu container */
 .submenu {
   position: absolute;
-  top: 0;
+  /* Offset by menu's top padding so first submenu item aligns with parent item */
+  top: calc(-1 * var(--space-1-5, 6px));
   left: 100%;
   z-index: var(--z-dropdown, 50);
+  /* Force GPU compositing layer for proper backdrop-filter inheritance */
+  transform: translateZ(0);
 }
 
-.submenu .menu {
+/* Submenu inherits parent styling */
+.submenu > .menu {
   box-shadow: var(--shadow-lg, 0 10px 15px -3px rgb(0 0 0 / 0.3));
+}
+
+/* Glass submenus use a slightly more opaque background for readability */
+.submenu > .glass {
+  background-color: rgba(9, 9, 11, 0.55);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 /* Submenu positioned to the left when no space on right */

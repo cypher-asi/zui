@@ -1,4 +1,4 @@
-import { type ReactNode, useRef, useLayoutEffect, useState, useCallback } from 'react';
+import { type ReactNode, useRef, useLayoutEffect, useState, useCallback, useEffect, type KeyboardEvent } from 'react';
 import clsx from 'clsx';
 import { ChevronRight } from 'lucide-react';
 import { Item } from '../../Item';
@@ -107,6 +107,11 @@ export interface MenuProps {
    * @internal
    */
   _depth?: number;
+  /**
+   * Internal: callback to return focus to parent menu item when submenu closes
+   * @internal
+   */
+  _onRequestClose?: () => void;
 }
 
 // ============================================================================
@@ -116,6 +121,7 @@ export interface MenuProps {
 interface MenuItemComponentProps {
   item: MenuItemProps;
   isSelected: boolean;
+  isFocused: boolean;
   currentValue: string | string[] | undefined;
   onSelect: ((id: string) => void) | undefined;
   background: MenuBackground;
@@ -125,11 +131,17 @@ interface MenuItemComponentProps {
   isSubmenuOpen: boolean;
   onSubmenuOpen: (id: string | null) => void;
   closeTimeoutRef: React.MutableRefObject<ReturnType<typeof setTimeout> | null>;
+  itemRef: (el: HTMLButtonElement | null) => void;
+  onKeyDown: (e: KeyboardEvent) => void;
+  onFocus: () => void;
+  /** Callback from submenu to return focus to parent item */
+  onSubmenuClose?: () => void;
 }
 
 function MenuItemComponent({
   item,
   isSelected,
+  isFocused,
   currentValue,
   onSelect,
   background,
@@ -139,16 +151,27 @@ function MenuItemComponent({
   isSubmenuOpen,
   onSubmenuOpen,
   closeTimeoutRef,
+  itemRef,
+  onKeyDown,
+  onFocus,
+  onSubmenuClose,
 }: MenuItemComponentProps) {
   const [submenuPosition, setSubmenuPosition] = useState<'right' | 'left'>('right');
-  const itemRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   const hasSubmenu = item.children && item.children.length > 0;
 
+  // Combine refs for the button element
+  const setButtonRef = useCallback((el: HTMLButtonElement | null) => {
+    buttonRef.current = el;
+    itemRef(el);
+  }, [itemRef]);
+
   // Calculate submenu position based on available space
   const updateSubmenuPosition = useCallback(() => {
-    if (itemRef.current && hasSubmenu) {
-      const rect = itemRef.current.getBoundingClientRect();
+    if (wrapperRef.current && hasSubmenu) {
+      const rect = wrapperRef.current.getBoundingClientRect();
       const viewportWidth = window.innerWidth;
       const submenuWidth = 200; // Estimated submenu width
       const padding = 8;
@@ -193,14 +216,29 @@ function MenuItemComponent({
     }
   }, [item.disabled, item.id, hasSubmenu, onSelect]);
 
+  // Handle keyboard event for this item
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    // Let parent menu handle navigation keys
+    onKeyDown(e);
+  }, [onKeyDown]);
+
+  // Callback to return focus from submenu to this item
+  const handleSubmenuClose = useCallback(() => {
+    // Close the submenu
+    onSubmenuOpen(null);
+    // Return focus to this item
+    buttonRef.current?.focus();
+  }, [onSubmenuOpen]);
+
   return (
     <div
-      ref={itemRef}
+      ref={wrapperRef}
       className={styles.menuItemWrapper}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <Item
+        ref={setButtonRef}
         id={item.id}
         className={clsx(
           styles.menuItem,
@@ -211,10 +249,20 @@ function MenuItemComponent({
         )}
         disabled={item.disabled}
         onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        onFocus={onFocus}
+        onMouseEnter={() => {
+          // Clear close timeout when re-entering parent item from submenu
+          if (closeTimeoutRef.current) {
+            clearTimeout(closeTimeoutRef.current);
+            closeTimeoutRef.current = null;
+          }
+        }}
         role="menuitem"
         aria-haspopup={hasSubmenu ? 'menu' : undefined}
         aria-expanded={hasSubmenu ? isSubmenuOpen : undefined}
         aria-selected={isSelected}
+        tabIndex={isFocused ? 0 : -1}
       >
         {item.icon && <Item.Icon className={styles.icon}>{item.icon}</Item.Icon>}
         <Item.Label className={styles.label}>{item.label}</Item.Label>
@@ -251,6 +299,7 @@ function MenuItemComponent({
             border={border}
             _depth={depth + 1}
             isOpen={isSubmenuOpen}
+            _onRequestClose={handleSubmenuClose}
           />
         </div>
       )}
@@ -278,6 +327,7 @@ export function Menu({
   width,
   isOpen,
   _depth = 0,
+  _onRequestClose,
 }: MenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
   const [offsetY, setOffsetY] = useState(0);
@@ -286,6 +336,10 @@ export function Menu({
   // Track which submenu is currently open (by item id)
   const [openSubmenuId, setOpenSubmenuId] = useState<string | null>(null);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Keyboard navigation state
+  const [focusedIndex, setFocusedIndex] = useState<number>(-1);
+  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   // Support both old and new prop names (old names are deprecated)
   const currentValue = value ?? selectedId;
@@ -296,6 +350,143 @@ export function Menu({
 
   // Resolve border style: new `border` prop takes precedence over deprecated `bordered`
   const borderStyle = border ?? (bordered ? 'solid' : 'none');
+
+  // Get focusable items (non-separator, non-disabled) with their original indices
+  const focusableItems = items
+    .map((item, index) => ({ item, index }))
+    .filter(({ item }): item is { item: MenuItemProps; index: number } => 
+      !isSeparator(item) && !item.disabled
+    );
+
+  // Find focused item data
+  const focusedItemData = focusedIndex >= 0 ? focusableItems[focusedIndex] : null;
+
+  // Keyboard navigation handler
+  const handleMenuKeyDown = useCallback((e: KeyboardEvent) => {
+    const itemCount = focusableItems.length;
+    if (itemCount === 0) return;
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        e.stopPropagation();
+        setFocusedIndex(prev => {
+          const next = prev < 0 ? 0 : (prev + 1) % itemCount;
+          return next;
+        });
+        break;
+
+      case 'ArrowUp':
+        e.preventDefault();
+        e.stopPropagation();
+        setFocusedIndex(prev => {
+          const next = prev < 0 ? itemCount - 1 : (prev - 1 + itemCount) % itemCount;
+          return next;
+        });
+        break;
+
+      case 'ArrowRight': {
+        // Open submenu if current item has one
+        const currentItem = focusedItemData?.item;
+        if (currentItem && currentItem.children && currentItem.children.length > 0 && !currentItem.disabled) {
+          e.preventDefault();
+          e.stopPropagation();
+          setOpenSubmenuId(currentItem.id);
+        }
+        break;
+      }
+
+      case 'ArrowLeft':
+        e.preventDefault();
+        e.stopPropagation();
+        // If we're in a submenu, close it and return focus to parent
+        if (_depth > 0 && _onRequestClose) {
+          setOpenSubmenuId(null);
+          _onRequestClose();
+        }
+        break;
+
+      case 'Home':
+        e.preventDefault();
+        e.stopPropagation();
+        setFocusedIndex(0);
+        break;
+
+      case 'End':
+        e.preventDefault();
+        e.stopPropagation();
+        setFocusedIndex(itemCount - 1);
+        break;
+
+      case 'Enter':
+      case ' ':
+        if (focusedItemData) {
+          e.preventDefault();
+          e.stopPropagation();
+          const item = focusedItemData.item;
+          if (item.children && item.children.length > 0) {
+            // Open submenu
+            setOpenSubmenuId(item.id);
+          } else if (handleChange) {
+            // Select item
+            handleChange(item.id);
+          }
+        }
+        break;
+
+      case 'Escape':
+        e.preventDefault();
+        e.stopPropagation();
+        // Close submenu and return to parent
+        if (_depth > 0 && _onRequestClose) {
+          setOpenSubmenuId(null);
+          _onRequestClose();
+        } else {
+          // Close any open submenu at root level
+          setOpenSubmenuId(null);
+        }
+        break;
+    }
+  }, [focusableItems, focusedItemData, _depth, _onRequestClose, handleChange]);
+
+  // Focus the item when focusedIndex changes
+  useEffect(() => {
+    if (focusedIndex >= 0 && focusedIndex < focusableItems.length) {
+      const originalIndex = focusableItems[focusedIndex].index;
+      itemRefs.current[originalIndex]?.focus();
+    }
+  }, [focusedIndex, focusableItems]);
+
+  // Auto-focus first item (or selected item) when menu opens
+  // If isOpen is explicitly false, reset focus. Otherwise (true or undefined), set focus.
+  useEffect(() => {
+    if (isOpen === false) {
+      setFocusedIndex(-1);
+    } else if (focusableItems.length > 0 && focusedIndex < 0) {
+      // Find selected item index if any
+      const selectedIndex = focusableItems.findIndex(({ item }) => 
+        isItemSelected(item.id, currentValue)
+      );
+      // Focus selected item, or first item
+      setFocusedIndex(selectedIndex >= 0 ? selectedIndex : 0);
+    }
+  }, [isOpen]); // Only depend on isOpen to avoid re-focusing on every render
+
+  // Also focus on initial mount if isOpen is undefined (menu is just rendered)
+  useEffect(() => {
+    if (isOpen === undefined && focusableItems.length > 0 && focusedIndex < 0) {
+      const selectedIndex = focusableItems.findIndex(({ item }) => 
+        isItemSelected(item.id, currentValue)
+      );
+      setFocusedIndex(selectedIndex >= 0 ? selectedIndex : 0);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run on mount
+
+  // Reset item refs array when items change
+  useEffect(() => {
+    itemRefs.current = itemRefs.current.slice(0, items.length);
+  }, [items.length]);
 
   // Check if menu would go off-screen and adjust position (runs before paint)
   // Only apply to root menu, submenus handle their own positioning
@@ -341,6 +532,17 @@ export function Menu({
         ? styles[`border${borderStyle.charAt(0).toUpperCase() + borderStyle.slice(1)}`]
         : undefined;
 
+  // Handle click on menu container to enable keyboard nav
+  const handleMenuClick = useCallback(() => {
+    // If no item is focused yet, focus the first one
+    if (focusedIndex < 0 && focusableItems.length > 0) {
+      const selectedIndex = focusableItems.findIndex(({ item }) => 
+        isItemSelected(item.id, currentValue)
+      );
+      setFocusedIndex(selectedIndex >= 0 ? selectedIndex : 0);
+    }
+  }, [focusedIndex, focusableItems, currentValue]);
+
   return (
     <div
       ref={menuRef}
@@ -356,16 +558,26 @@ export function Menu({
         transform: (_depth === 0 && (offsetX !== 0 || offsetY !== 0)) ? `translate(${offsetX}px, ${offsetY}px)` : undefined,
       }}
       role="menu"
+      tabIndex={-1}
+      onKeyDown={handleMenuKeyDown}
+      onClick={handleMenuClick}
     >
       {title && <div className={styles.title}>{title}</div>}
-      {items.map((item, index) =>
-        isSeparator(item) ? (
-          <hr key={`separator-${index}`} className={styles.separator} />
-        ) : (
+      {items.map((item, index) => {
+        if (isSeparator(item)) {
+          return <hr key={`separator-${index}`} className={styles.separator} />;
+        }
+        
+        // Find the focused index for this item in the focusable items array
+        const focusableIndex = focusableItems.findIndex(f => f.index === index);
+        const isFocused = focusableIndex === focusedIndex;
+        
+        return (
           <MenuItemComponent
             key={item.id}
             item={item}
             isSelected={isItemSelected(item.id, currentValue)}
+            isFocused={isFocused}
             currentValue={currentValue}
             onSelect={handleChange}
             background={backgroundStyle}
@@ -375,9 +587,17 @@ export function Menu({
             isSubmenuOpen={openSubmenuId === item.id}
             onSubmenuOpen={setOpenSubmenuId}
             closeTimeoutRef={closeTimeoutRef}
+            itemRef={(el) => { itemRefs.current[index] = el; }}
+            onKeyDown={handleMenuKeyDown}
+            onFocus={() => {
+              // Sync focusedIndex when item receives focus (e.g., returning from submenu)
+              if (focusableIndex >= 0 && focusableIndex !== focusedIndex) {
+                setFocusedIndex(focusableIndex);
+              }
+            }}
           />
-        )
-      )}
+        );
+      })}
     </div>
   );
 }
