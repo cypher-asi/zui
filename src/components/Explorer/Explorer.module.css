@@ -33,6 +33,36 @@
   position: relative;
 }
 
+/* Menu height variant (matches typical menu item height) */
+.itemMenuHeight {
+  gap: var(--space-2, 8px);
+  padding: var(--space-2, 8px) var(--space-3, 12px);
+  min-height: var(--control-height-md, 36px);
+  font-size: var(--text-base, 14px);
+}
+
+.itemMenuHeight .label {
+  font-size: var(--text-base, 14px);
+  line-height: 1.4;
+}
+
+.itemMenuHeight .icon {
+  margin-right: var(--space-1, 4px);
+}
+
+/* Larger chevron/spacer for menu height mode */
+.itemMenuHeight .chevronButton,
+.itemMenuHeight .leafSpacer {
+  width: 24px;
+  height: 24px;
+}
+
+/* When chevron is on the right, push it to the far right */
+.itemMenuHeight .chevronButton:last-child,
+.itemContent .chevronButton:last-child {
+  margin-left: auto;
+}
+
 .itemContent:hover {
   background: var(--color-overlay-subtle);
   color: var(--color-text-secondary);

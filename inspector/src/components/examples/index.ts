@@ -20,8 +20,9 @@ export { textExample } from './TextExample';
 export { textareaExample } from './TextareaExample';
 export { toggleExample } from './ToggleExample';
 
-// Item Component (Unified)
+// Item Components (Unified)
 export { itemExample } from './ItemExample';
+export { itemdetailedExample } from './ItemDetailedExample';
 
 // Composite Components
 export { buttonrefreshExample } from './ButtonRefreshExample';

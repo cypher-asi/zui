@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
-import type { UseItemDndOptions, UseItemDndReturn, DropPosition } from './types';
+import type { UseItemDndOptions, UseItemDndReturn, DropPosition } from '../types';
 
 /**
  * useItemDnd - Hook for drag-and-drop functionality on items

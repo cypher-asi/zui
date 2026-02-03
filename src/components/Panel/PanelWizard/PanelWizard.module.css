@@ -81,15 +81,15 @@
   white-space: nowrap;
 }
 
-/* Completed steps - white text */
+/* Completed steps - light/secondary text (theme-aware) */
 .step.completed {
-  color: var(--color-text);
+  color: var(--color-text-secondary);
 }
 
 .step.completed .stepNumber {
-  background-color: var(--color-text);
-  color: var(--color-bg);
-  border-color: var(--color-text);
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  border-color: var(--color-text-secondary);
 }
 
 /* Current step - accent color */

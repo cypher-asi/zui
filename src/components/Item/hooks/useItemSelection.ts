@@ -1,5 +1,5 @@
 import { useCallback, MouseEvent } from 'react';
-import type { UseItemSelectionOptions } from './types';
+import type { UseItemSelectionOptions } from '../types';
 
 /**
  * useItemSelection - Hook for multi-select functionality on items

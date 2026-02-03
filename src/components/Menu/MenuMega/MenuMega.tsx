@@ -1,6 +1,7 @@
 import { type ReactNode, useCallback, useMemo } from 'react';
 import clsx from 'clsx';
 import type { MenuBackground, MenuRounded, MenuBorder } from '../Menu';
+import type { ItemDetailedProps } from '../../Item';
 import styles from './MenuMega.module.css';
 
 // ============================================================================
@@ -41,26 +42,18 @@ function TypewriterText({
 // Types
 // ============================================================================
 
-/** Individual mega menu item with icon, label, and description */
-export interface MenuMegaItemProps {
-  /** Unique identifier for the item */
-  id: string;
-  /** Icon displayed on the left */
-  icon?: ReactNode;
-  /** Item name/title */
-  label: string;
-  /** 1-2 line description below the label */
-  description?: string;
-  /** Whether item is disabled */
-  disabled?: boolean;
-}
+/**
+ * @deprecated Use ItemDetailedProps from '../../Item' instead.
+ * This alias is kept for backwards compatibility.
+ */
+export type MenuMegaItemProps = ItemDetailedProps;
 
 /** A column of mega menu items */
 export interface MenuMegaColumnProps {
   /** Optional column header */
   title?: string;
-  /** Items in this column */
-  items: MenuMegaItemProps[];
+  /** Items in this column (uses ItemDetailedProps) */
+  items: ItemDetailedProps[];
 }
 
 /** Main MenuMega component props */
@@ -99,10 +92,11 @@ export interface MenuMegaProps {
 
 // ============================================================================
 // MenuMegaItem - Internal component for rendering a single mega menu item
+// Wraps ItemDetailedProps with mega menu-specific typewriter animation
 // ============================================================================
 
 interface MenuMegaItemComponentProps {
-  item: MenuMegaItemProps;
+  item: ItemDetailedProps;
   itemIndex: number;
   isSelected: boolean;
   onSelect: ((id: string) => void) | undefined;

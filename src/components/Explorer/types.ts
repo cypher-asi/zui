@@ -48,6 +48,10 @@ export interface ExplorerProps {
   searchPlaceholder?: string;
   /** Callback when search query changes */
   onSearch?: (query: string) => void;
+  /** Whether to use compact item height (default: true). When false, items match typical menu item height. */
+  compact?: boolean;
+  /** Position of the expand/collapse chevron (default: 'left') */
+  chevronPosition?: 'left' | 'right';
 }
 
 /**
@@ -117,6 +121,10 @@ export interface ExplorerContextValue {
   onDrop?: (draggedId: string, targetId: string, position: DropPosition) => void;
   /** Flat array of all nodes in the tree */
   flatNodes: FlatNode[];
+  /** Whether to use compact item height */
+  compact: boolean;
+  /** Position of the expand/collapse chevron */
+  chevronPosition: 'left' | 'right';
 }
 
 /**

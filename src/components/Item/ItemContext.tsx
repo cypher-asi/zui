@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useCallback, useMemo } from 'react';
 import type { ItemListContextValue, ItemListProviderProps } from './types';
-import { getItemRange } from './useItemSelection';
+import { getItemRange } from './hooks';
 
 // ============================================================================
 // Context

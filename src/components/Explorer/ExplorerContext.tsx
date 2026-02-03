@@ -23,6 +23,8 @@ interface ExplorerProviderProps {
   onSelect?: (selectedIds: string[]) => void;
   onExpand?: (nodeId: string, expanded: boolean) => void;
   onDrop?: (draggedId: string, targetId: string, position: DropPosition) => void;
+  compact?: boolean;
+  chevronPosition?: 'left' | 'right';
 }
 
 /**
@@ -120,6 +122,8 @@ export function ExplorerProvider({
   onSelect,
   onExpand,
   onDrop,
+  compact = true,
+  chevronPosition = 'left',
 }: ExplorerProviderProps) {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set(defaultExpandedIds));
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set(defaultSelectedIds));
@@ -314,6 +318,8 @@ export function ExplorerProvider({
       onExpand: onExpandRef.current,
       onDrop: onDropRef.current,
       flatNodes,
+      compact,
+      chevronPosition,
     }),
     [
       expandedIds,
@@ -335,6 +341,8 @@ export function ExplorerProvider({
       moveFocus,
       selectFocused,
       flatNodes,
+      compact,
+      chevronPosition,
     ]
   );
   

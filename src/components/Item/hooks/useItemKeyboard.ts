@@ -1,5 +1,5 @@
 import { useCallback, KeyboardEvent } from 'react';
-import type { UseItemKeyboardOptions } from './types';
+import type { UseItemKeyboardOptions } from '../types';
 
 /**
  * useItemKeyboard - Hook for keyboard navigation on items

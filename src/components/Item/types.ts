@@ -1,4 +1,4 @@
-import { ReactNode, MouseEvent, KeyboardEvent, HTMLAttributes } from 'react';
+import { ReactNode, MouseEvent, KeyboardEvent, HTMLAttributes, CSSProperties } from 'react';
 
 /**
  * Drop position for drag-and-drop operations
@@ -101,6 +101,35 @@ export interface ItemActionProps {
 export interface ItemSpacerProps {
   /** Additional CSS class */
   className?: string;
+}
+
+/**
+ * Props for the ItemDetailed component - a detailed item with icon, label, and description.
+ * Used for mega menus, detailed lists, and other contexts requiring rich item display.
+ */
+export interface ItemDetailedProps {
+  /** Unique identifier for the item */
+  id: string;
+  /** Icon displayed on the left */
+  icon?: ReactNode;
+  /** Primary text label */
+  label: string;
+  /** Secondary description text below the label */
+  description?: string;
+  /** Whether the item is disabled */
+  disabled?: boolean;
+  /** Whether the item is selected */
+  selected?: boolean;
+  /** Click handler */
+  onClick?: () => void;
+  /** Additional CSS class */
+  className?: string;
+  /** Inline styles */
+  style?: CSSProperties;
+  /** ARIA role override */
+  role?: string;
+  /** Tab index override */
+  tabIndex?: number;
 }
 
 /**

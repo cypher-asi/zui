@@ -7,7 +7,7 @@ import type {
   ItemChevronProps,
   ItemActionProps,
   ItemSpacerProps,
-} from './types';
+} from '../types';
 import styles from './Item.module.css';
 
 // ============================================================================

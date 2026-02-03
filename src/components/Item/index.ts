@@ -1,13 +1,12 @@
-// Main component
+// Main components
 export { Item } from './Item';
+export { ItemDetailed } from './ItemDetailed';
 
 // Context and provider
 export { ItemListProvider, useItemListContext, useItemListContextOptional } from './ItemContext';
 
 // Hooks
-export { useItemDnd } from './useItemDnd';
-export { useItemKeyboard } from './useItemKeyboard';
-export { useItemSelection, getItemRange } from './useItemSelection';
+export { useItemDnd, useItemKeyboard, useItemSelection, getItemRange } from './hooks';
 
 // Types
 export type {
@@ -17,6 +16,7 @@ export type {
   ItemChevronProps,
   ItemActionProps,
   ItemSpacerProps,
+  ItemDetailedProps,
   DropPosition,
   DragStartHandler,
   DropHandler,

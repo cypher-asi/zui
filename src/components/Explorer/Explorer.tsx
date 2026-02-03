@@ -20,9 +20,13 @@ import { ExplorerProvider, useExplorerContext } from './ExplorerContext';
 import type { ExplorerProps, ExplorerNode, DropPosition } from './types';
 import styles from './Explorer.module.css';
 
-// Indentation constants
-const BASE_INDENT = 12;
-const INDENT_STEP = 20;
+// Indentation constants for compact mode
+const BASE_INDENT_COMPACT = 12;
+const INDENT_STEP_COMPACT = 20;
+
+// Indentation constants for menu-height mode
+const BASE_INDENT_MENU = 12;
+const INDENT_STEP_MENU = 24;
 
 /**
  * Internal props for ExplorerItem
@@ -53,6 +57,8 @@ function ExplorerItem({ node, level, path, dropTargetId, activeDropPosition }: E
     searchQuery,
     matchingIds,
     focusedId,
+    compact,
+    chevronPosition,
   } = useExplorerContext();
 
   const isMatch = matchingIds.has(node.id);
@@ -163,7 +169,9 @@ function ExplorerItem({ node, level, path, dropTargetId, activeDropPosition }: E
     [isDisabled, hasChildren, isExpanded, node.id, selectNode, toggleExpanded, expandOnSelect]
   );
 
-  const indent = BASE_INDENT + level * INDENT_STEP;
+  const indent = compact
+    ? BASE_INDENT_COMPACT + level * INDENT_STEP_COMPACT
+    : BASE_INDENT_MENU + level * INDENT_STEP_MENU;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { role: _role, ...restAttributes } = attributes;
@@ -204,6 +212,17 @@ function ExplorerItem({ node, level, path, dropTargetId, activeDropPosition }: E
     );
   };
 
+  const chevronElement = hasChildren ? (
+    <Item.Chevron
+      className={styles.chevronButton}
+      size="sm"
+      expanded={isExpanded}
+      onToggle={handleChevronClick}
+    />
+  ) : (
+    chevronPosition === 'left' ? <Item.Spacer className={styles.leafSpacer} /> : null
+  );
+
   return (
     <div className={styles.item}>
       <Item
@@ -211,6 +230,7 @@ function ExplorerItem({ node, level, path, dropTargetId, activeDropPosition }: E
         id={node.id}
         className={clsx(
           styles.itemContent,
+          !compact && styles.itemMenuHeight,
           isSelected && styles.itemSelected,
           isDisabled && styles.itemDisabled,
           isDragging && styles.itemDragging,
@@ -230,19 +250,12 @@ function ExplorerItem({ node, level, path, dropTargetId, activeDropPosition }: E
         {...listeners}
         onClick={mergedOnClick}
       >
-        {hasChildren ? (
-          <Item.Chevron
-            className={styles.chevronButton}
-            size="sm"
-            expanded={isExpanded}
-            onToggle={handleChevronClick}
-          />
-        ) : (
-          <Item.Spacer className={styles.leafSpacer} />
-        )}
+        {chevronPosition === 'left' && chevronElement}
 
         {node.icon && <Item.Icon className={styles.icon}>{node.icon}</Item.Icon>}
         <Item.Label className={styles.label}>{renderLabel()}</Item.Label>
+
+        {chevronPosition === 'right' && chevronElement}
 
         {isActiveDropTarget && activeDropPosition === 'before' && <div className={styles.dropIndicatorBefore} />}
         {isActiveDropTarget && activeDropPosition === 'after' && <div className={styles.dropIndicatorAfter} />}
@@ -467,6 +480,8 @@ export function Explorer({
   searchable = false,
   searchPlaceholder,
   onSearch,
+  compact = true,
+  chevronPosition = 'left',
 }: ExplorerProps) {
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -497,6 +512,8 @@ export function Explorer({
         onSelect={onSelect}
         onExpand={onExpand}
         onDrop={onDrop}
+        compact={compact}
+        chevronPosition={chevronPosition}
       >
         {searchable && (
           <ExplorerSearch

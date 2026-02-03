@@ -29,8 +29,9 @@ export const componentDescriptions: Record<string, string> = {
   'textarea': 'Multi-line text input field for longer text content with size variants.',
   'toggle': 'Boolean switch/toggle control with success variant for enabled states.',
   
-  // Item Component (Unified)
+  // Item Components (Unified)
   'item': 'Composable item component with Icon, Label, Chevron, Action, and Spacer subcomponents for navigation, trees, and menus.',
+  'item-detailed': 'Rich item component with icon, label, and description for mega menus, detailed lists, and other contexts requiring descriptive items.',
   'item-context': 'Context provider for managing selection and expansion state across Item lists.',
   
   // Composite Components
@@ -72,7 +73,7 @@ export const groupDescriptions: Record<string, string> = {
   'card': 'Card components for displaying content in contained, elevated surfaces. Includes basic cards and specialized item cards for list displays.',
   'code': 'Code display components for showing source code. Includes inline code snippets and syntax-highlighted code blocks.',
   'group': 'Grouping components for organizing related content. Includes static group headers and collapsible sections.',
-  'item': 'Composable item components for building navigation, trees, and menus. Provides a unified API with subcomponents for icons, labels, chevrons, and actions.',
+  'item': 'Composable item components for building navigation, trees, and menus. Includes base Item with subcomponents and ItemDetailed for rich items with descriptions.',
   'menu': 'Menu components for navigation and actions. Includes standard navigation menus, dropdown menus for contextual commands, and mega menus for rich multi-column layouts.',
   'modal': 'Modal dialog components for overlaying content. Includes general-purpose modals and confirmation dialogs for important actions.',
   'page': 'Page layout components for structuring application views. Includes page containers, headers, loaders, empty states, and list displays.',

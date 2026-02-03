@@ -69,8 +69,8 @@ export function PanelLogin({
   loginProviders,
   onRegisterClick,
   onForgotPasswordClick,
-  registerText = 'Register Identity',
-  forgotPasswordText = 'Forgot Password',
+  registerText,
+  forgotPasswordText,
   linkSeparator = ' or ',
   bottomContent,
 }: PanelLoginProps) {
@@ -204,7 +204,7 @@ export function PanelLogin({
         <div className={styles.links}>
           {bottomContent}
         </div>
-      ) : (
+      ) : (registerText || forgotPasswordText) ? (
         <div className={styles.links}>
           <Text variant="secondary" size="sm" align="center">
             {onRegisterClick ? (
@@ -234,7 +234,7 @@ export function PanelLogin({
             )}
           </Text>
         </div>
-      )}
+      ) : null}
     </form>
   );
 

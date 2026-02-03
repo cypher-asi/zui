@@ -97,12 +97,13 @@ export type { TabsProps, Tab } from './Tabs';
 // ============================================================================
 // Item Components (Unified composable item primitives)
 // ============================================================================
-export { Item, ItemListProvider, useItemListContext, useItemListContextOptional } from './Item';
+export { Item, ItemDetailed, ItemListProvider, useItemListContext, useItemListContextOptional } from './Item';
 export { useItemDnd } from './Item';
 export { useItemKeyboard } from './Item';
 export { useItemSelection, getItemRange } from './Item';
 export type {
   ItemProps,
+  ItemDetailedProps,
   ItemIconProps,
   ItemLabelProps,
   ItemChevronProps,
