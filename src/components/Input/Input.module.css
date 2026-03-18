@@ -77,3 +77,10 @@
 .validationIcon svg {
   display: block;
 }
+
+@media (pointer: coarse), (max-width: 900px) {
+  .input,
+  .sm {
+    font-size: 16px;
+  }
+}
