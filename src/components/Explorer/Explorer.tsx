@@ -258,6 +258,7 @@ function ExplorerItem({ node, level, path, dropTargetId, activeDropPosition }: E
           <span className={styles.iconSpacer} />
         )}
         <Item.Label className={styles.label}>{renderLabel()}</Item.Label>
+        {node.suffix && <span className={styles.suffix}>{node.suffix}</span>}
 
         {chevronPosition === 'right' && chevronElement}
 
