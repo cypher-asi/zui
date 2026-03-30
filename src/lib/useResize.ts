@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, RefObject } from 'react';
+import { useState, useEffect, useCallback, useRef, RefObject } from 'react';
 
 export type ResizeSide = 'left' | 'right' | 'top' | 'bottom';
 
@@ -110,6 +110,7 @@ export function useResize({
     enabled ? getSavedSize(storageKey, defaultSize, minSize, maxSize) : defaultSize
   );
   const [isResizing, setIsResizing] = useState(false);
+  const dragRef = useRef<{ startPos: number; startSize: number } | null>(null);
   
   const isHorizontal = side === 'left' || side === 'right';
   
@@ -117,46 +118,28 @@ export function useResize({
     if (!enabled) return;
     e.preventDefault();
     
-    // Call onResizeStart (e.g., to open a closed drawer)
     onResizeStart?.();
     
+    dragRef.current = {
+      startPos: isHorizontal ? e.clientX : e.clientY,
+      startSize: size,
+    };
     setIsResizing(true);
-  }, [enabled, onResizeStart]);
+  }, [enabled, onResizeStart, isHorizontal, size]);
   
   useEffect(() => {
     if (!isResizing || !enabled) return;
     
     const handleMouseMove = (e: MouseEvent) => {
-      if (!elementRef.current) return;
+      const start = dragRef.current;
+      if (!start) return;
       
-      // Get the parent container bounds for relative positioning
-      const parent = elementRef.current.parentElement;
-      const parentRect = parent?.getBoundingClientRect();
+      const currentPos = isHorizontal ? e.clientX : e.clientY;
+      const delta = currentPos - start.startPos;
       
-      let newSize: number;
-      
-      if (side === 'right') {
-        // Calculate from the right edge of the parent container
-        const containerRight = parentRect ? parentRect.right : window.innerWidth;
-        newSize = containerRight - e.clientX;
-      } else if (side === 'left') {
-        // Calculate from the left edge of the parent container
-        const containerLeft = parentRect ? parentRect.left : 0;
-        newSize = e.clientX - containerLeft;
-      } else if (side === 'bottom') {
-        // Calculate from the bottom edge of the parent container
-        const containerBottom = parentRect ? parentRect.bottom : window.innerHeight;
-        newSize = containerBottom - e.clientY;
-      } else if (side === 'top') {
-        // Calculate from the top edge of the parent container
-        const containerTop = parentRect ? parentRect.top : 0;
-        newSize = e.clientY - containerTop;
-      } else {
-        return;
-      }
-      
-      // Subtract offset (e.g., toggle strip width)
-      newSize = newSize - offset;
+      const newSize = (side === 'right' || side === 'bottom')
+        ? start.startSize - delta
+        : start.startSize + delta;
       
       const clampedSize = Math.max(minSize, Math.min(maxSize, newSize));
       setSize(clampedSize);
@@ -165,6 +148,7 @@ export function useResize({
     
     const handleMouseUp = () => {
       setIsResizing(false);
+      dragRef.current = null;
       saveSize(storageKey, size);
       onResizeEnd?.(size);
     };
@@ -172,7 +156,6 @@ export function useResize({
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
     
-    // Set cursor style during resize
     document.body.style.userSelect = 'none';
     document.body.style.cursor = isHorizontal ? 'ew-resize' : 'ns-resize';
     
@@ -182,7 +165,7 @@ export function useResize({
       document.body.style.userSelect = '';
       document.body.style.cursor = '';
     };
-  }, [isResizing, enabled, size, side, minSize, maxSize, storageKey, elementRef, offset, isHorizontal, onResize, onResizeEnd]);
+  }, [isResizing, enabled, size, side, minSize, maxSize, storageKey, isHorizontal, onResize, onResizeEnd]);
   
   return {
     size,
