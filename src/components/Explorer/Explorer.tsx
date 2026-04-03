@@ -69,7 +69,7 @@ function ExplorerItem({ node, level, path, dropTargetId, activeDropPosition }: E
 
   const isExpanded = expandedIds.has(node.id);
   const isSelected = selectedIds.has(node.id);
-  const hasChildren = node.children && node.children.length > 0;
+  const hasChildren = !!node.children;
   const isDisabled = node.disabled || false;
 
   // Drag and drop setup

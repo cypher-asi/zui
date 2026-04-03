@@ -41,7 +41,7 @@ function flattenTree(nodes: ExplorerNode[], level = 0, path: string[] = [], pare
       level,
       path: currentPath,
       parentId,
-      hasChildren: !!(node.children && node.children.length > 0),
+      hasChildren: !!node.children,
     });
     
     if (node.children) {
