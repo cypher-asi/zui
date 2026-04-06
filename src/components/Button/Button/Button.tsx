@@ -53,6 +53,12 @@ export type ButtonProps = (ButtonAsButton | ButtonAsSpan) & {
    */
   selectedBgColor?: string;
   /**
+   * When false, the button renders at full opacity even when not selected.
+   * By default unselected buttons are slightly dimmed.
+   * @default true
+   */
+  dimUnselected?: boolean;
+  /**
    * All possible content states the button might display.
    * When provided, the button will size itself to fit the largest state,
    * preventing layout shifts when content changes.
@@ -62,7 +68,7 @@ export type ButtonProps = (ButtonAsButton | ButtonAsSpan) & {
 
 export const Button = forwardRef<HTMLButtonElement | HTMLSpanElement, ButtonProps>(
   (
-    { variant = 'primary', size = 'md', rounded = 'md', textCase = 'none', iconOnly = false, icon, selected = false, selectedBgColor, className, as = 'button', contentStates, children, ...props },
+    { variant = 'primary', size = 'md', rounded = 'md', textCase = 'none', iconOnly = false, icon, selected = false, selectedBgColor, dimUnselected = true, className, as = 'button', contentStates, children, ...props },
     ref
   ) => {
     const classNames = clsx(
@@ -73,6 +79,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLSpanElement, ButtonProp
       textCase !== 'none' && styles[textCase],
       iconOnly && styles.iconOnly,
       selected && styles.selected,
+      !dimUnselected && styles.noDim,
       contentStates && styles.stableSize,
       className
     );
