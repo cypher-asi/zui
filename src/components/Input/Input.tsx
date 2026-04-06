@@ -3,22 +3,33 @@ import clsx from 'clsx';
 import styles from './Input.module.css';
 
 export type InputSize = 'sm' | 'md';
+export type InputVariant = 'default' | 'bare' | 'underline';
 
 export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   size?: InputSize;
+  variant?: InputVariant;
   mono?: boolean;
   /** Optional validation message to show on hover */
   validationMessage?: string;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ size = 'md', mono = false, className, validationMessage, ...props }, ref) => {
+  ({ size = 'md', variant = 'default', mono = false, className, validationMessage, ...props }, ref) => {
+    const inputClass = clsx(
+      styles.input,
+      size === 'sm' && styles.sm,
+      variant === 'bare' && styles.bare,
+      variant === 'underline' && styles.underline,
+      mono && styles.mono,
+      className,
+    );
+
     if (validationMessage) {
       return (
         <div className={styles.inputWrapper}>
           <input
             ref={ref}
-            className={clsx(styles.input, size === 'sm' && styles.sm, mono && styles.mono, className)}
+            className={inputClass}
             {...props}
           />
           <div className={styles.validationIcon} title={validationMessage}>
@@ -36,7 +47,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <input
         ref={ref}
-        className={clsx(styles.input, size === 'sm' && styles.sm, mono && styles.mono, className)}
+        className={inputClass}
         {...props}
       />
     );

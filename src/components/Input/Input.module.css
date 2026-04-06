@@ -48,6 +48,40 @@
   min-height: var(--control-height-sm);
 }
 
+/* Variant: bare — transparent, no border, no shadow */
+.bare,
+.bare:hover,
+.bare:focus,
+.bare:focus-visible {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Variant: underline — transparent with bottom border only */
+.underline {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.underline:hover {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.underline:focus,
+.underline:focus-visible {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: none;
+}
+
 .mono {
   font-family: var(--font-mono);
 }

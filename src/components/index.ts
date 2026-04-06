@@ -29,7 +29,7 @@ export type {
 // Form Components
 // ============================================================================
 export { Input } from './Input';
-export type { InputProps, InputSize } from './Input';
+export type { InputProps, InputSize, InputVariant } from './Input';
 
 export { Search } from './Search';
 export type { SearchProps, SearchSize } from './Search';
