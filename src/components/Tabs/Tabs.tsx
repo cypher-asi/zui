@@ -28,7 +28,7 @@ export interface TabsProps {
   /** Additional CSS class for individual tab buttons */
   tabClassName?: string;
   /** Size variant */
-  size?: 'sm' | 'md';
+  size?: 'xs' | 'sm' | 'md';
 }
 
 export function Tabs({
@@ -98,6 +98,7 @@ export function Tabs({
             onClick={() => handleChange?.(tab.id)}
             className={clsx(
               styles.tab,
+              size === 'xs' && styles.tabXs,
               size === 'md' && styles.tabMd,
               currentValue === tab.id && styles.active,
               tabClassName
