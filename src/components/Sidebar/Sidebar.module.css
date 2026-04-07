@@ -10,6 +10,11 @@
   overflow: hidden;
 }
 
+.flex {
+  flex: 1;
+  min-width: 0;
+}
+
 .resizable {
   min-width: 200px;
   max-width: 400px;

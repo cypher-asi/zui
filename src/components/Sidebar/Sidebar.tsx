@@ -61,6 +61,13 @@ export interface SidebarProps extends Omit<HTMLAttributes<HTMLElement>, 'childre
    * Callback when width changes (useful for parent components)
    */
   onWidthChange?: (width: number) => void;
+
+  /**
+   * When true, sidebar fills available space (flex: 1) instead of using a fixed width.
+   * Useful for main content areas.
+   * @default false
+   */
+  flex?: boolean;
 }
 
 export const Sidebar = forwardRef<HTMLElement, SidebarProps>(
@@ -76,6 +83,7 @@ export const Sidebar = forwardRef<HTMLElement, SidebarProps>(
       storageKey = 'sidebar-width',
       resizePosition = 'right',
       onWidthChange,
+      flex = false,
       className,
       style,
       ...props
@@ -84,11 +92,13 @@ export const Sidebar = forwardRef<HTMLElement, SidebarProps>(
   ) => {
     const sidebarRef = useRef<HTMLElement>(null);
 
-    // Combine refs
     useImperativeHandle(ref, () => sidebarRef.current as HTMLElement);
 
+    // useResize `side` = which side of the viewport the panel lives on,
+    // which is the opposite of where the handle is placed.
+    const resizeSide = resizePosition === 'right' ? 'left' : 'right';
     const { size: width, isResizing, handleMouseDown } = useResize({
-      side: resizePosition,
+      side: resizeSide,
       minSize: minWidth,
       maxSize: maxWidth,
       defaultSize: defaultWidth,
@@ -100,7 +110,7 @@ export const Sidebar = forwardRef<HTMLElement, SidebarProps>(
 
     const sidebarStyle: CSSProperties = {
       ...style,
-      ...(resizable ? { width } : { width: defaultWidth }),
+      ...(flex ? {} : resizable ? { width } : { width: defaultWidth }),
     };
 
     return (
@@ -108,6 +118,7 @@ export const Sidebar = forwardRef<HTMLElement, SidebarProps>(
         ref={sidebarRef}
         className={clsx(
           styles.sidebar,
+          flex && styles.flex,
           resizable && styles.resizable,
           isResizing && styles.resizing,
           className
