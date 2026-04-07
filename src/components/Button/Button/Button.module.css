@@ -71,11 +71,11 @@
 }
 
 /* Unselected buttons have slightly muted text */
-.button:not(.selected) {
+.button:not(.selected):not(.noDim) {
   opacity: 0.6;
 }
 
-.button:not(.selected):hover:not(:disabled) {
+.button:not(.selected):not(.noDim):hover:not(:disabled) {
   opacity: 1;
 }
 

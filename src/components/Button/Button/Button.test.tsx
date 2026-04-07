@@ -103,6 +103,26 @@ describe('Button', () => {
     });
   });
 
+  describe('dimUnselected', () => {
+    it('should not apply noDim class by default', () => {
+      render(<Button>Default</Button>);
+      const button = screen.getByRole('button', { name: 'Default' });
+      expect(hasModuleClass(button, 'noDim')).toBe(false);
+    });
+
+    it('should apply noDim class when dimUnselected is false', () => {
+      render(<Button dimUnselected={false}>No Dim</Button>);
+      const button = screen.getByRole('button', { name: 'No Dim' });
+      expect(hasModuleClass(button, 'noDim')).toBe(true);
+    });
+
+    it('should not apply noDim class when dimUnselected is true', () => {
+      render(<Button dimUnselected={true}>Dim</Button>);
+      const button = screen.getByRole('button', { name: 'Dim' });
+      expect(hasModuleClass(button, 'noDim')).toBe(false);
+    });
+  });
+
   describe('as span', () => {
     it('should render as span element', () => {
       render(<Button as="span">Span Button</Button>);

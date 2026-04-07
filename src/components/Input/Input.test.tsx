@@ -101,6 +101,34 @@ describe('Input', () => {
     });
   });
 
+  describe('variant', () => {
+    it('should render default variant by default', () => {
+      render(<Input />);
+      const input = screen.getByRole('textbox');
+      expect(hasModuleClass(input, 'bare')).toBe(false);
+      expect(hasModuleClass(input, 'underline')).toBe(false);
+    });
+
+    it('should apply bare class when variant is bare', () => {
+      render(<Input variant="bare" />);
+      const input = screen.getByRole('textbox');
+      expect(hasModuleClass(input, 'bare')).toBe(true);
+    });
+
+    it('should apply underline class when variant is underline', () => {
+      render(<Input variant="underline" />);
+      const input = screen.getByRole('textbox');
+      expect(hasModuleClass(input, 'underline')).toBe(true);
+    });
+
+    it('should not apply bare or underline when variant is default', () => {
+      render(<Input variant="default" />);
+      const input = screen.getByRole('textbox');
+      expect(hasModuleClass(input, 'bare')).toBe(false);
+      expect(hasModuleClass(input, 'underline')).toBe(false);
+    });
+  });
+
   describe('ref forwarding', () => {
     it('should forward ref to input element', () => {
       const ref = vi.fn();
