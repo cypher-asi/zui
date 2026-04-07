@@ -2,7 +2,7 @@ import { type ReactNode, type HTMLAttributes } from 'react';
 import clsx from 'clsx';
 import styles from './Topbar.module.css';
 
-export interface TopbarProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
+export interface TopbarProps extends Omit<HTMLAttributes<HTMLElement>, 'children' | 'title'> {
   /** Icon to display on the left */
   icon?: ReactNode;
   /** Title/name text or element */

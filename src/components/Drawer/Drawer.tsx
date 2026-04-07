@@ -290,9 +290,9 @@ export function Drawer({
                 className={clsx(
                   styles.panelTitle,
                   displaySize === 0 && styles.panelTitleHidden,
-                  titleClickable && onOpen && styles.panelTitleClickable
+                  titleClickable && !!onOpen && styles.panelTitleClickable
                 )}
-                onClick={titleClickable && onOpen ? handleToggle : undefined}
+                onClick={titleClickable && !!onOpen ? handleToggle : undefined}
               >{title}</span>
             )}
           </div>
@@ -400,9 +400,9 @@ export function Drawer({
                   <span 
                     className={clsx(
                       styles.drawerTitle,
-                      titleClickable && onOpen && styles.drawerTitleClickable
+                      titleClickable && !!onOpen && styles.drawerTitleClickable
                     )}
-                    onClick={titleClickable && onOpen ? handleToggle : undefined}
+                    onClick={titleClickable && !!onOpen ? handleToggle : undefined}
                   >{title}</span>
                 )}
                 {showToggle && (

@@ -154,7 +154,7 @@ function MenuItemComponent({
   itemRef,
   onKeyDown,
   onFocus,
-  onSubmenuClose,
+  onSubmenuClose: _onSubmenuClose,
 }: MenuItemComponentProps) {
   const [submenuPosition, setSubmenuPosition] = useState<'right' | 'left'>('right');
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -354,8 +354,8 @@ export function Menu({
   // Get focusable items (non-separator, non-disabled) with their original indices
   const focusableItems = items
     .map((item, index) => ({ item, index }))
-    .filter(({ item }): item is { item: MenuItemProps; index: number } => 
-      !isSeparator(item) && !item.disabled
+    .filter((entry): entry is { item: MenuItemProps; index: number } => 
+      !isSeparator(entry.item) && !(entry.item as MenuItemProps).disabled
     );
 
   // Find focused item data

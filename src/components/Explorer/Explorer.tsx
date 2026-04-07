@@ -84,7 +84,7 @@ function ExplorerItem({ node, level, path, dropTargetId, activeDropPosition }: E
     data: { node, path },
   });
 
-  const { setNodeRef: setDroppableRef, isOver } = useDroppable({
+  const { setNodeRef: setDroppableRef, isOver: _isOver } = useDroppable({
     id: node.id,
     disabled: !enableDragDrop || isDisabled,
     data: { node, path },
@@ -277,7 +277,7 @@ function ExplorerItem({ node, level, path, dropTargetId, activeDropPosition }: E
                 level={level + 1} 
                 path={[...path, child.id]}
                 activeDropPosition={activeDropPosition}
-                isActiveDropTarget={isActiveDropTarget}
+                dropTargetId={dropTargetId}
               />
             ))}
           </div>
@@ -330,7 +330,7 @@ function ExplorerContent() {
 
       // Calculate drop position based on pointer position
       const rect = targetElement.getBoundingClientRect();
-      const pointerY = event.activatorEvent?.clientY ?? event.delta.y;
+      const pointerY = (event.activatorEvent as MouseEvent | null)?.clientY ?? event.delta.y;
       const y = pointerY - rect.top;
       const height = rect.height;
 
@@ -396,7 +396,7 @@ function ExplorerContent() {
             level={0} 
             path={[node.id]}
             activeDropPosition={dropTarget?.position ?? null}
-            isActiveDropTarget={dropTarget?.id === node.id}
+            dropTargetId={dropTarget?.id ?? null}
           />
         ))}
       </div>
