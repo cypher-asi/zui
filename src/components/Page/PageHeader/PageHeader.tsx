@@ -31,7 +31,7 @@ export function PageHeader({
           <h1 className={styles.title}>{title}</h1>
           {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
         </div>
-        {count !== undefined && <span className={styles.count}>{count}</span>}
+        {count !== undefined && <span className={styles.count}>{typeof count === 'number' ? count.toLocaleString() : count}</span>}
       </div>
       {actions && <div className={styles.headerRight}>{actions}</div>}
     </header>

@@ -15,7 +15,9 @@ interface ExplorerProviderProps {
   children: ReactNode;
   data: ExplorerNode[];
   defaultExpandedIds?: string[];
+  expandedIds?: string[];
   defaultSelectedIds?: string[];
+  selectedIds?: string[];
   enableMultiSelect?: boolean;
   enableDragDrop?: boolean;
   expandOnSelect?: boolean;
@@ -32,7 +34,7 @@ interface ExplorerProviderProps {
  */
 function flattenTree(nodes: ExplorerNode[], level = 0, path: string[] = [], parentId: string | null = null): FlatNode[] {
   const result: FlatNode[] = [];
-  
+
   for (const node of nodes) {
     const currentPath = [...path, node.id];
     result.push({
@@ -43,12 +45,12 @@ function flattenTree(nodes: ExplorerNode[], level = 0, path: string[] = [], pare
       parentId,
       hasChildren: !!node.children,
     });
-    
+
     if (node.children) {
       result.push(...flattenTree(node.children, level + 1, currentPath, node.id));
     }
   }
-  
+
   return result;
 }
 
@@ -114,7 +116,9 @@ export function ExplorerProvider({
   children,
   data,
   defaultExpandedIds = [],
+  expandedIds: controlledExpandedIds,
   defaultSelectedIds = [],
+  selectedIds: controlledSelectedIds,
   enableMultiSelect = true,
   enableDragDrop = true,
   expandOnSelect = false,
@@ -125,11 +129,12 @@ export function ExplorerProvider({
   compact = true,
   chevronPosition = 'left',
 }: ExplorerProviderProps) {
-  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set(defaultExpandedIds));
-  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set(defaultSelectedIds));
-  const [lastSelectedId, setLastSelectedId] = useState<string | null>(null);
-  const [preSearchExpandedIds, setPreSearchExpandedIds] = useState<Set<string> | null>(null);
+  const [uncontrolledExpandedIds, setUncontrolledExpandedIds] = useState<Set<string>>(new Set(defaultExpandedIds));
+  const [uncontrolledSelectedIds, setUncontrolledSelectedIds] = useState<Set<string>>(new Set(defaultSelectedIds));
+  const [lastSelectedId, setLastSelectedId] = useState<string | null>(defaultSelectedIds.at(-1) ?? null);
   const [focusedId, setFocusedId] = useState<string | null>(null);
+  const isExpandedControlled = controlledExpandedIds !== undefined;
+  const isSelectedControlled = controlledSelectedIds !== undefined;
 
   // Store callbacks in refs to avoid dependency issues
   const onSelectRef = useRef(onSelect);
@@ -158,6 +163,27 @@ export function ExplorerProvider({
     return findAncestorIds(flatNodes, matchingIds);
   }, [flatNodes, matchingIds, searchQuery]);
 
+  const baseExpandedIds = useMemo(
+    () =>
+      isExpandedControlled
+        ? new Set(controlledExpandedIds)
+        : uncontrolledExpandedIds,
+    [controlledExpandedIds, isExpandedControlled, uncontrolledExpandedIds]
+  );
+
+  const expandedIds = useMemo(() => {
+    if (!searchQuery.trim()) return baseExpandedIds;
+    return new Set([...baseExpandedIds, ...ancestorIds]);
+  }, [ancestorIds, baseExpandedIds, searchQuery]);
+
+  const selectedIds = useMemo(
+    () =>
+      isSelectedControlled
+        ? new Set(controlledSelectedIds)
+        : uncontrolledSelectedIds,
+    [controlledSelectedIds, isSelectedControlled, uncontrolledSelectedIds]
+  );
+
   // Filter tree data when searching
   const filteredData = useMemo(() => {
     if (!searchQuery.trim()) return data;
@@ -170,28 +196,26 @@ export function ExplorerProvider({
     return flatNodes.filter((n) => matchingIds.has(n.id));
   }, [flatNodes, matchingIds, searchQuery]);
 
-  // Auto-expand parents of matching nodes during search
   useEffect(() => {
-    if (searchQuery.trim()) {
-      // Save current expanded state before search (only once)
-      if (preSearchExpandedIds === null) {
-        setPreSearchExpandedIds(new Set(expandedIds));
-      }
-      // Expand all ancestors of matching nodes
-      setExpandedIds((prev) => new Set([...prev, ...ancestorIds]));
-      // Reset focus when search changes
-      if (visibleMatchingNodes.length > 0) {
-        setFocusedId(visibleMatchingNodes[0].id);
-      } else {
-        setFocusedId(null);
-      }
-    } else if (preSearchExpandedIds !== null) {
-      // Restore previous expanded state when search is cleared
-      setExpandedIds(preSearchExpandedIds);
-      setPreSearchExpandedIds(null);
+    if (!searchQuery.trim()) {
+      setFocusedId(null);
+      return;
+    }
+    if (visibleMatchingNodes.length > 0) {
+      setFocusedId(visibleMatchingNodes[0].id);
+    } else {
       setFocusedId(null);
     }
-  }, [searchQuery, ancestorIds]);
+  }, [searchQuery, visibleMatchingNodes]);
+
+  useEffect(() => {
+    if (!isSelectedControlled) return;
+    let nextLastSelectedId: string | null = null;
+    for (const id of selectedIds) {
+      nextLastSelectedId = id;
+    }
+    setLastSelectedId(nextLastSelectedId);
+  }, [isSelectedControlled, selectedIds]);
 
   // Move focus up or down through matching nodes
   const moveFocus = useCallback(
@@ -215,84 +239,95 @@ export function ExplorerProvider({
   // Select the currently focused item
   const selectFocused = useCallback(() => {
     if (focusedId) {
-      setSelectedIds(new Set([focusedId]));
+      const nextSelectedIds = new Set([focusedId]);
+      if (!isSelectedControlled) {
+        setUncontrolledSelectedIds(nextSelectedIds);
+      }
       setLastSelectedId(focusedId);
       onSelectRef.current?.([focusedId]);
     }
-  }, [focusedId]);
-  
-  // Notify parent component when selection changes
-  useEffect(() => {
-    if (onSelectRef.current) {
-      onSelectRef.current(Array.from(selectedIds));
-    }
-  }, [selectedIds]);
-  
+  }, [focusedId, isSelectedControlled]);
+
   const toggleExpanded = useCallback((nodeId: string) => {
-    setExpandedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(nodeId)) {
-        next.delete(nodeId);
-        onExpandRef.current?.(nodeId, false);
-      } else {
-        next.add(nodeId);
-        onExpandRef.current?.(nodeId, true);
+    const next = new Set(baseExpandedIds);
+    if (next.has(nodeId)) {
+      next.delete(nodeId);
+      if (!isExpandedControlled) {
+        setUncontrolledExpandedIds(next);
       }
-      return next;
-    });
-  }, []);
-  
+      onExpandRef.current?.(nodeId, false);
+      return;
+    }
+    next.add(nodeId);
+    if (!isExpandedControlled) {
+      setUncontrolledExpandedIds(next);
+    }
+    onExpandRef.current?.(nodeId, true);
+  }, [baseExpandedIds, isExpandedControlled]);
+
   const setExpanded = useCallback((nodeId: string, expanded: boolean) => {
-    setExpandedIds((prev) => {
-      const next = new Set(prev);
-      if (expanded) {
-        next.add(nodeId);
-      } else {
-        next.delete(nodeId);
-      }
-      return next;
-    });
+    const next = new Set(baseExpandedIds);
+    if (expanded) {
+      next.add(nodeId);
+    } else {
+      next.delete(nodeId);
+    }
+    if (!isExpandedControlled) {
+      setUncontrolledExpandedIds(next);
+    }
     onExpandRef.current?.(nodeId, expanded);
-  }, []);
-  
+  }, [baseExpandedIds, isExpandedControlled]);
+
   const selectNode = useCallback((nodeId: string) => {
-    setSelectedIds(new Set([nodeId]));
+    const nextSelectedIds = new Set([nodeId]);
+    if (!isSelectedControlled) {
+      setUncontrolledSelectedIds(nextSelectedIds);
+    }
     setLastSelectedId(nodeId);
-  }, []);
-  
+    onSelectRef.current?.([nodeId]);
+  }, [isSelectedControlled]);
+
   const toggleSelection = useCallback((nodeId: string) => {
-    setSelectedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(nodeId)) {
-        next.delete(nodeId);
-      } else {
-        next.add(nodeId);
-      }
-      return next;
-    });
+    const nextSelectedIds = new Set(selectedIds);
+    if (nextSelectedIds.has(nodeId)) {
+      nextSelectedIds.delete(nodeId);
+    } else {
+      nextSelectedIds.add(nodeId);
+    }
+    if (!isSelectedControlled) {
+      setUncontrolledSelectedIds(nextSelectedIds);
+    }
     setLastSelectedId(nodeId);
-  }, []);
-  
+    onSelectRef.current?.(Array.from(nextSelectedIds));
+  }, [isSelectedControlled, selectedIds]);
+
   const selectRange = useCallback((fromId: string, toId: string) => {
     // Find indices in flat array
     const fromIndex = flatNodes.findIndex((n) => n.id === fromId);
     const toIndex = flatNodes.findIndex((n) => n.id === toId);
-    
+
     if (fromIndex === -1 || toIndex === -1) return;
-    
+
     const start = Math.min(fromIndex, toIndex);
     const end = Math.max(fromIndex, toIndex);
-    
+
     const rangeIds = flatNodes.slice(start, end + 1).map((n) => n.id);
-    setSelectedIds(new Set(rangeIds));
+    const nextSelectedIds = new Set(rangeIds);
+    if (!isSelectedControlled) {
+      setUncontrolledSelectedIds(nextSelectedIds);
+    }
     setLastSelectedId(toId);
-  }, [flatNodes]);
-  
+    onSelectRef.current?.(rangeIds);
+  }, [flatNodes, isSelectedControlled]);
+
   const clearSelection = useCallback(() => {
-    setSelectedIds(new Set());
+    if (!isSelectedControlled) {
+      setUncontrolledSelectedIds(new Set());
+    }
     setLastSelectedId(null);
-  }, []);
-  
+    onSelectRef.current?.([]);
+  }, [isSelectedControlled]);
+
   const value: ExplorerContextValue = useMemo(
     () => ({
       expandedIds,
@@ -345,6 +380,6 @@ export function ExplorerProvider({
       chevronPosition,
     ]
   );
-  
+
   return <ExplorerContext.Provider value={value}>{children}</ExplorerContext.Provider>;
 }

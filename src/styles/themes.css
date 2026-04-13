@@ -158,18 +158,18 @@
 
 /* Green - Growth, success */
 [data-accent='green'] {
-  --color-accent: #22c55e;
-  --color-accent-hover: #16a34a;
-  --color-accent-muted: rgba(34, 197, 94, 0.15);
+  --color-accent: #00e676;
+  --color-accent-hover: #00c853;
+  --color-accent-muted: rgba(0, 230, 118, 0.15);
   --color-accent-contrast: #0a0a0a;
 }
 
 /* Light mode green adjustments for better contrast */
 [data-theme='light'][data-accent='green'],
 [data-theme='light'] [data-accent='green'] {
-  --color-accent: #16a34a;
-  --color-accent-hover: #15803d;
-  --color-accent-muted: rgba(22, 163, 74, 0.15);
+  --color-accent: #059669;
+  --color-accent-hover: #047857;
+  --color-accent-muted: rgba(5, 150, 105, 0.15);
   --color-accent-contrast: #ffffff;
 }
 

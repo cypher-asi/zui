@@ -121,7 +121,6 @@
 
 .chevron:hover {
   color: var(--color-text-secondary);
-  background: var(--color-overlay-light);
 }
 
 .item:hover .chevron {
